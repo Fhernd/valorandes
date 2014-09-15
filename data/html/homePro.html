@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport 2.5 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>CupiFlights+</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/skel.min.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="#top"><img type="submit" src="images/airplaneplus.png"  height="96" width="96"  alt="Home CupiFlights" style="height : 73px; width : 95px;"/></a></li>
+					<li><a href="#separacion">Separacion</a></li>
+					<li><a href="#distancia">Distancia min</a></li>
+					<li><a href="#tiempo">Tiempo min</a></li>
+					<li><a href="#rating">+Rating</a></li>
+					<li><a href="#retrasos">+Puntual</a></li>
+					<li><a href="tour.htm">Tour</a></li>
+					<li><a href="#recomendaciones">Recomendaciones</a></li>
+					<li><a href="profile.htm">
+					***AQUI***
+					nUser
+					</a></li>
+					<li><a href="logout.htm">Salir</a></li>
+				</ul>
+			</nav>
+
+		<!-- Home -->
+			<div class="wrapper wrapper-style1 wrapper-first">
+				<article class="container" id="top">
+					<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full"><img src="images/like.jpg" alt="CupiFlights" /></span>
+						</div>
+						<div class="8u">
+							<header align="center">
+								<h1>Bienvenido de nuevo </br></br><strong>
+								***AQUI***
+								nNombreReal
+								</strong>.</h1>
+							</header>
+							<p align="justify" ><strong>CupiFlights+</strong> es la version mejorada de CupiFlights. Entre las nuevas funcionalidades que te ofrecemos se destacan los calculos de distancias, tiempo, mejores ratings, y puntualidad de aeropuertos y ciudades que hacen parte del sistema. Ahora el sistema hace recomendaciones basado en tus preferencias personales.
+						</div>
+					</div>
+				</article>
+			</div>
+			
+		<!-- Separacion -->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="separacion">
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/separacion.png" alt="CupiFlights" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center""><strong>Calcular Grado de</br></br>Separacion</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">Ingrese los codigos IATA de los dos aeropuertos de los que desea calcular la cantidad de rutas que debe tomar para llegar del uno al otro, el sistema le mostrara las escalas que debera realizar</p></header>
+															
+							</header>
+							<form action="detachment.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="right">
+												<input type="text""text" maxlength="3" name="origen" style="margin-right:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Origen" >
+											</div>
+											<div class="6u" align="left">
+												<input type="text""text" maxlength="3" name="destino" style="margin-left:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Destino" >
+											</div>											
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Calcular"/>									
+											</div>
+											<p></p>
+										</div>
+									</div>
+							</form>
+
+						</div>
+						</div>
+						
+				</article>
+			</div>
+			
+			<!-- Distancia -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="distancia">
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/distance1.png" alt="CupiFlights" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">					
+							<header>
+								<h1 align="center"><strong>Ruta con menor Distancia</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">Ingrese los codigos IATA de los dos aeropuertos de los que desea encontrar la ruta mas corta en Distancia. El sistema le mostrara la ruta que debe seguir  y los vuelos a tomar en cada tramo</p></header>
+															
+							</header>
+							<form action="distance.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="right">
+												<input type="text""text" maxlength="3" name="origen" style="margin-right:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Origen" >
+											</div>
+											<div class="6u" align="left">
+												<input type="text""text" maxlength="3" name="destino" style="margin-left:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Destino" >
+											</div>											
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Encontrar"/>									
+											</div>
+											<p></p>
+										</div>
+									</div>
+							</form>
+	</div>
+	</div>
+						
+				</article>
+			</div>
+			
+			<!-- Tiempo -->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="tiempo">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/rocket2.png" alt="CupiFlights" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Ruta mas veloz</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">Ingrese los codigos IATA de los dos aeropuertos de los que desea encontrar la ruta que tarda la menor cantidad de tiempo en llegar al destino. El sistema le mostrara la ruta que debe seguir  y los vuelos a tomar en cada tramo.</p></header>
+															
+							</header>
+							<form action="weather.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="right">
+												<input type="text""text" maxlength="3" name="origen" style="margin-right:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Origen" >
+											</div>
+											<div class="6u" align="left">
+												<input type="text""text" maxlength="3" name="destino" style="margin-left:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Destino" >
+											</div>											
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Encontrar"/>									
+											</div>
+											<p></p>
+										</div>
+									</div>
+							</form>
+						</div>
+						</div>
+						
+				</article>
+			</div>
+			
+		<!-- Rating -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="rating">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/bestblue.png" alt="CupiFlights" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Ruta con mejor Rating</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">Ingrese los codigos IATA de los dos aeropuertos de los que desea encontrar la ruta con el mejor Rating. El sistema le mostrara la ruta que debe seguir  y los vuelos a tomar en cada tramo.</p></header>
+															
+							</header>
+							<form action="rating.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="right">
+												<input type="text""text" maxlength="3" name="origen" style="margin-right:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Origen" >
+											</div>
+											<div class="6u" align="left">
+												<input type="text""text" maxlength="3" name="destino" style="margin-left:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Destino" >
+											</div>											
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Buscar"/>									
+											</div>
+											<p></p>
+										</div>
+									</div>
+							</form>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			<!-- Puntual -->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="retrasos">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/arena.jpg" alt="CupiFlights" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Ruta mas puntual</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">Ingrese los codigos IATA de los dos aeropuertos de los que desea encontrar la ruta cuyos vuelos presentan la menor cantidad de retrasos. El sistema le mostrara la ruta que debe seguir  y los vuelos a tomar en cada tramo.</p></header>
+															
+							</header>
+							<form action="prompt.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="right">
+												<input type="text""text" maxlength="3" name="origen" style="margin-right:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Origen" >
+											</div>
+											<div class="6u" align="left">
+												<input type="text""text" maxlength="3" name="destino" style="margin-left:20px; width:200px; height : 49px; text-align: center; text-transform: uppercase;" placeholder="Destino" >
+											</div>											
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Encontrar"/>									
+											</div>
+											<p></p>
+										</div>
+									</div>
+							</form>
+						</div>
+					</div>						
+				</article>
+			</div>
+			
+			<div class="wrapper wrapper-style1" style="padding-bottom: 0px">
+				<article class="container" id="recomendaciones" style="padding-top: 0px">
+				<h1 style="padding-top: 0px"><img src="images/recomendado.jpg" style=" width : 125px; height : 120px; vertical-align: middle; margin-right: 60px"></img>CupiFlights te recomienda.</h1>
+					<div class="row half" ">
+						<div class="6u" >
+						<header><h3>Ruta</h3></header>
+						<p align="justify">Basado en sus preferencias y gracias a la tecnologia Heuristica implementada por <strong>CupiFlights+</strong> el sistema le mostrara una ruta que pasa por sus Aeropuertos favoritos
+						<form method="get" action="smartRoad.htm" class="form ok">
+							<input  class="button form-button-submit" type="submit" value="Ver ruta ahora"/>
+						</form>
+						</div>
+						<div class="6u" >
+						<header><h3>Tour</h3></header>
+						<p align="justify">A partir del codigo IATA del aeropuerto de origen que usted desee <strong>CupiFlights+</strong> le sugerira un Tour (Vuelo Multi Trip) que hace un recorrido por los Aeropuertos que usted ha indicado como favoritos 
+						<form method="get" action="smartTour.htm" class="form ok">
+							<input type="text""text" maxlength="3" name="origen" style="margin-left:20px; width:200px; height : 75px; text-align: center; text-transform: uppercase;" placeholder="Origen-Destino" >
+							<input  class="button form-button-submit" type="submit" value="Ver tour ahora"/>
+						</form>
+						</div>
+					</div>
+					<h1><p></br></br></p></h1>
+				</article>
+			</div>
+			
+			
+
+		<!-- Contact -->
+			<div class="wrapper wrapper-style4">
+			<article id="about"></article>					
+					<div>	
+					<footer>
+						<ul id="copyright">
+							<li>&copy; 2013 Jane Doe</li>
+							<li>CupiFlights+</li>
+							<li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+						</ul>
+					</footer>
+				</div>
+			</div>
+
+
+	</body>
+</html>
