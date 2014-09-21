@@ -33,19 +33,7 @@ public class ConsultaDAO {
 	/**
 	 * nombre de la tabla videos
 	 */
-	private static final String tablaVideo = "videos";
-	
-	
-	/**
-	 * nombre de la columna titulo_original en la tabla videos.
-	 */
-	private static final String tituloVideo = "titulo_original";
-	
-	/**
-	 * nombre de la columna anyo en la tabla videos.
-	 */
-	private static final String anyoVideo = "anyo";
-	
+	private static final String tablaBebedores = "PARRANDEROS.BEBEDORES";
 
 	//----------------------------------------------------
 	//Consultas
@@ -54,7 +42,7 @@ public class ConsultaDAO {
 	/**
 	 * Consulta que devuelve isan, titulo, y año de los videos en orden alfabetico
 	 */
-	private static final String consultaVideosDefault="SELECT *, FROM "+tablaVideo;
+	private static final String consultaVideosDefault="SELECT * FROM "+tablaBebedores;
 	
 
 	//----------------------------------------------------
@@ -85,7 +73,7 @@ public class ConsultaDAO {
 	 */
 	public ConsultaDAO() 
 	{		
-		
+		inicializar();
 	}
 	
 	// -------------------------------------------------
@@ -97,11 +85,11 @@ public class ConsultaDAO {
 	 * Los datos se obtienen a partir de un archivo properties.
 	 * @param path ruta donde se encuentra el archivo properties.
 	 */
-	public void inicializar(String path)
+	public void inicializar()
 	{
 		try
 		{
-			File arch= new File(path+ARCHIVO_CONEXION);
+			File arch= new File(ARCHIVO_CONEXION);
 			Properties prop = new Properties();
 			FileInputStream in = new FileInputStream( arch );
 
@@ -168,12 +156,11 @@ public class ConsultaDAO {
      * @throws Exception se lanza una excepción si ocurre un error en
      * la conexión o en la consulta. 
      */
-    public ArrayList<VideosValue> darVideosDefault() throws Exception
+    public ArrayList<String> darNombresParranderos() throws Exception
     {
     	PreparedStatement prepStmt = null;
     	
-    	ArrayList<VideosValue> videos = new ArrayList<VideosValue>();
-		VideosValue vidValue = new VideosValue();
+    	ArrayList<String> videos = new ArrayList<String>();
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
@@ -182,14 +169,8 @@ public class ConsultaDAO {
 			ResultSet rs = prepStmt.executeQuery();
 			
 			while(rs.next()){
-				String titVid = rs.getString(tituloVideo);
-				int anyoVid = rs.getInt(anyoVideo);
-				
-				vidValue.setTituloOriginal(titVid);
-				vidValue.setAnyo(anyoVid);	
-			
-				videos.add(vidValue);
-				vidValue = new VideosValue();
+				String idBeb = rs.getString("NOMBRE");
+				videos.add(idBeb);
 							
 			}
 		

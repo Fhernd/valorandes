@@ -180,9 +180,11 @@
 			<nav id="nav">
 				<ul class="container">
 					<li><a href="#top"><img src="images/valores/home.png"  height="90" width="90"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
+					<!--  
 					<li><a href="#ordenar">Ordenar Operacion</a></li>
 					<li><a href="#cancelar">Cancelar transaccion</a></li>
 					<li><a href="#about" valign="MIDDLE">Info</a></li>
+					 --> 
 				</ul>
 			</nav>
 
@@ -225,52 +227,209 @@
 								<p align="center" style="margin-right: 130px; margin-left: 160px"><strong>Comprar productos</strong></br><a href="#comprar"  style=""><img src="images/valores/Orange-Sale.png"  title="Vender productos" alt="Vender operacion" style="width : 255px; height : 255px;"/></a></p>
 								<p align= "center"><strong>Vender productos</br></strong><a href="#vender" ><img src="images/valores/comprar.png"  title="Comprar Productos" alt="Comprar Productos" style="width : 255px; height : 255px;"/></a></p>
 							</div>
-						
-							
-							
-							
-							
-							
-							
 							</p>						
 				</article>
 			</div>
 
-		<!-- Estado de los vuelos -->
-			<div class="wrapper wrapper-style2">
-				<article id="cancelar">
+		<!-- Cancelar transaccion  -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="cancelar">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/icon64SignatureForgery.png" alt="RollBack" title="RollBack" style="border-radius: 50% 50% 50% 50%;"/></span>
+						</div>	
+						<div class="8u">				
 							<header>
-								<h1 align="center"><strong>Estado de los Vuelos</strong></h1>
+								<h1 align="center"><strong>Cancelar la ultima solicitud</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Por favor seleccione el tipo de usuario del que desea cancelar la ultima solicitud y/o transaccion
+									</p></header>
+															
 							</header>
-					<form action="flightsDelayAirpot.htm" class="ok" method="post">	
-					<input type=hidden name="admin" value="false">						
-									<head><strong>Codigo del Aeropuerto de consulta </strong><input align ="center" type="text" name="codigo" id="codigoAgregar" placeholder="Codigo IATA"  maxlength="3" style="width: 150px; height: 40px"/></br></head>
-									<p></p>	
-							<div class="container" align="center">
-								<div class="row">
-									<div class="4u">
-										<section class="box box-style1">
-										<h3>Fecha inicial</h3>
-										<input type="text""text"  id="datepicker" name="desde"  placeholder="mm/dd/aaaa" >
-									</div>
-									<div class="4u">
-										<section class="box box-style1">
-											<h3>Fecha final</br></h3>
-											<input type="text""text"  id="datepicker1" name="hasta"  placeholder="mm/dd/aaaa" >											
+							<form action="cancelar.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="center" >
+												<input type="text" list=tipo_usuario title="Usuario" value="--SELECCIONE--" style="width: 250px" required>
+												<datalist id=tipo_usuario >
+												   <option> Empresa Emisora
+												   <option> Inversionista
+												</datalist>
+												
+											</div>
+											
+											<div class="6u" align="center" >
+												<input type="text" list="inversionistas" title="Id Usuario" value="--SELECCIONE--" style="width: 400px" required>
+												
+												<datalist id="empresarios">
+												<option>empresa1
+												<option>empresa2
+												<option>empresa3
+												</datalist>
+												
+												<datalist id="inversionistas">
+												<option>inv1
+												<option>inv2
+												<option>in3
+												</datalist>
+												
+											</div>
+											
+											
+																					
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" value="Reversar Transaccion"/>									
+											</div>
 											<p></p>
-										</section>
-										<input  class="button form-button-submit" type="submit" name="consultar" id="consultar" value="Consultar"/>
+										</div>
 									</div>
-									<div class="4u">
-										<section class="box box-style1">
-											<h3>Estado del vuelo</br></h3>
-											<input type="text""text"  id="datepicker1" name="hasta"  placeholder="todos" value="TODOS" readonly >
+							</form>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			
+			<!-- Comprar Producto  -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="comprar">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/buy.png" alt="Compra de Productos" title="Compra de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #FFD39B; padding: 30px"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Adquisicion de Productos</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad a adquirir, así como el oferente del producto.
+									</p></header>
+															
+							</header>
+							<form action="comprar.htm" class="ok" method="get"  id="form_comprar" name="form_comprar">
+							
+										<p style="margin-left: 20px" align="center">
+											
+												<input type="text" list="inversionistas" title="Inversionista"  placeholder="Inversionista" style="width: 200px; display: inline;vertical-align: middle; margin: 5px" required>
+												<datalist id=inversionistas >
+												   <option value="id_inv" label="Nombre inversionista">
+												</datalist>												
+																					
+												<input type="text" list="tipo_producto" title="Tipo Producto" placeholder="Tipo Producto" style="width: 250px; display: inline; vertical-align: middle;margin: 5px" required>
+												<datalist id=tipo_producto >
+												   <option value="id_producto" label="Nombre del tipo del producto">
+												</datalist>												
+											
+												<input type="text" list="oferentes" title="Oferente" placeholder="Entidad Emisora" style="width: 250px; vertical-align: middle; margin: 5px" required>
+												<datalist id=oferentes >
+												   <option value="id_oferente" label="Nombre del oferente">
+												</datalist>												
+											
+										
+												<select name="opc" style="height: 60px; width: 200px; vertical-align: middle; text-align: center;">
+												<option value="cantidad" label="cantidad" ></option>
+												<option value="monto" label="monto"></option> 
+												</select>
+												<input type="number" title="Cantidad" value="00" style="width: 150px; margin: 5px" required >
+											</p>
+											
+											<div class="row">
+											<div class="12u" align="center" form="form_comprar">												
+												<input  class="button form-button-submit" type="submit" value="Generar Transacción"/>									
+											</div>
 											<p></p>
-										</section>
+										</div>
+											</form>
+									
+											</div>							
+										</div>
+										
 									</div>
-								</div>
-							</div>
-					</form>
+							</form>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			<!--Vener Producto  -->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="vender">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/images(2).jpg" alt="Venta de Productos" title="Venta de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #6495ED; padding: 30px"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Venta de Productos</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad de valores a poner en venta.
+									</p></header>
+															
+							</header>
+							<form action="vender.htm" class="ok" method="get"  id="form_vender" name="form_vender">
+							
+										<p style="margin-left: 20px" align="center">
+																					
+																							
+											
+												<input type="text" list="oferentes" title="Oferente" placeholder="Entidad Emisora" name="Empresa" style="width: 250px; vertical-align: middle; margin: 5px" required>
+												<datalist id=oferentes >
+												   <option value="id_oferente" label="Nombre del oferente">
+												</datalist>	
+												
+												<input type="text" list="tipo_producto" title="Tipo Producto" placeholder="Tipo Producto" name="tipoProducto" style="width: 250px; display: inline; vertical-align: middle;margin: 5px" required>
+												<datalist id=tipo_producto >
+												   <option value="id_producto" label="Nombre del tipo del producto">
+												</datalist>	
+																							
+											</br>
+												<strong>CANTIDAD DE PRODUCTOS: </strong>
+												 <input type="number" title="Cantidad" value="00" style="width: 150px; margin: 5px" required >
+											</p>
+											
+											<div class="row">
+											<div class="12u" align="center" >												
+												<input  class="button form-button-submit" type="submit" value="Poner en Venta"/>									
+											</div>
+											<p></p>
+										</div>
+											</form>
+									
+											</div>							
+										</div>
+										
+									</div>
+							</form>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			<!-- Consultas -->
+			<div class="wrapper wrapper-style2">
+				<article class="container" id="consultas">
+					<div class="row">
+						<div >
+							<header>
+								<h1 align="center"><strong>Consultas</strong></h1>
+							</header>
+							
+							<span class="row" align="center"  style="display: inline; vertical-align: middle;">
+								<p align="center" style=""><strong>Valores Disponibles</strong></br><a href="#valores"  style=""><img src="images/valores/money.png"  title="Valores Disponibles" alt="Valores Disponibles" style="width : 200px; height : 200px;"/></a></p>
+								<p align= "center"><strong>Movimientos de un Usuario</br></strong><a href="#movimientos" ><img src="images/valores/icon_31708.png"  title="Comprar Productos" alt="Comprar Productos" style="width : 200px; height : 200px;"/></a></p>
+								<p align= "center"><strong>Valores más movidos</br></strong><a href="#masMovidos" ><img src="images/valores/consult_services_increase_revenues-138749_330x220.png"  title="Valor más movido" alt="Valor más movido" style="width : 200px; height : 200px;"/></a></p>
+								<p align= "center"><strong>Intermediario más activo</br></strong><a href="#masActivo" ><img src="images/valores/well_ballIcon.png"  title="Intermediario más activo" alt="Intermediario más activo" style="width : 180px; height : 180px;"/></a></p>
+							</span>
+							 
+						</div>
+					</div>
 				</article>
 			</div>
 			
