@@ -1,0 +1,22 @@
+cancelar.htm
+
+"Id_Usuario"
+"tipo_usuario"
+
+Comprar.htm
+"id_inv"
+"tipo_prod"
+"emisor"
+"cantidad"
+"opc" // indica si va a comprar por monto o por cantidad
+
+Vender.htm
+"Empresa"
+"tipoProducto"
+"cantidad"
+
+registrar.htm
+"inversionista"
+
+existencia.htm
+"filtro"
