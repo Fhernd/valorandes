@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import uniandes.cupi2.valorAndes.ValueObjetcts.Direccion;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
 
@@ -32,8 +33,8 @@ public class ConsultaDAO {
 	/**
 	 * ruta donde se encuentra el archivo de conexión.
 	 */
-	private static final String ARCHIVO_CONEXION = "./data/html/conexion.properties";
-	
+	private static final String ARCHIVO_CONEXION_BRAHIAN = "C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\conexion.properties";
+	private static final String ARCHIVO_CONEXION=ARCHIVO_CONEXION_BRAHIAN;
 	/**
 	 * nombre de la tabla videos
 	 */
@@ -110,7 +111,21 @@ public class ConsultaDAO {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			try
+			{
+				cadenaConexion = "jdbc:oracle:thin:@prod.oracle.virtual.uniandes.edu.co:1531:prod";	// El url, el usuario y passwd deben estar en un archivo de propiedades.			
+				usuario = "ISIS2304241420";	
+				clave = "bordiona1a1ed";	
+				final String driver = "oracle.jdbc.driver.OracleDriver";
+				Class.forName(driver);
+				System.out.println("Ha fallado la lectura de las properties. Se ha forzado la conexion");
+			}
+			catch (Exception x)
+			{
+				x.printStackTrace();
+				System.out.println("Imposible obtener el driver de la DB");
+			}
+			
 		}	
 	}
 
@@ -237,10 +252,8 @@ public class ConsultaDAO {
 				intermediario.setNombre(nombre_intermediario);
 				
 				Direccion dirInv = new Direccion(pais, depto, ciudad, direccion, rs.getString("CODIGO_POSTAL"), id_direccion);
-				ArrayList<Direccion> dirs = new ArrayList<Direccion>();
-				dirs.add(dirInv);
 				
-				Inversionista inv = new Inversionista(id_Invers, identif, 0, nombre, telefono, "", "", dirs, tipoInv, nombre_tipo_inv, intermediario, null, null);
+				Inversionista inv = new Inversionista(id_Invers, identif, 0, nombre, telefono, "", "", dirInv, tipoInv, nombre_tipo_inv, intermediario, null, null);
 				inversionistas.add(inv);
 							
 			}
@@ -262,6 +275,72 @@ public class ConsultaDAO {
 			closeConnection(conexion);
 		}		
 		return inversionistas;
+    }
+    
+    
+    /**
+     * Retorna un arrayList con el listado de empresas emisoras
+     */
+    public ArrayList<Emisor> darEmisores() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList<Emisor> emisores = new ArrayList<Emisor>();
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT EMI.* , INTER.ID_INTERMEDIARIO, INTER.NOMBRE AS NOMBRE_INTERMEDIARIO, INTER.REGISTRO_RNMV AS RNMV_INTERMEDIARIO, DIR.*"+
+												 "FROM (EMISOR EMI LEFT OUTER JOIN INTERMEDIARIO INTER ON EMI.FK_ID_INTERMEDIARIO=INTER.ID_INTERMEDIARIO) LEFT OUTER JOIN DIRECCION DIR ON EMI.FK_ID_DIRECCION=DIR.ID_DIRECCION");
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				String nombreEmisor = rs.getString("NOMBRE");
+				String nombreInterm = rs.getString("NOMBRE_INTERMEDIARIO");
+				String nitEmisor = rs.getString("NIT");
+				String paginaWebEmisor = rs.getString("WEB");
+				String registroEmisor = rs.getString("REGISTRO_RNV");
+				String idEmisor = rs.getString("ID_EMPRESA");
+				String telEmisor = rs.getString("TELEFONO");
+				String nombreRepLegalEmisor = rs.getString("NOMBRE_REP_LEGAL");
+				String identificacion_Rep_Legal_Emisor = rs.getString("ID_REP_LEGAL");
+				String id_intermediario = rs.getString("ID_INTERMEDIARIO");
+				String registroIntermediario = rs.getString("RNMV_INTERMEDIARIO");
+				String id_direccion = rs.getString("ID_DIRECCION");
+				String pais=rs.getString("PAIS");
+				String depto=rs.getString("DEPARTAMENTO");
+				String ciudad=rs.getString("CIUDAD");
+				String direccion=rs.getString("DIRECCION");				
+				
+				Intermediario intermediario = new Intermediario();
+				intermediario.setId_Intermediario(id_intermediario);
+				intermediario.setNombre(nombreInterm);
+				
+				Direccion dirEmisor = new Direccion(pais, depto, ciudad, direccion, rs.getString("COD_POSTAL"), id_direccion);
+				
+				Emisor emisor = new Emisor(nombreEmisor, nitEmisor, paginaWebEmisor, registroEmisor, "0", telEmisor, nombreRepLegalEmisor, identificacion_Rep_Legal_Emisor, dirEmisor, intermediario, null, null);
+				emisores.add(emisor);
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return emisores;
     }
     
 }

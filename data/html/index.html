@@ -230,8 +230,258 @@
 							</p>						
 				</article>
 			</div>
+			
+			
+		<!-- Comprar Producto  -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="comprar">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/buy.png" alt="Compra de Productos" title="Compra de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #FFD39B; padding: 30px"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Adquisicion de Productos</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad a adquirir, así como el oferente del producto.
+									</p></header>
+															
+							</header>
+							<form action="comprar.htm" class="ok" method="get"  id="form_comprar" name="form_comprar">
+							
+										<p style="margin-left: 20px; " align="center" >
+											
+												<select id="comprar_inv" name="id_inv" title="Inversionista que solicita la operación"  style="width: 400px; display: inline;vertical-align: middle; margin: 5px;" required  onchange="comprarT2(this)">
+												<option value="" label="--Seleccione inversionista--"></option>
+												***AQUI*** inicio
+												<option value="ACTUAL.darCodigo()">( actual.darCodigo + )actual.darNombre</option>
+												***AQUI*** fin
+												</select>												
+																					
+												<select id="comprar_tipo_prod" name="tipo_prod" type="text" list="tipo_producto" title="Tipo Producto" placeholder="Tipo Producto" style="width: 300px; display: inline; vertical-align: middle;margin: 5px" required disabled="disabled" onchange="comprarT3(this)">
+												   <option value="" label="--Seleccione producto--">
+												   ***AQUI*** in
+												   <option value="actual.darIdTipo()"> actual.darNombreTipo </option>
+												   ***AQUI*** fin
+												</select>												
+											
+												<select id="comprar_oferente" name="emisor" type="text" title="Oferente" placeholder="Entidad Emisora" style="width: 340px; vertical-align: middle; margin: 5px" required disabled="disabled" onchange="comprarT4(this)">
+												   <option value="">--Sel. empresa oferente--</option>
+												</select>												
+											
+										
+												<select id="comprar_opc" name="opc" style="height: 60px; width: 200px; vertical-align: middle; text-align: center;" disabled="disabled" onchange="comprarT5(this)">
+													<option value="" selected="selected"> --comprar por-- </option>
+													<option value="cantidad" label="cantidad" ></option>
+													<option value="monto" label="monto"></option> 
+												</select>
+												
+												<input id="comprar_tipo" name="cantidad" type="number" title="Cantidad" placeholder="00" ran" style="width: 150px; margin: 5px" required disabled="disabled" onkeydown="comprarT6(this)" onkeypress="comprarT6(this)" onkeyup="comprarT6(this)">
+											</p>
+											
+											<div class="row">
+											<div class="12u" align="center" form="form_comprar">												
+												<input id="boton_comprar" class="button form-button-submit" type="submit" value="Generar Transacción" disabled="disabled"/>									
+											</div>
+											<p></p>
+										</div>
+											</form>
+									
+											</div>							
+										</div>
+										
+									</div>
+							</form>
+							<script type="text/javascript" >
+							function comprarT2(tipoc)
+							{
+								var t2 = document.getElementById("comprar_tipo_prod");
+								
+								if(tipoc.value=='')
+								{
+									t2.disabled=true;
+								}
+								else
+								{
+										t2.disabled=false;					
+								}								
+							}
 
-		<!-- Cancelar transaccion  -->
+							function comprarT3(tipoc)
+							{
+								var t3 = document.getElementById("comprar_oferente");
+								
+								if(tipoc.value=='')
+								{
+									t3.disabled=true;
+								}
+								***AQUI*** INICIO TIPOS
+								else if (tipoc.value=='tipoActual.darId') -- preguntar tipo del producto seleccionado y habilitar esos oferentes
+								{
+										var inHtml = "";
+										t3.disabled=false;										
+										inHtml += "<option value=\"\">--Sel. Empresa Oferente--</option>";
+										***AQUI*** inicio productos de un tipo
+						                inHtml += "<option value=\"actua.darId()\"> EMPRESA actual.darNombreUsuario</option>";
+						                ***AQUI*** fin prod tipos 
+						                t3.innerHTML = inHtml;					
+								}
+								***AQUI*** FIN TIPOS								
+							}
+
+							function comprarT4(tipoc)
+							{
+								var t2 = document.getElementById("comprar_opc");								
+								if(tipoc.value=='')
+								{
+									t2.disabled=true;
+								}
+								else
+								{
+									t2.disabled=false;					
+								}								
+							}
+
+							function comprarT5(tipoc)
+							{
+								var t2 = document.getElementById("comprar_tipo");								
+								if(tipoc.value=='')
+								{
+									t2.disabled=true;
+								}
+								else if(tipoc.value=='cantidad')
+								{
+									t2.disabled=false;					
+								}	
+								else
+								{
+									alert('Lo sentimos, en este momento no está habilitada la compra por monto');
+									t2.disabled=true;
+								}							
+							}
+
+							function comprarT6(tipoc)
+							{
+								var t2 = document.getElementById("boton_comprar");								
+								if( isNaN(tipoc.value)==false &&  parseFloat(tipoc.value)>0)
+								{
+									t2.disabled=false;
+								}
+								else
+								{
+									t2.disabled=true;					
+								}								
+							}
+							</script>
+						</div>
+					</div>
+				</article>
+			</div>
+
+		
+			<!--Vender Producto  -->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="vender">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/images(2).jpg" alt="Venta de Productos" title="Venta de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #6495ED; padding: 30px"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center"><strong>Venta de Productos</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad de valores a poner en venta.
+									</p></header>
+															
+							</header>
+							<form action="vender.htm" class="ok" method="get"  id="form_vender" name="form_vender" >
+							
+										<p style="margin-left: 20px; te" align="center">
+												<select title="Oferente" placeholder="Entidad Emisora" name="Empresa" style="width: 520px; vertical-align: middle; margin: 5px" required onchange="venderT2(this)">
+												   <option value="">--SELECCIONE OFERENTE--</option>
+												   ***AQUI** iterar
+												   <option value="emisorActual.darId()">(+emisorActual.darID()+) +emisorActual.darNombre()</option>
+												</select>									
+											</br>
+											<select id="vender.tipo" title="Tipo Producto" " name="tipoProducto" style="width: 250px; display: inline; vertical-align: middle;margin: 5px;" required disabled="disabled" onchange="venderT3(this)">
+												   <option value="" label="--Producto--"></option>
+											</select>	
+												
+												<strong> CANTIDAD: </strong>
+												 <input id=vender.cantidad name="cantidad"  disabled="disabled" type="number" title="Cantidad" value="00" style="width: 150px; margin: 10px" required  onkeydown="venderT4(this)" onkeypress="venderT4(this)" onkeyup="venderT4(this)">
+											</p>
+											
+											<div class="row">
+											<div class="12u" align="center" >												
+												<input disabled="disabled" id="vender.btn" class="button form-button-submit" type="submit" value="Poner en Venta"/>									
+											</div>
+											<p></p>
+										</div>
+										</form>
+										
+												<script type="text/javascript" >
+												function venderT2(tipoc)
+												{
+													var t2 = document.getElementById("vender.tipo");								
+													if(tipoc.value=='')
+													{
+														t2.disabled=true;
+													}
+													else if(tipoc.value=='emisorActual.darId') ***AQUI*** iterar sobre todos los emisores
+													{
+														t2.disabled=false;
+														var inHtml = "";
+														inHtml +="<option value=\"\">--Producto--</option>";
+														***AQUI*** iterar sobre los tipos de UN DETERMINADO EMISOR
+														inHtml += "<option value=\"tipoActual.darId()\"> tipoActual.darNombre() </option>";
+														t2.innerHTML = inHtml;						
+													}
+												}
+												function venderT3(tipoc)
+												{
+													var t3 = document.getElementById("vender.cantidad");
+													
+													if(tipoc.value=='')
+													{
+														t3.disabled=true;
+													}
+													else
+													{
+														t3.disabled=false;
+													}
+																				
+												}
+												function venderT4(tipoc)
+												{
+													var t2 = document.getElementById("vender.btn");								
+													if( isNaN(tipoc.value)==false &&  parseFloat(tipoc.value)>0)
+													{
+														t2.disabled=false;
+													}
+													else
+													{
+														t2.disabled=true;					
+													}								
+												}
+					
+												
+												</script>
+											</div>							
+										</div>
+										
+									</div>
+							</form>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			
+			<!-- Cancelar transaccion  -->
 			<div class="wrapper wrapper-style2 ">
 				<article class="container" id="cancelar">	
 				<div class="row">
@@ -248,7 +498,7 @@
 									</p></header>
 															
 							</header>
-							<form action="cancelar.htm" class="ok" method="post" id="form_cancelar">
+							<form action="cancelar.htm" class="ok" method="get" id="form_cancelar">
 								<div>
 										<div class="row half">
 											<div class="6u" align="center" >
@@ -260,7 +510,7 @@
 											</div>
 											
 											<div class="6u" align="center" >
-												<select name="Id Usuario" style="width: 400px"  id="id_usuario_cancel"  disabled="disabled" required onchange="act3(this)" onfocus="act3(this)" ">
+												<select name="Id_Usuario" style="width: 400px"  id="id_usuario_cancel"  disabled="disabled" required onchange="act3(this)" onfocus="act3(this)" ">
 												<option>--Seleccione--</option>
 												</select>
 
@@ -289,15 +539,19 @@
 									if(tipoc.value=='Empresa Emisora')
 									{
 										t2.disabled=false;
-										inHtml += "<option value=\"null\">-- Id Emisor --</option>";
+										inHtml += "<option value=\"null\">-- Seleccione Emisor --</option>";
+										***AQUI*** -- inicio
 						                inHtml += "<option value=\"actua.darId()\"> EMPRESA actual.darNombreUsuario</option>";
+						                ***AQUI*** --fin--
 						                t2.innerHTML = inHtml;
 									}
 									else if(tipoc.value=='Inversionista')
 									{
 										t2.disabled=false;
-										inHtml += "<option value=\"null\">-- Id Inversionista --</option>";
-						                ***AQUI***	inHtml += "<option value=\"actua.darId()\">INVERSIONISTA actual.darNombreUsuario</option>";
+										inHtml += "<option value=\"null\">-- Seleccione Inversionista --</option>";
+										***AQUI*** --inicio 
+						                inHtml += "<option value=\"actua.darId()\">INVERSIONISTA actual.darNombreUsuario</option>";
+						                ***AQUI*** -- fin --
 						                t2.innerHTML = inHtml;
 									}						
 								}								
@@ -321,141 +575,6 @@
 				</article>
 			</div>
 			
-			
-			<!-- Comprar Producto  -->
-			<div class="wrapper wrapper-style2 ">
-				<article class="container" id="comprar">	
-				<div class="row">
-						<div class="4u">
-						</br>
-							<span class="me image image-full" ><img src="images/valores/buy.png" alt="Compra de Productos" title="Compra de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #FFD39B; padding: 30px"/></span>
-						</div>	
-						<div class="8u">				
-							<header>
-								<h1 align="center"><strong>Adquisicion de Productos</strong></h1>
-														
-									<header><p style="font-size: 25px" align="center">
-									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad a adquirir, así como el oferente del producto.
-									</p></header>
-															
-							</header>
-							<form action="comprar.htm" class="ok" method="get"  id="form_comprar" name="form_comprar">
-							
-										<p style="margin-left: 20px" align="center">
-											
-												<input type="text" list="inversionistas" title="Inversionista"  placeholder="Inversionista" style="width: 200px; display: inline;vertical-align: middle; margin: 5px" required>
-												<datalist id=inversionistas >
-												   <option value="id_inv" label="Nombre inversionista">
-												</datalist>												
-																					
-												<input type="text" list="tipo_producto" title="Tipo Producto" placeholder="Tipo Producto" style="width: 250px; display: inline; vertical-align: middle;margin: 5px" required>
-												<datalist id=tipo_producto >
-												   <option value="id_producto" label="Nombre del tipo del producto">
-												</datalist>												
-											
-												<input type="text" list="oferentes" title="Oferente" placeholder="Entidad Emisora" style="width: 250px; vertical-align: middle; margin: 5px" required>
-												<datalist id=oferentes >
-												   <option value="id_oferente" label="Nombre del oferente">
-												</datalist>												
-											
-										
-												<select name="opc" style="height: 60px; width: 200px; vertical-align: middle; text-align: center;">
-												<option value="cantidad" label="cantidad" ></option>
-												<option value="monto" label="monto"></option> 
-												</select>
-												<input type="number" title="Cantidad" value="00" style="width: 150px; margin: 5px" required >
-											</p>
-											
-											<div class="row">
-											<div class="12u" align="center" form="form_comprar">												
-												<input  class="button form-button-submit" type="submit" value="Generar Transacción"/>									
-											</div>
-											<p></p>
-										</div>
-											</form>
-									
-											</div>							
-										</div>
-										
-									</div>
-							</form>
-						</div>
-					</div>
-				</article>
-			</div>
-			
-			<!--Vener Producto  -->
-			<div class="wrapper wrapper-style3 ">
-				<article class="container" id="vender">	
-				<div class="row">
-						<div class="4u">
-						</br>
-							<span class="me image image-full" ><img src="images/valores/images(2).jpg" alt="Venta de Productos" title="Venta de Productos" style="border-radius: 20% 20% 20% 20%; background-color: #6495ED; padding: 30px"/></span>
-						</div>	
-						<div class="8u">				
-							<header>
-								<h1 align="center"><strong>Venta de Productos</strong></h1>
-														
-									<header><p style="font-size: 25px" align="center">
-									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad de valores a poner en venta.
-									</p></header>
-															
-							</header>
-							<form action="vender.htm" class="ok" method="get"  id="form_vender" name="form_vender">
-							
-										<p style="margin-left: 20px" align="center">
-																					
-																							
-											
-												<input type="text" list="oferentes" title="Oferente" placeholder="Entidad Emisora" name="Empresa" style="width: 250px; vertical-align: middle; margin: 5px" required>
-												<datalist id=oferentes >
-												   <option value="id_oferente" label="Nombre del oferente">
-												</datalist>	
-												
-												<input type="text" list="tipo_producto" title="Tipo Producto" placeholder="Tipo Producto" name="tipoProducto" style="width: 250px; display: inline; vertical-align: middle;margin: 5px" required>
-												<datalist id=tipo_producto >
-												   <option value="id_producto" label="Nombre del tipo del producto">
-												</datalist>	
-																							
-											</br>
-												<strong>CANTIDAD DE PRODUCTOS: </strong>
-												 <input type="number" title="Cantidad" value="00" style="width: 150px; margin: 5px" required >
-											</p>
-											
-											<div class="row">
-											<div class="12u" align="center" >												
-												<input  class="button form-button-submit" type="submit" value="Poner en Venta"/>									
-											</div>
-											<p></p>
-										</div>
-											</form>
-									
-											</div>							
-										</div>
-										
-									</div>
-							</form>
-						</div>
-					</div>
-				</article>
-			</div>
-			
-			<!-- Consultas -->
-			<div class="wrapper wrapper-style2">
-				<article class="container" id="consultas">
-							<header>
-								<h1 align="center"><strong>Consultas</strong></h1>
-							</header>
-							
-							<p>					
-								<a href="#valores"  style=""><img src="images/valores/existencia.png"  title="Valores Disponibles" alt="Valores Disponibles" style="margin: 20px"/></a>
-								<a href="#movimientos" ><img src="images/valores/movimientos.png"  title="Comprar Productos" alt="Comprar Productos" style="margin: 20px"/></a>
-								<a href="#masMovidos" ><img src="images/valores/movidos.png"  title="Valor más movido" alt="Valor más movido" style="margin: 20px"/></a>
-								<a href="#masActivo" ><img src="images/valores/intermediario.png"  title="Intermediario más activo" alt="Intermediario más activo" style="margin: 20px"/></a>
-								</p>
-				</article>
-			</div>
-			
 			<!-- Registrar acuerdo-->
 			<div class="wrapper wrapper-style3 ">
 				<article class="container" id="registrar">	
@@ -474,34 +593,147 @@
 															
 							</header>
 							<form action="registrar.htm" class="ok" method="get">
-								<div>
-										<div class="row half">
-											<div class="6u" align="center" >
-												<input type="text" list=id_inv title="Inversionista" placeholder="Inversionista" name="Inversionista" style="width: 250px" required>
-												<datalist id=id_inv >
-												   <option value="ID_Inv" label="Nombre Inv">
-												</datalist>												
-											</div>
-											
-											<div class="6u" align="center" >
-												<input type="text" list="solicitudes" title="Id Solicitud" placeholder="Solicitud" style="width: 400px" required>
-												
-												<datalist id="solicitudes">
-												<option value="id_solicitud">nombre oferente; cant; producto
-												<option>empresa2
-												<option>empresa3
-												</datalist>
-											</div>
+												<p><select name="Inversionista" style="width: 450px; text-align: center;" required title="Seleccione un inversionsita" onchange="continue1(this)">
+												   <option value="" >--Seleccione Inversionista--</option>
+												   <option value="invActual.darId()">(+invActual.darId()+)+invActual.darNombre()+</option>
+												</select>	</p>
 										
-										</div>
 										<div class="row">
 											<div class="12u" align="center">												
-												<input  class="button form-button-submit" type="submit" value="Registrar Operación"/>									
+												<input id="continue.btn" class="button form-button-submit" type="submit" value="Continuar" disabled="disabled"/>									
 											</div>
 											<p></p>
 										</div>
+							</form>
+							<script type="text/javascript">
+							function continue1(e)
+							{
+								var t3 = document.getElementById("continue.btn");
+								if(e.value!='')
+								{	
+									t3.disabled=false;
+								}
+								else
+								{	
+									t3.disabled=true;
+								}
+							}				
+							</script>
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			<!-- Consultas -->
+			<div class="wrapper wrapper-style2">
+				<article class="container" id="consultas">
+							<header>
+								<h1 align="center"><strong>Consultas</strong></h1>
+							</header>
+							
+							<p>					
+								<a href="#valores"  style=""><img src="images/valores/existencia.png"  title="Valores Disponibles" alt="Valores Disponibles" style="margin: 20px"/></a>
+								<a href="#movimientos" ><img src="images/valores/movimientos.png"  title="Comprar Productos" alt="Comprar Productos" style="margin: 20px"/></a>
+								<a href="#masMovidos" ><img src="images/valores/movidos.png"  title="Valor más movido" alt="Valor más movido" style="margin: 20px"/></a>
+								<a href="#masActivo" ><img src="images/valores/intermediario.png"  title="Intermediario más activo" alt="Intermediario más activo" style="margin: 20px;"/></a>
+								</p>
+				</article>
+			</div>
+			
+			<!-- Consulta de valores -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="valores">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/Price-Icon.png" alt="Valores más movidos"  style=";"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center" style="line-height: 40px">Existencia de Valores</h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Seleccione los criterios de la consulta.
+									</p></header>			
+							</header>
+							
+							<form action="existencia.htm" class="ok" method="get">
+							
+							<div align="center" class="row" style="display: inline; vertical-align: middle;">
+								<p>
+								<select id=existencia.filtro name="filtro" style="width:230px;height : 52px;">
+								<option value="">--Filtro--</option>
+								<option value="valor">Valor</option>
+								<option value="tipoValor">Tipo de Valor</option>
+								<option value="TipoRentabilidad">Tipo de Rentabilidad</option>
+								<option value="Negociación"> En negociación </option>
+								<option value="Expiración"> Fecha de expiración </option>
+								<option value="Emisor">Emisor</option>
+								<option value="Intermediario">Intermediario</option>
+								<option value="Inversionista">Inversionista</option>					
+								</select>
+								
+								<select id=existencia.opcion name="Seleccione un valor para el filtro" style="width:400px;height : 52px; margin:10px">
+								</select>
+								
+								</p>								
+								
+								<div>
+										
+										<p ><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Expiración:&nbsp;&nbsp;&nbsp;</strong>
+											<input type="text"  id="datepicker1" name="desde" style="width:400px; height : 49px; text-align: center; margin:10px;" placeholder="mm/dd/aaaa" >
+										</p>
+								
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" name="consultar" id="login" value="Consultar"/>								
+											</div>
+										</div>
+								</div>
+							</form>
+							
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			<!-- Valores más movidos -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="masMovidos">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/transaction.png" alt="Valores más movidos"  style="border-radius: 50% 10% 50% 50%; background-color: #0f0f63;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center" style="line-height: 40px">Valores con mayor movimiento</h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Indique un rango de fechas para realizar la consulta.
+									</p></header>			
+							</header>
+							
+							<form action="masMovimiento.htm" class="ok" method="get">
+								<div>
+										<div class="row half">
+											<div class="6u" align="center">
+												<p ><strong>Fecha de inicio:</strong></p>	
+													<input type="text"  id="datepicker6" name="desde" style="width:400px; height : 49px; text-align: center;" placeholder="mm/dd/aaaa" >
+											</div>
+											<div class="6u" align="center">
+												<p ><strong>Fecha de fin:</strong></p>	
+													<input type="text"  id="datepicker7" name="hasta" style="width:400px; height : 49px; text-align: center;" placeholder="mm/dd/aaaa" >
+											</div>
+										</div>
+										<div class="row">
+											<div class="12u" align="center">												
+												<input  class="button form-button-submit" type="submit" name="consultar" id="login" value="Consultar"/>								
+											</div>
+										</div>
 									</div>
 							</form>
+							
 						</div>
 					</div>
 				</article>
@@ -545,47 +777,7 @@
 			</div>
 			
 			
-			<!-- Valores más movidos -->
-			<div class="wrapper wrapper-style2 ">
-				<article class="container" id="masMovidos">	
-				<div class="row">
-						<div class="4u">
-						</br>
-							<span class="me image image-full" ><img src="images/valores/transaction.png" alt="Valores más movidos"  style="border-radius: 50% 10% 50% 50%; background-color: #0f0f63;"/></span>
-						</div>	
-						<div class="8u">				
-							<header>
-								<h1 align="center" style="line-height: 40px">Valores con mayor movimiento</h1>
-														
-									<header><p style="font-size: 25px" align="center">
-									Indique un rango de fechas para realizar la consulta.
-									</p></header>			
-							</header>
-							
-							<form action="masMovimiento.htm" class="ok" method="get">
-								<div>
-										<div class="row half">
-											<div class="6u" align="center">
-												<p ><strong>Fecha de inicio:</strong></p>	
-													<input type="text"  id="datepicker6" name="desde" style="width:400px; height : 49px; text-align: center;" placeholder="mm/dd/aaaa" >
-											</div>
-											<div class="6u" align="center">
-												<p ><strong>Fecha de fin:</strong></p>	
-													<input type="text"  id="datepicker7" name="hasta" style="width:400px; height : 49px; text-align: center;" placeholder="mm/dd/aaaa" >
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u" align="center">												
-												<input  class="button form-button-submit" type="submit" name="consultar" id="login" value="Consultar"/>								
-											</div>
-										</div>
-									</div>
-							</form>
-							
-						</div>
-					</div>
-				</article>
-			</div>
+			
 			
 			<!-- Work -->
 			<div class="wrapper wrapper-style2">

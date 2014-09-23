@@ -377,7 +377,6 @@ public class ServletHome extends HttpServlet
 		"							}\r\n"+
 		"							function activarT2()\r\n"+
 		"							{\r\n"+
-		"								alert('reconocido');\r\n"+
 		"								vat t2 = document.getElementById('id_usuario_cancel');\r\n"+
 		"								if(tipoc.value==''){\r\n"+
 		"								t2.disabled=\"disabled\";}\r\n"+

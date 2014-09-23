@@ -10,7 +10,7 @@ public class Intermediario {
 	private String id_Intermediario;
 	private String nombre_Representante_Legal;
 	private String cedula_Representante_Legal;
-	private ArrayList<Direccion> direcciones;
+	private Direccion direcciones;
 	private ArrayList<Usuario> usuarios;
 	
 	public Intermediario ()
@@ -21,13 +21,13 @@ public class Intermediario {
 		id_Intermediario = "";
 		nombre_Representante_Legal = "";
 		cedula_Representante_Legal = "";
-		this.direcciones = new ArrayList<Direccion>();
+		this.direcciones = new Direccion();
 		usuarios = new ArrayList<Usuario>();
 	}
 
 	public Intermediario(String nombre, String telefono, String registroRNMV,
 			String idIntermediario, String nombreRepresentanteLegal,
-			String cedulaRepresentanteLegal, ArrayList<Direccion> direcciones,
+			String cedulaRepresentanteLegal, Direccion direcciones,
 			ArrayList<Usuario> usuarios) {
 		super();
 		this.nombre = nombre;
@@ -88,11 +88,11 @@ public class Intermediario {
 		cedula_Representante_Legal = cedulaRepresentanteLegal;
 	}
 
-	public ArrayList<Direccion> getDirecciones() {
+	public Direccion getDireccion() {
 		return direcciones;
 	}
 
-	public void setDirecciones(ArrayList<Direccion> direcciones) {
+	public void setDireccion(Direccion direcciones) {
 		this.direcciones = direcciones;
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sun.applet.Main;
 import uniandes.cupi2.valorAndes.DAO.ConsultaDAO;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
 
 public class ValorAndes {
@@ -53,12 +54,29 @@ public class ValorAndes {
     	try
     	{
     		resultado= dao.darInversionistas();
-    		
+    		System.out.println("Se realizo la consulta");
     	}
     	catch (Exception e) {
 			System.out.println("Error al ejecutar sentencia SQL");
 		}
-    	System.out.println("Se realizo la consulta");
+    	
+    	return resultado;
+    	
+    }
+    
+    
+    public ArrayList<Emisor> darEmisores()
+    {
+    	ArrayList<Emisor> resultado = new ArrayList<Emisor>();
+    	try
+    	{
+    		resultado= dao.darEmisores();
+    		System.out.println("Se realizo la consulta");
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL");
+		}
+    	
     	return resultado;
     	
     }

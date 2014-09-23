@@ -12,7 +12,7 @@ public class Emisor {
 	private String telefono;
 	private String nom_Representante_Legal;
 	private String ident_Rep_Legal;
-	private ArrayList<Direccion> direcciones;
+	private Direccion direcciones;
 	private Intermediario intermediario_Rep;
 	private ArrayList<Valor> emisiones;
 	private SolicitudOperacion ultima_Solicitud_Operacion;
@@ -22,7 +22,7 @@ public class Emisor {
 	public Emisor(String nombre, String nIT, String paginaWeb,
 			String registroRNMV, String idEmpresa, String telefono,
 			String nomRepresentanteLegal, String identRepLegal,
-			ArrayList<Direccion> direcciones, Intermediario intermediarioRep, ArrayList<Valor> emix, SolicitudOperacion solx) {
+			Direccion direcciones, Intermediario intermediarioRep, ArrayList<Valor> emix, SolicitudOperacion solx) {
 		super();
 		this.nombre = nombre;
 		NIT = nIT;
@@ -48,7 +48,7 @@ public class Emisor {
 		this.telefono ="";
 		nom_Representante_Legal ="";
 		ident_Rep_Legal="";
-		this.direcciones = new ArrayList<Direccion>();
+		this.direcciones = new Direccion();
 		intermediario_Rep = new Intermediario();
 		emisiones = new ArrayList<Valor>();
 		ultima_Solicitud_Operacion = null;
@@ -118,11 +118,11 @@ public class Emisor {
 		ident_Rep_Legal = identRepLegal;
 	}
 
-	public ArrayList<Direccion> getDirecciones() {
+	public Direccion getDireccion() {
 		return direcciones;
 	}
 
-	public void setDirecciones(ArrayList<Direccion> direcciones) {
+	public void setDireccion(Direccion direcciones) {
 		this.direcciones = direcciones;
 	}
 

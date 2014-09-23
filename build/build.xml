@@ -22,12 +22,12 @@ Autor: Brahian Rangel y John Ortiz
 		</fileset>
 	</path>
 
-	<!-- JBoss_Brahian = C:\Users\David\Desktop\ECLIPSE HTML JBOSS\jboss-4.2.2.GA -->
+	<!-- JBoss_Brahian = C:\Users\David\Documents\Software\jboss-5.1.0.GA -->
 	<!-- Inicialización de las Propiedades-->
 	<target name="init" description="Inicializa las propiedades">
 		<!-- Definición de Propiedades -->
 		<property environment="env" />
-		<property name="jboss.home" value="C:\Users\David\Desktop\ECLIPSE HTML JBOSS\jboss-4.2.2.GA" />
+		<property name="jboss.home" value="C:\Users\David\Documents\Software\jboss-5.1.0.GA" />
 		<property name="server.path" value="server/default" />
 		<property name="source" value="./source" />
 		<property name="classes" value="./classes" />

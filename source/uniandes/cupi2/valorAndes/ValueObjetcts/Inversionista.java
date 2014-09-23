@@ -11,7 +11,7 @@ public class Inversionista {
 	private String telefono;
 	private String nombre_Representante_Legal;
 	private String ident_Rep_legal;
-	private ArrayList<Direccion> direcciones;
+	private Direccion direcciones;
 	private int tipoInversionista;
 	private String nombre_Tipo_Inversionista;
 	private Intermediario intermediarioRep;
@@ -28,7 +28,7 @@ public class Inversionista {
 		this.telefono= "";
 		nombre_Representante_Legal = "";
 		ident_Rep_legal = "";
-		this.direcciones = new ArrayList<Direccion>();
+		this.direcciones = new Direccion();
 		this.tipoInversionista = 0;
 		nombre_Tipo_Inversionista = "";
 		intermediarioRep = null;
@@ -39,7 +39,7 @@ public class Inversionista {
 	public Inversionista(String idInversionista, String identificacion,
 			int tipoDocumento, String nombre, String telefono,
 			String nombreRepresentanteLegal, String identRepLegal,
-			ArrayList<Direccion> direcciones, int tipoInversionista,
+			Direccion direcciones, int tipoInversionista,
 			String nombreTipoInversionista, Intermediario intermed, SolicitudOperacion ultix, ArrayList<Valor> colocax) {
 		
 		id_Inversionista = idInversionista;
@@ -121,11 +121,11 @@ public class Inversionista {
 		ident_Rep_legal = identRepLegal;
 	}
 
-	public ArrayList<Direccion> getDirecciones() {
+	public Direccion getDireccion() {
 		return direcciones;
 	}
 
-	public void setDirecciones(ArrayList<Direccion> direcciones) {
+	public void setDireccion(Direccion direcciones) {
 		this.direcciones = direcciones;
 	}
 

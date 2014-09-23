@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import uniandes.cupi2.valorAndes.Fachada.ValorAndes;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
 
 
@@ -11,22 +12,27 @@ public class HomePlus
 {
 	private PrintWriter out;
 	private ValorAndes instancia;
+	private ArrayList<Inversionista> inversionistasObtenidos;
+	private ArrayList<Emisor> emisoresObtenidos;
+	
+	
 	public HomePlus(PrintWriter salida)
 	{
 		out = salida;
 		instancia= ValorAndes.darInstancia();
+		inversionistasObtenidos = instancia.darInversionistas();
+		emisoresObtenidos = instancia.darEmisores();
 		out.println(cabecera);
-		printInversionistas();
+		printInversionistasCancelar();
 		out.println(finx);
 	}
 	
-	public void printInversionistas()
+	public void printInversionistasCancelar()
 	{
 		String add ="";
-		ArrayList<Inversionista> invs = instancia.darInversionistas();
-		for (int i = 0; i < invs.size(); i++)
+		for (int i = 0; i < inversionistasObtenidos.size(); i++)
 		{
-			Inversionista act = invs.get(i);
+			Inversionista act = inversionistasObtenidos.get(i);
 			add+="inHtml += \"<option value=\\\""+act.getId_Inversionista()+"\\\">"+"("+act.getId_Inversionista()+")"+act.getNombre()+"</option>\";";
 		}
 		out.println(add);
