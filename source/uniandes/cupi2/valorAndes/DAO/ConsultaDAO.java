@@ -16,6 +16,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import uniandes.cupi2.valorAndes.ValueObjetcts.Direccion;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+
 
 /**
  * Clase ConsultaDAO, encargada de hacer las consultas básicas para el cliente
@@ -28,7 +32,7 @@ public class ConsultaDAO {
 	/**
 	 * ruta donde se encuentra el archivo de conexión.
 	 */
-	private static final String ARCHIVO_CONEXION = "./Data/conexion.properties";
+	private static final String ARCHIVO_CONEXION = "./data/html/conexion.properties";
 	
 	/**
 	 * nombre de la tabla videos
@@ -192,6 +196,72 @@ public class ConsultaDAO {
 			closeConnection(conexion);
 		}		
 		return videos;
+    }
+    
+    
+    /**
+     * Retorna un arrayList con el listado de inversionistas
+     */
+    public ArrayList<Inversionista> darInversionistas() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList<Inversionista> inversionistas = new ArrayList<Inversionista>();
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement(""+
+					"SELECT IX.ID_INVERSIONISTA, ix.TIPO_DOCUMENTO, ix.NOMBRE , IX.TELEFONO, IX.FK_ID_TIPO_INVER AS ID_TIPO_INV , TI.NOMBRE AS NOMBRE_TIPO_INV, IX.FK_ID_INTERMEDIARIO AS ID_INTERMEDIARIO, X.NOMBRE AS NOMBRE_INTERMEDIARIO,DIR.ID_DIRECCION,DIR.PAIS,  DIR.DEPARTAMENTO, DIR.CIUDAD, DIR.DIRECCION, DIR.COD_POSTAL AS CODIGO_POSTAL  FROM"+
+					"((INVERSIONISTA IX  LEFT OUTER JOIN  TIPOINVERSIONISTA TI ON IX.FK_ID_TIPO_INVER=TI.ID_TIPO_INVERSIONISTA)"+
+					"LEFT OUTER JOIN INTERMEDIARIO X ON IX.FK_ID_INTERMEDIARIO=X.ID_INTERMEDIARIO) LEFT OUTER JOIN DIRECCION DIR ON IX.FK_ID_DIRECCION = DIR.ID_DIRECCION");
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				String id_Invers = rs.getString("ID_INVERSIONISTA");
+				String identif = rs.getString("TIPO_DOCUMENTO");
+				String nombre = rs.getString("NOMBRE");
+				String telefono = rs.getString("TELEFONO");
+				int tipoInv = rs.getInt("ID_TIPO_INV");
+				String nombre_tipo_inv = rs.getString("NOMBRE_TIPO_INV");
+				String id_intermediario = rs.getString("ID_INTERMEDIARIO");
+				String nombre_intermediario = rs.getString("NOMBRE_INTERMEDIARIO");
+				String id_direccion = rs.getString("ID_DIRECCION");
+				String pais=rs.getString("PAIS");
+				String depto=rs.getString("DEPARTAMENTO");
+				String ciudad=rs.getString("CIUDAD");
+				String direccion=rs.getString("DIRECCION");
+				
+				Intermediario intermediario = new Intermediario();
+				intermediario.setId_Intermediario(id_intermediario);
+				intermediario.setNombre(nombre_intermediario);
+				
+				Direccion dirInv = new Direccion(pais, depto, ciudad, direccion, rs.getString("CODIGO_POSTAL"), id_direccion);
+				ArrayList<Direccion> dirs = new ArrayList<Direccion>();
+				dirs.add(dirInv);
+				
+				Inversionista inv = new Inversionista(id_Invers, identif, 0, nombre, telefono, "", "", dirs, tipoInv, nombre_tipo_inv, intermediario, null, null);
+				inversionistas.add(inv);
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return inversionistas;
     }
     
 }

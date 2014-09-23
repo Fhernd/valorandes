@@ -40,7 +40,7 @@ public class Inversionista {
 			int tipoDocumento, String nombre, String telefono,
 			String nombreRepresentanteLegal, String identRepLegal,
 			ArrayList<Direccion> direcciones, int tipoInversionista,
-			String nombreTipoInversionista, Intermediario invers, SolicitudOperacion ultix, ArrayList<Valor> colocax) {
+			String nombreTipoInversionista, Intermediario intermed, SolicitudOperacion ultix, ArrayList<Valor> colocax) {
 		
 		id_Inversionista = idInversionista;
 		this.identificacion = identificacion;
@@ -52,7 +52,7 @@ public class Inversionista {
 		this.direcciones = direcciones;
 		this.tipoInversionista = tipoInversionista;
 		nombre_Tipo_Inversionista = nombreTipoInversionista;
-		intermediarioRep = invers;
+		intermediarioRep = intermed;
 		ultima_Solicitud_Operacion = ultix;
 		colocaciones = colocax;
 	}
