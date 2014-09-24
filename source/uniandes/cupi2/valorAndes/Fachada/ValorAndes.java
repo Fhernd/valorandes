@@ -17,7 +17,7 @@ public class ValorAndes {
 	/**
 	 * Conexión con la clase que maneja la base de datos
 	 */
-	private ConsultaDAO dao;
+	public ConsultaDAO dao;
 	
 	public static ValorAndes instancia;
 	
