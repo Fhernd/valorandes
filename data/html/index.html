@@ -25,27 +25,7 @@
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
 		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
 		
-		<link href="css/start/jquery-ui-1.10.4.custom.css" rel="stylesheet">
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery-ui-1.10.4.custom.js"></script>
-	<script>
-	$(function() {		
-		$( "#datepicker" ).datepicker({
-			inline: true
-			
-		});
 		
-		// Hover states on the static widgets
-		$( "#dialog-link, #icons li" ).hover(
-			function() {
-				$( this ).addClass( "ui-state-hover" );
-			},
-			function() {
-				$( this ).removeClass( "ui-state-hover" );
-			}
-		);
-	});
-	</script>
 	
 	<link href="css/start/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 	<script src="js/jquery-1.10.2.js"></script>
@@ -69,9 +49,24 @@
 	});
 	</script>
 	
-	<link href="css/start/jquery-ui-1.10.4.custom.css" rel="stylesheet">
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery-ui-1.10.4.custom.js"></script>
+	<script>
+	$(function() {		
+		$( "#datepicker2" ).datepicker({
+			inline: true
+			
+		});
+		
+		// Hover states on the static widgets
+		$( "#dialog-link, #icons li" ).hover(
+			function() {
+				$( this ).addClass( "ui-state-hover" );
+			},
+			function() {
+				$( this ).removeClass( "ui-state-hover" );
+			}
+		);
+	});
+	</script>
 	<script>
 	$(function() {		
 		$( "#datepicker3" ).datepicker({
@@ -90,50 +85,7 @@
 		);
 	});
 	</script>
-	
-	<link href="css/start/jquery-ui-1.10.4.custom.css" rel="stylesheet">
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery-ui-1.10.4.custom.js"></script>
-	<script>
-	$(function() {		
-		$( "#datepicker4" ).datepicker({
-			inline: true
-			
-		});
-		
-		// Hover states on the static widgets
-		$( "#dialog-link, #icons li" ).hover(
-			function() {
-				$( this ).addClass( "ui-state-hover" );
-			},
-			function() {
-				$( this ).removeClass( "ui-state-hover" );
-			}
-		);
-	});
-	</script>
-	
-	<link href="css/start/jquery-ui-1.10.4.custom.css" rel="stylesheet">
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery-ui-1.10.4.custom.js"></script>
-	<script>
-	$(function() {		
-		$( "#datepicker5" ).datepicker({
-			inline: true
-			
-		});
-		
-		// Hover states on the static widgets
-		$( "#dialog-link, #icons li" ).hover(
-			function() {
-				$( this ).addClass( "ui-state-hover" );
-			},
-			function() {
-				$( this ).removeClass( "ui-state-hover" );
-			}
-		);
-	});
-	</script>
+
 	<script>
 	$(function() {		
 		$( "#datepicker6" ).datepicker({
@@ -171,8 +123,7 @@
 		);
 	});
 	</script>
-	
-	
+
 	</head>
 	<body>
 
@@ -180,11 +131,10 @@
 			<nav id="nav">
 				<ul class="container">
 					<li><a href="#top"><img src="images/valores/home.png"  height="90" width="90"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
-					<!--  
-					<li><a href="#ordenar">Ordenar Operacion</a></li>
-					<li><a href="#cancelar">Cancelar transaccion</a></li>
-					<li><a href="#about" valign="MIDDLE">Info</a></li>
-					 --> 
+					<li><a href="#ordenar"><img src="images/valores/ord.png"  height="90px" width="140px"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
+					<li><a href="#registrar"><img src="images/valores/pact.png"  height="90" width="90"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
+					<li><a href="#cancelar"><img src="images/valores/cancel.png"  height="90" width="90"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
+					<li><a href="#consultas"><img src="images/valores/db1.png"  height="90" width="90"  alt="Home CupiFlights" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
 				</ul>
 			</nav>
 
@@ -661,9 +611,8 @@
 							
 							<div align="center" class="row" style="display: inline; vertical-align: middle;">
 								<p>
-								<select id=existencia.filtro name="filtro" style="width:230px;height : 52px;">
+								<select id=existencia.filtro name="filtro" style="width:230px;height : 52px;" onchange="existenciaT2(this)" onclick="existenciaT2(this)">
 								<option value="">--Filtro--</option>
-								<option value="valor">Valor</option>
 								<option value="tipoValor">Tipo de Valor</option>
 								<option value="TipoRentabilidad">Tipo de Rentabilidad</option>
 								<option value="Negociación"> En negociación </option>
@@ -673,7 +622,7 @@
 								<option value="Inversionista">Inversionista</option>					
 								</select>
 								
-								<select id=existencia.opcion name="Seleccione un valor para el filtro" style="width:400px;height : 52px; margin:10px">
+								<select disabled="disabled" id=existencia.opcion title="Seleccione un valor para el filtro" name="filtro.value" style="width:400px;height : 52px; margin:10px" onchange="existenciat3(this);activarDatePickerE(this)" onclick="existenciat3(this);activarDatePickerE(this)" onblur="existenciat3(this);activarDatePickerE(this)" onfocus="existenciat3(this);activarDatePickerE(this)" onmouseover="existenciat3(this);activarDatePickerE(this)">
 								</select>
 								
 								</p>								
@@ -681,21 +630,223 @@
 								<div>
 										
 										<p ><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Expiración:&nbsp;&nbsp;&nbsp;</strong>
-											<input type="text"  id="datepicker1" name="desde" style="width:400px; height : 49px; text-align: center; margin:10px;" placeholder="mm/dd/aaaa" >
+											<input disabled="disabled" type="text"  id="datepicker1" name="expiracion" style="width:400px; height : 49px; text-align: center; margin:10px;" placeholder="mm/dd/aaaa" >
 										</p>
 								
 										<div class="row">
 											<div class="12u" align="center">												
-												<input  class="button form-button-submit" type="submit" name="consultar" id="login" value="Consultar"/>								
+												<input disabled="disabled" class="button form-button-submit" type="submit" name="consultar" id="existencia.btn" value="Consultar"/>								
 											</div>
 										</div>
 								</div>
 							</form>
+							<script type="text/javascript">
+							function activarDatePickerE(tipoc)
+							{
+								var picker = document.getElementById("datepicker1");
+								if(tipoc.value=='1'){
+									picker.disabled=false;
+									}
+								else
+									{
+									picker.disabled=true;
+									}
+								
+							}
+							function existenciaT2(tipoc)
+							{
+								var t2 = document.getElementById("existencia.opcion");
+								
+								if(tipoc.value==''){
+									t2.disabled=true;}
+								else
+								{
+									t2.disabled=false;
+									var inHtml = "";
+									if(tipoc.value=='tipoValor')
+									{
+										
+										inHtml += "<option value=\"\">-- TIPO VALOR --</option>";
+										***AQUI*** TIPOVALOR										
+						                inHtml += "<option value=\"tipoActual.darId()\"> (+tipoValor.darId()+)+tipoValor.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='TipoRentabilidad')
+									{
+										inHtml += "<option value=\"\">-- TIPO RENTABILIDAD --</option>";	
+										***AQUI*** TIPOS DE RENTABILIDAD									
+						                inHtml += "<option value=\"rentabilidadActual.darId()\"> (+rentabilidadActual.darId()+)+rentabilidadActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='Negociación')
+									{
+										inHtml += "<option value=\"\">-- NEGOCIACIÓN --</option>";										
+						                inHtml += "<option value=\"ON\"> (ON) En negociación </option>";
+						                inHtml += "<option value=\"OFF\"> (OFF) Fuera de negociación </option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='Expiración')
+									{										
+						                inHtml += "<option value=\"1\"> seleccione fecha (abajo) </option>";						                
+						                t2.innerHTML = inHtml;
+						                activarDatePickerE(t2);
+									}
+									else if(tipoc.value=='Emisor')
+									{
+										inHtml += "<option value=\"\">-- EMISOR --</option>";	
+										***AQUI*** EMISORES									
+						                inHtml += "<option value=\"emisorActual.darId()\"> (+emisorActual.darId()+)+emisorActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='Intermediario')
+									{
+										inHtml += "<option value=\"\">-- INTERMEDIARIO --</option>";
+										***AQUI*** INTERMEDIARIOS										
+						                inHtml += "<option value=\"intermediarioActual.darId()\"> (+intermediarioActual.darId()+)+intermediarioActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='Inversionista')
+									{
+										inHtml += "<option value=\"\">-- INVERSIONISTA --</option>";	
+										***AQUI*** INVERSIONISTAS									
+						                inHtml += "<option value=\"inversionistaActual.darId()\"> (+inversionistaActual.darId()+)+inversionistaActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}			
+								}								
+							}
+							
+							function existenciat3(selected)
+							{
+								var t3 = document.getElementById("existencia.btn");
+								if(selected.value!='')
+									{	
+										t3.disabled=false;
+									}
+								else
+								{	
+									t3.disabled=true;
+								}
+							}
+				
+							</script>
 							
 						</div>
 					</div>
 				</article>
 			</div>
+			
+			<!-- Consulta de valores -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="movimientos">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/PAdmin-B.png" alt="Valores más movidos"  style=""/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+								<h1 align="center" style="line-height: 40px">Operaciones de un Usuario</h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Seleccione los criterios de la consulta.
+									</p></header>			
+							</header>
+							
+							<form action="movimientos.htm" class="ok" method="get">
+							<p style="margin-left: 20px; " align="center" >	
+																	
+								<select id="movimientos.tipo" name="tipo.usuario" title="tipo de usuario"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required onchange="cambiarUsuariosMovimientos(this)" onclick="cambiarUsuariosMovimientos(this)">
+								<option value="">--Tipo de usuario--</option>
+								<option value="inversionista">Inversionista</option>
+								<option value="emisor">Empresa emisora</option>
+								</select>
+								
+								<select id="movimientos.usuario" name="usuario" title="Identificador de usuario"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required onchange="botonMovimientos(this)" onclick="botonMovimientos(this)" onmousemove="botonMovimientos(this)" onblur="botonMovimientos(this)" onfocus="botonMovimientos(this)">
+								</select>
+								
+								<select id="movimientos.tipo.operacion" name="tipo.operacion" title="tipo de usuario"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required>
+								<option value="">--tipo de operacion--</option>
+								<option value="compra">compra de productos</option>
+								<option value="venta">venta de productos</option>
+								</select>
+								
+								<select id="movimientos.tipo.rentabilidad" name="tipo.rentabilidad" title="Identificador de usuario"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required>
+								<option value="">--tipo de rentabilidad--</option>
+								<option value="fija">rentabilidad fija</option>
+								<option value="variable">rentabilidad variable</option>
+								</select>
+								
+								<input type="text"  id="datepicker2" name="desde" style="width:300px;  text-align: center; margin:5px" placeholder="(mm/dd/aaaa) inicio" >
+								
+								<input type="text"  id="datepicker3" name="hasta" style="width:300px; text-align: center;margin:5px" placeholder="(mm/dd/aaaa) fin" >
+								
+								<select id="movimientos.cota" name="cota" title="Cota para la búsqueda"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required>
+								<option value="">--tipo de costo--</option>
+								<option value="max">costo máximo</option>
+								<option value="min">costo mínimo</option>
+								</select>
+								
+								<input type="number" id="movimientos.monto" name="monto" title="Cantidad de dinero"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required placeholder="00">
+								</select>	
+							</p>				
+							<div class="row">
+								<div class="12u" align="center">												
+									<input disabled="disabled" class="button form-button-submit" type="submit" name="consultar" id="movimiento.btn" value="Consultar"/>								
+								</div>
+							</div>	
+									
+							</form>
+							<script type="text/javascript">							
+							function cambiarUsuariosMovimientos(tipoc)
+							{
+								var t2 = document.getElementById("movimientos.usuario");
+								
+								if(tipoc.value==''){
+									t2.disabled=true;}
+								else
+								{
+									t2.disabled=false;
+									var inHtml = "";
+									if(tipoc.value=='inversionista')
+									{
+										
+										inHtml += "<option value=\"\">-- INVERSIONISTA --</option>";
+										***AQUI*** iterar INVERSIONISTAS
+						                inHtml += "<option value=\"+invActual.darId()+\"> (+invActual.darId()+)+invActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='emisor')
+									{
+										inHtml += "<option value=\"\">-- EMISOR --</option>";	
+										***AQUI*** iterar EMISORES																			
+						                inHtml += "<option value=\"+emisorActual.darId()+\"> (+emisorActual.darId()+)+emisorActual.darNombre()+</option>";						                
+						                t2.innerHTML = inHtml;
+									}	
+								}								
+							}
+							
+							function botonMovimientos(selected)
+							{
+								var t3 = document.getElementById("movimiento.btn");
+								if(selected.value!='')
+									{	
+										t3.disabled=false;
+									}
+								else
+								{	
+									t3.disabled=true;
+								}
+							}
+				
+							</script>
+							
+						</div>
+					</div>
+				</article>
+			</div>
+			
+			
+			
 			
 			<!-- Valores más movidos -->
 			<div class="wrapper wrapper-style2 ">
@@ -739,53 +890,79 @@
 				</article>
 			</div>
 			
-			
-			<!-- Calificacion vuelos -->
-			<div class="wrapper wrapper-style3">
-				<article id="registrar">
+		<!-- Mejor intermediario -->
+			<div class="wrapper wrapper-style2 ">
+				<article class="container" id="masActivo">	
+				<div class="row">
+						<div class="4u">
+						</br>
+							<span class="me image image-full" ><img src="images/valores/best.png" alt="Valores más movidos"  style=""/></span>
+						</div>	
+						<div class="8u">				
 							<header>
-								<h1 align="center"><strong>Busqueda de vuelos por Calificacion</strong></h1>
+								<h1 align="center" style="line-height: 40px">Intermediario Más Activo</h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Indique los parámetros indicados para realizar la consulta.
+									</p></header>			
 							</header>
-					<form action="flightsRating.htm" class="ok" method="post">	
-					<input type=hidden name="admin" value="false">							
-							<div class="container" align="center">
-								<div class="row">
-									<div class="4u">
-										<section class="box box-style1">
-										<h3>Fecha inicial</h3>
-										<input type="text""text"  id="datepicker4" name="desde"  placeholder="mm/dd/aaaa" >
-									</div>
-									<div class="4u">
-										<section class="box box-style1">
-											<h3>Fecha final</br></h3>
-											<input type="text""text"  id="datepicker5" name="hasta"  placeholder="mm/dd/aaaa" >											
-											<p></p>
-										</section>
-										<input  class="button form-button-submit" type="submit" name="consultar" id="consultar" value="Consultar"/>
-									</div>
-									<div class="4u">
-										<section class="box box-style1">
-											<h3>Calificacion</br></h3>											
-											<p><input type="number" name="califmin" min="0" max ="10" autocomplete=”off”  placeholder="desde"  required="required" style="width: 100px"> <strong>-</strong> 
-											<input type="number" name="califmax" min="0" max ="10" autocomplete=”off”  placeholder="hasta"  required="required" style="width: 100px"></p>
-										</section>
-									</div>
-								</div>
-							</div>
-					</form>
+							
+							<form action="mejor.htm" class="ok" method="get">
+							<p style="" align="center" >	
+																	
+								<select id="mejor.criterio" name="tipo.busqueda" title="tipo de usuario"  style="width: 300px; display: inline;vertical-align: middle; margin: 5px;" required onchange="completarFomulario(this)" onclick="completarFomulario(this)" onmousemove="completarFomulario(this)" onmouseover="completarFomulario(this)" onselect="completarFomulario(this)" >
+								<option value="">--seleccione--</option>
+								<option value="tipo">Tipo de Valor</option>
+								<option value="valor">Valor</option>
+								</select>
+							</p>
+							<div id="here">		
+							</div>	
+									
+							</form>
+							<script type="text/javascript">							
+							function completarFomulario(tipoc)
+							{
+								var t2 = document.getElementById("here");
+									var inHtml = "";
+									if(tipoc.value=='tipo')
+									{
+										
+										inHtml += "<select id=\"mejor.tipoValor\" name=\"tipo.valor\" title=\"Tipo de valor para buscar\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required>"+
+										***AQUI*** iterar
+										"<option value=\"+actual.darIdTipo+\">(+actual.darIdTipo()+)+actual.darNombreTipo()+</option>\r\n"+
+											"								</select>	"+
+											"							</p>				"+
+											"							<div class=\"row\">"+
+											"								<div class=\"12u\" align=\"center\">												"+
+											"									<input class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"mejor.consultar\" value=\"Consultar\"/>							"+
+											"								</div>"+
+											"							</div>";
+										t2.innerHTML = inHtml;
+									}
+									else if(tipoc.value=='valor')
+									{
+										inHtml += "<div class=\"row\">"+
+										"								<div class=\"12u\" align=\"center\">												"+
+										"									<input class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"mejor.consultar\" value=\"Continuar\"/>"+
+										"								</div>"+
+										"							</div>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else
+										{
+										t2.innerHTML = inHtml;
+										}								
+							}
+				
+							</script>
+							
+						</div>
+					</div>
 				</article>
 			</div>
 			
 			
-			
-			
-			<!-- Work -->
-			<div class="wrapper wrapper-style2">
-				<article id="aerolineas">
-							<header>
-								<h1 align="center"><strong>Aerolineas mas puntuales</strong></h1>
-								<h3 align="center">Consulte cuales son las aerolineas con el menor y el mayor numero de vuelos tardios</h3>
-							</header>
 					
 		<!-- Administrar -->
 			<div class="wrapper wrapper-style4">
@@ -828,7 +1005,7 @@
 								<hr />
 								<article id="about"></article>
 								<header><h3>Universidad de Los Andes</h3></header>
-								<p><h3><Strong> Brahian David Rangel </br> John Ortiz </br>- ValorAndes+ - Sistemas Transaccionales - Nivel 1 -</br></br>Departamento de Ingeniería de Sistemas y Computación</br> 2014 - 10</strong></h3></p>								
+								<p><h3><Strong> Brahian David Rangel </br> John Ortiz </br>- ValorAndes+ - Sistemas Transaccionales - Nivel 1 -</br></br>Departamento de Ingeniería de Sistemas y Computación</br> 2014 - 20</strong></h3></p>								
 								<ul class="social" >	
 		
 									<li class="twitter"><a href="http://twitter.com/n33co" class="fa fa-twitter"><span>Twitter</span></a></li>

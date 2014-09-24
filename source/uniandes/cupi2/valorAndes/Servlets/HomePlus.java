@@ -2,18 +2,26 @@ package uniandes.cupi2.valorAndes.Servlets;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import uniandes.cupi2.valorAndes.Fachada.ValorAndes;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
 
 
 public class HomePlus 
 {
 	private PrintWriter out;
 	private ValorAndes instancia;
-	private ArrayList<Inversionista> inversionistasObtenidos;
-	private ArrayList<Emisor> emisoresObtenidos;
+	private LinkedList<Inversionista> inversionistasObtenidos;
+	private LinkedList<Emisor> emisoresObtenidos;
+	private LinkedList<TipoValor> tiposProductosObtenidos;
+	private LinkedList<TipoRentabilidad> tiposRentabilidadObtenidos;
+	private LinkedList<Intermediario> intermediariosObtenidos;
 	
 	
 	public HomePlus(PrintWriter salida)
@@ -22,24 +30,229 @@ public class HomePlus
 		instancia= ValorAndes.darInstancia();
 		inversionistasObtenidos = instancia.darInversionistas();
 		emisoresObtenidos = instancia.darEmisores();
+		tiposProductosObtenidos = instancia.darTiposValor();
+		tiposRentabilidadObtenidos = instancia.darTiposRentabilidad();
+		intermediariosObtenidos = instancia.darIntermediarios();
 		out.println(cabecera);
-		printInversionistasCancelar();
-		out.println(finx);
+		printFormulario1();
+		out.println(parte2);
+		printFormulario2();
+		out.println(parte3);
+		printFormulario3();
+		out.println(parte4);
+		printFormulario4();
+		out.println(parte5);
+		printFormulario5();
+		out.println(parte6);
+		printFormulario6();
+		out.println(parte7);
+		printFormulario7();
+		out.println(parte8);
+		printFormulario8();
+		out.println(parte9);
+		printFormulario9();
+		out.println(parte10);
+		printFormulario10();
+		out.println(parte11);
+		printFormulario11();
+		out.println(parte12);
+		printFormulario12();
+		out.println(parte13);
+		printFormulario13();
+		out.println(parte14);
+		printFormulario14();
+		
 	}
 	
-	public void printInversionistasCancelar()
+	private void printFormulario1()
 	{
 		String add ="";
-		for (int i = 0; i < inversionistasObtenidos.size(); i++)
+		Iterator<Inversionista> itera = inversionistasObtenidos.iterator();
+		while(itera.hasNext())
 		{
-			Inversionista act = inversionistasObtenidos.get(i);
-			add+="inHtml += \"<option value=\\\""+act.getId_Inversionista()+"\\\">"+"("+act.getId_Inversionista()+")"+act.getNombre()+"</option>\";";
+			Inversionista actual = itera.next();
+//			add+="inHtml += \"<option value=\\\""+act.getId_Inversionista()+"\\\">"+"("+act.getId_Inversionista()+")"+act.getNombre()+"</option>\";";
+			add+="<option value=\""+actual.getId_Inversionista()+"\">( "+actual.getId_Inversionista() + ") "+actual.getNombre()+"</option>\r\n";
+			
 		}
 		out.println(add);
 	}
 	
+	private void printFormulario2()
+	{
+		String add="";
+		Iterator<TipoValor> itera = tiposProductosObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoValor productoActual = itera.next();
+			add+="<option value=\""+productoActual.getId_Valor()+"\"> ("+productoActual.getId_Valor()+") "+productoActual.getNombre_valor()+ "</option>\r\n";
+		}		
+		out.println(add);
+	}
 	
-	String cabecera = ""+
+	private void printFormulario3()
+	{
+		String add="";
+		Iterator<TipoValor> itera = tiposProductosObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoValor productoActual = itera.next();
+			add+=""+
+					"								else if (tipoc.value=='"+productoActual.getId_Valor()+"') "+
+					"								{\r\n"+
+					"										var inHtml = \"\";\r\n"+
+					"										t3.disabled=false;										\r\n"+
+					"										inHtml += \"<option value=\\\"\\\">--Sel. Empresa Oferente--</option>\";\r\n";
+			Iterator<Emisor> empresasTipoActual = instancia.darEmpresasOfertanTipo(""+productoActual.getId_Valor()).iterator();
+			while (empresasTipoActual.hasNext())
+			{
+				Emisor empresaActual = empresasTipoActual.next();
+				add+="inHtml += \"<option value=\\\""+empresaActual.getNIT()+"\\\">("+empresaActual.getNIT()+") "+empresaActual.getNombre()+"</option>\";\r\n";
+			}
+			add+=""+												
+					"						                t3.innerHTML = inHtml;					\r\n"+
+					"								}\r\n";
+		}		
+		out.println(add);
+		
+		
+			
+	}
+	
+	private void printFormulario4()
+	{
+		String add="";
+		Iterator<Emisor> itera = emisoresObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Emisor emisorActual = itera.next();
+			add+="else if(tipoc.value=='"+emisorActual.getNIT()+"')"+ 
+					"													{\r\n"+
+					"														t2.disabled=false;\r\n"+
+					"														var inHtml = \"\";\r\n"+
+					"														inHtml +=\"<option value=\\\"\\\">--Producto--</option>\";\r\n";
+			
+			Iterator<TipoValor> productosEmiActual = instancia.darTiposOfertadosEmpresa(emisorActual.getNIT()).iterator();
+			while(productosEmiActual.hasNext())
+			{
+				TipoValor tipoVrActual = productosEmiActual.next();
+				add+="														inHtml += \"<option value=\\\""+tipoVrActual.getId_Valor()+"\\\">("+tipoVrActual.getId_Valor()+") "+tipoVrActual.getNombre_valor()+"</option>\";\r\n";
+			}
+					
+			add+="														t2.innerHTML = inHtml;						\r\n"+
+			    "													}\r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario5()
+	{
+		String add="";
+		Iterator<Emisor> itera = emisoresObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Emisor emisorActual = itera.next();
+			add+="inHtml += \"<option value=\\\""+emisorActual.getNIT()+"\\\">("+emisorActual.getNIT()+") "+ emisorActual.getNombre()+"</option>\";\r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario6()
+	{
+		String add="";
+		Iterator<Inversionista> itera = inversionistasObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Inversionista invActual = itera.next();
+			add+="						                inHtml += \"<option value=\\\""+invActual.getId_Inversionista()+"\\\">("+invActual.getId_Inversionista()+") "+invActual.getNombre()+"</option>\";\r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario7()
+	{
+		String add="";
+		Iterator<TipoValor> itera = tiposProductosObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoValor tipoActual = itera.next();
+			add+="						                inHtml += \"<option value=\\\""+tipoActual.getId_Valor()+"\\\">("+tipoActual.getId_Valor()+") "+tipoActual.getNombre_valor()+"</option>\";						                \r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario8()
+	{
+		String add="";
+		Iterator<TipoRentabilidad> itera = tiposRentabilidadObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoRentabilidad tipoActual = itera.next();
+			add+="						                inHtml += \"<option value=\\\""+tipoActual.getId_rentabilidad()+"\\\">("+tipoActual.getId_rentabilidad()+") "+tipoActual.getNombre()+"</option>\";						                \r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario9()
+	{
+		String add="";
+		Iterator<Emisor> itera = emisoresObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Emisor emisorActual = itera.next();
+			add+="inHtml += \"<option value=\\\""+emisorActual.getNIT()+"\\\">("+emisorActual.getNIT()+") "+ emisorActual.getNombre()+"</option>\";\r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario10()
+	{
+		String add="";
+		Iterator<Intermediario> itera = intermediariosObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Intermediario intermediarioActual = itera.next();
+			add+="						                inHtml += \"<option value=\\\""+intermediarioActual.getId_Intermediario()+"\\\">("+intermediarioActual.getId_Intermediario()+") "+intermediarioActual.getNombre()+"</option>\";						                \r\n";
+		}		
+		out.println(add);
+	}
+	
+	private void printFormulario11()
+	{
+		String add ="";
+		Iterator<Inversionista> itera = inversionistasObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Inversionista invActual = itera.next();
+			add+="						                inHtml += \"<option value=\\\""+invActual.getId_Inversionista()+"\\\">("+invActual.getId_Inversionista()+") "+invActual.getNombre()+"</option>\";						                \r\n";
+		}
+		out.println(add);
+	}
+	
+	private void printFormulario12()
+	{
+		printFormulario11();
+	}
+	
+	private void printFormulario13()
+	{
+		printFormulario5();
+	}
+	
+	private void printFormulario14()
+	{
+		String add="";
+		Iterator<TipoValor> itera = tiposProductosObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoValor tipoActual = itera.next();
+			add+="										\"<option value=\\\""+tipoActual.getId_Valor()+"\\\">("+tipoActual.getId_Valor()+") "+tipoActual.getNombre_valor()+"</option>\\r\\n\"+\r\n";
+		}		
+		out.println(add);
+	}
+	
+	
+	private String cabecera = ""+
 			"<!DOCTYPE HTML>\r\n"+
 			"<!--\r\n"+
 			"	Miniport 2.5 by HTML5 UP\r\n"+
@@ -67,27 +280,7 @@ public class HomePlus
 			"		<!--[if lte IE 8]><script src=\"js/html5shiv.js\"></script><link rel=\"stylesheet\" href=\"css/ie8.css\" /><![endif]-->\r\n"+
 			"		<!--[if lte IE 7]><link rel=\"stylesheet\" href=\"css/ie7.css\" /><![endif]-->\r\n"+
 			"		\r\n"+
-			"		<link href=\"css/start/jquery-ui-1.10.4.custom.css\" rel=\"stylesheet\">\r\n"+
-			"	<script src=\"js/jquery-1.10.2.js\"></script>\r\n"+
-			"	<script src=\"js/jquery-ui-1.10.4.custom.js\"></script>\r\n"+
-			"	<script>\r\n"+
-			"	$(function() {		\r\n"+
-			"		$( \"#datepicker\" ).datepicker({\r\n"+
-			"			inline: true\r\n"+
-			"			\r\n"+
-			"		});\r\n"+
 			"		\r\n"+
-			"		// Hover states on the static widgets\r\n"+
-			"		$( \"#dialog-link, #icons li\" ).hover(\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).addClass( \"ui-state-hover\" );\r\n"+
-			"			},\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).removeClass( \"ui-state-hover\" );\r\n"+
-			"			}\r\n"+
-			"		);\r\n"+
-			"	});\r\n"+
-			"	</script>\r\n"+
 			"	\r\n"+
 			"	<link href=\"css/start/jquery-ui-1.10.4.custom.css\" rel=\"stylesheet\">\r\n"+
 			"	<script src=\"js/jquery-1.10.2.js\"></script>\r\n"+
@@ -111,9 +304,24 @@ public class HomePlus
 			"	});\r\n"+
 			"	</script>\r\n"+
 			"	\r\n"+
-			"	<link href=\"css/start/jquery-ui-1.10.4.custom.css\" rel=\"stylesheet\">\r\n"+
-			"	<script src=\"js/jquery-1.10.2.js\"></script>\r\n"+
-			"	<script src=\"js/jquery-ui-1.10.4.custom.js\"></script>\r\n"+
+			"	<script>\r\n"+
+			"	$(function() {		\r\n"+
+			"		$( \"#datepicker2\" ).datepicker({\r\n"+
+			"			inline: true\r\n"+
+			"			\r\n"+
+			"		});\r\n"+
+			"		\r\n"+
+			"		// Hover states on the static widgets\r\n"+
+			"		$( \"#dialog-link, #icons li\" ).hover(\r\n"+
+			"			function() {\r\n"+
+			"				$( this ).addClass( \"ui-state-hover\" );\r\n"+
+			"			},\r\n"+
+			"			function() {\r\n"+
+			"				$( this ).removeClass( \"ui-state-hover\" );\r\n"+
+			"			}\r\n"+
+			"		);\r\n"+
+			"	});\r\n"+
+			"	</script>\r\n"+
 			"	<script>\r\n"+
 			"	$(function() {		\r\n"+
 			"		$( \"#datepicker3\" ).datepicker({\r\n"+
@@ -132,50 +340,7 @@ public class HomePlus
 			"		);\r\n"+
 			"	});\r\n"+
 			"	</script>\r\n"+
-			"	\r\n"+
-			"	<link href=\"css/start/jquery-ui-1.10.4.custom.css\" rel=\"stylesheet\">\r\n"+
-			"	<script src=\"js/jquery-1.10.2.js\"></script>\r\n"+
-			"	<script src=\"js/jquery-ui-1.10.4.custom.js\"></script>\r\n"+
-			"	<script>\r\n"+
-			"	$(function() {		\r\n"+
-			"		$( \"#datepicker4\" ).datepicker({\r\n"+
-			"			inline: true\r\n"+
-			"			\r\n"+
-			"		});\r\n"+
-			"		\r\n"+
-			"		// Hover states on the static widgets\r\n"+
-			"		$( \"#dialog-link, #icons li\" ).hover(\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).addClass( \"ui-state-hover\" );\r\n"+
-			"			},\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).removeClass( \"ui-state-hover\" );\r\n"+
-			"			}\r\n"+
-			"		);\r\n"+
-			"	});\r\n"+
-			"	</script>\r\n"+
-			"	\r\n"+
-			"	<link href=\"css/start/jquery-ui-1.10.4.custom.css\" rel=\"stylesheet\">\r\n"+
-			"	<script src=\"js/jquery-1.10.2.js\"></script>\r\n"+
-			"	<script src=\"js/jquery-ui-1.10.4.custom.js\"></script>\r\n"+
-			"	<script>\r\n"+
-			"	$(function() {		\r\n"+
-			"		$( \"#datepicker5\" ).datepicker({\r\n"+
-			"			inline: true\r\n"+
-			"			\r\n"+
-			"		});\r\n"+
-			"		\r\n"+
-			"		// Hover states on the static widgets\r\n"+
-			"		$( \"#dialog-link, #icons li\" ).hover(\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).addClass( \"ui-state-hover\" );\r\n"+
-			"			},\r\n"+
-			"			function() {\r\n"+
-			"				$( this ).removeClass( \"ui-state-hover\" );\r\n"+
-			"			}\r\n"+
-			"		);\r\n"+
-			"	});\r\n"+
-			"	</script>\r\n"+
+			"\r\n"+
 			"	<script>\r\n"+
 			"	$(function() {		\r\n"+
 			"		$( \"#datepicker6\" ).datepicker({\r\n"+
@@ -213,8 +378,7 @@ public class HomePlus
 			"		);\r\n"+
 			"	});\r\n"+
 			"	</script>\r\n"+
-			"	\r\n"+
-			"	\r\n"+
+			"\r\n"+
 			"	</head>\r\n"+
 			"	<body>\r\n"+
 			"\r\n"+
@@ -222,11 +386,10 @@ public class HomePlus
 			"			<nav id=\"nav\">\r\n"+
 			"				<ul class=\"container\">\r\n"+
 			"					<li><a href=\"#top\"><img src=\"images/valores/home.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
-			"					<!--  \r\n"+
-			"					<li><a href=\"#ordenar\">Ordenar Operacion</a></li>\r\n"+
-			"					<li><a href=\"#cancelar\">Cancelar transaccion</a></li>\r\n"+
-			"					<li><a href=\"#about\" valign=\"MIDDLE\">Info</a></li>\r\n"+
-			"					 --> \r\n"+
+			"					<li><a href=\"#ordenar\"><img src=\"images/valores/ord.png\"  height=\"90px\" width=\"140px\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
+			"					<li><a href=\"#registrar\"><img src=\"images/valores/pact.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
+			"					<li><a href=\"#cancelar\"><img src=\"images/valores/cancel.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
+			"					<li><a href=\"#consultas\"><img src=\"images/valores/db1.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
 			"				</ul>\r\n"+
 			"			</nav>\r\n"+
 			"\r\n"+
@@ -272,8 +435,235 @@ public class HomePlus
 			"							</p>						\r\n"+
 			"				</article>\r\n"+
 			"			</div>\r\n"+
+			"			\r\n"+
+			"			\r\n"+
+			"		<!-- Comprar Producto  -->\r\n"+
+			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"				<article class=\"container\" id=\"comprar\">	\r\n"+
+			"				<div class=\"row\">\r\n"+
+			"						<div class=\"4u\">\r\n"+
+			"						</br>\r\n"+
+			"							<span class=\"me image image-full\" ><img src=\"images/valores/buy.png\" alt=\"Compra de Productos\" title=\"Compra de Productos\" style=\"border-radius: 20% 20% 20% 20%; background-color: #FFD39B; padding: 30px\"/></span>\r\n"+
+			"						</div>	\r\n"+
+			"						<div class=\"8u\">				\r\n"+
+			"							<header>\r\n"+
+			"								<h1 align=\"center\"><strong>Adquisicion de Productos</strong></h1>\r\n"+
+			"														\r\n"+
+			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
+			"									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad a adquirir, así como el oferente del producto.\r\n"+
+			"									</p></header>\r\n"+
+			"															\r\n"+
+			"							</header>\r\n"+
+			"							<form action=\"comprar.htm\" class=\"ok\" method=\"get\"  id=\"form_comprar\" name=\"form_comprar\">\r\n"+
+			"							\r\n"+
+			"										<p style=\"margin-left: 20px; \" align=\"center\" >\r\n"+
+			"											\r\n"+
+			"												<select id=\"comprar_inv\" name=\"id_inv\" title=\"Inversionista que solicita la operación\"  style=\"width: 400px; display: inline;vertical-align: middle; margin: 5px;\" required  onchange=\"comprarT2(this)\">\r\n"+
+			"												<option value=\"\" label=\"--Seleccione inversionista--\"></option>\r\n";
+															
+			private String parte2="												</select>												\r\n"+
+			"																					\r\n"+
+			"												<select id=\"comprar_tipo_prod\" name=\"tipo_prod\" type=\"text\" list=\"tipo_producto\" title=\"Tipo Producto\" placeholder=\"Tipo Producto\" style=\"width: 300px; display: inline; vertical-align: middle;margin: 5px\" required disabled=\"disabled\" onchange=\"comprarT3(this)\">\r\n"+
+			"												   <option value=\"\" label=\"--Seleccione producto--\">\r\n";
+															   
+			private String parte3="												</select>												\r\n"+
+			"											\r\n"+
+			"												<select id=\"comprar_oferente\" name=\"emisor\" type=\"text\" title=\"Oferente\" placeholder=\"Entidad Emisora\" style=\"width: 340px; vertical-align: middle; margin: 5px\" required disabled=\"disabled\" onchange=\"comprarT4(this)\">\r\n"+
+			"												   <option value=\"\">--Sel. empresa oferente--</option>\r\n"+
+			"												</select>												\r\n"+
+			"											\r\n"+
+			"										\r\n"+
+			"												<select id=\"comprar_opc\" name=\"opc\" style=\"height: 60px; width: 200px; vertical-align: middle; text-align: center;\" disabled=\"disabled\" onchange=\"comprarT5(this)\">\r\n"+
+			"													<option value=\"\" selected=\"selected\"> --comprar por-- </option>\r\n"+
+			"													<option value=\"cantidad\" label=\"cantidad\" ></option>\r\n"+
+			"													<option value=\"monto\" label=\"monto\"></option> \r\n"+
+			"												</select>\r\n"+
+			"												\r\n"+
+			"												<input id=\"comprar_tipo\" name=\"cantidad\" type=\"number\" title=\"Cantidad\" placeholder=\"00\" ran\" style=\"width: 150px; margin: 5px\" required disabled=\"disabled\" onkeydown=\"comprarT6(this)\" onkeypress=\"comprarT6(this)\" onkeyup=\"comprarT6(this)\">\r\n"+
+			"											</p>\r\n"+
+			"											\r\n"+
+			"											<div class=\"row\">\r\n"+
+			"											<div class=\"12u\" align=\"center\" form=\"form_comprar\">												\r\n"+
+			"												<input id=\"boton_comprar\" class=\"button form-button-submit\" type=\"submit\" value=\"Generar Transacción\" disabled=\"disabled\"/>									\r\n"+
+			"											</div>\r\n"+
+			"											<p></p>\r\n"+
+			"										</div>\r\n"+
+			"											</form>\r\n"+
+			"									\r\n"+
+			"											</div>							\r\n"+
+			"										</div>\r\n"+
+			"										\r\n"+
+			"									</div>\r\n"+
+			"							</form>\r\n"+
+			"							<script type=\"text/javascript\" >\r\n"+
+			"							function comprarT2(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"comprar_tipo_prod\");\r\n"+
+			"								\r\n"+
+			"								if(tipoc.value=='')\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=true;\r\n"+
+			"								}\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"										t2.disabled=false;					\r\n"+
+			"								}								\r\n"+
+			"							}\r\n"+
 			"\r\n"+
-			"		<!-- Cancelar transaccion  -->\r\n"+
+			"							function comprarT3(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t3 = document.getElementById(\"comprar_oferente\");\r\n"+
+			"								\r\n"+
+			"								if(tipoc.value=='')\r\n"+
+			"								{\r\n"+
+			"									t3.disabled=true;\r\n"+
+			"								}\r\n";
+		private String parte4=""+															
+			"							}\r\n"+
+			"\r\n"+
+			"							function comprarT4(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"comprar_opc\");								\r\n"+
+			"								if(tipoc.value=='')\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=true;\r\n"+
+			"								}\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=false;					\r\n"+
+			"								}								\r\n"+
+			"							}\r\n"+
+			"\r\n"+
+			"							function comprarT5(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"comprar_tipo\");								\r\n"+
+			"								if(tipoc.value=='')\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=true;\r\n"+
+			"								}\r\n"+
+			"								else if(tipoc.value=='cantidad')\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=false;					\r\n"+
+			"								}	\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"									alert('Lo sentimos, en este momento no está habilitada la compra por monto');\r\n"+
+			"									t2.disabled=true;\r\n"+
+			"								}							\r\n"+
+			"							}\r\n"+
+			"\r\n"+
+			"							function comprarT6(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"boton_comprar\");								\r\n"+
+			"								if( isNaN(tipoc.value)==false &&  parseFloat(tipoc.value)>0)\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=false;\r\n"+
+			"								}\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=true;					\r\n"+
+			"								}								\r\n"+
+			"							}\r\n"+
+			"							</script>\r\n"+
+			"						</div>\r\n"+
+			"					</div>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"\r\n"+
+			"		\r\n"+
+			"			<!--Vender Producto  -->\r\n"+
+			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
+			"				<article class=\"container\" id=\"vender\">	\r\n"+
+			"				<div class=\"row\">\r\n"+
+			"						<div class=\"4u\">\r\n"+
+			"						</br>\r\n"+
+			"							<span class=\"me image image-full\" ><img src=\"images/valores/images(2).jpg\" alt=\"Venta de Productos\" title=\"Venta de Productos\" style=\"border-radius: 20% 20% 20% 20%; background-color: #6495ED; padding: 30px\"/></span>\r\n"+
+			"						</div>	\r\n"+
+			"						<div class=\"8u\">				\r\n"+
+			"							<header>\r\n"+
+			"								<h1 align=\"center\"><strong>Venta de Productos</strong></h1>\r\n"+
+			"														\r\n"+
+			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
+			"									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad de valores a poner en venta.\r\n"+
+			"									</p></header>\r\n"+
+			"															\r\n"+
+			"							</header>\r\n"+
+			"							<form action=\"vender.htm\" class=\"ok\" method=\"get\"  id=\"form_vender\" name=\"form_vender\" >\r\n"+
+			"							\r\n"+
+			"										<p style=\"margin-left: 20px; te\" align=\"center\">\r\n"+
+			"												<select title=\"Oferente\" placeholder=\"Entidad Emisora\" name=\"Empresa\" style=\"width: 520px; vertical-align: middle; margin: 5px\" required onchange=\"venderT2(this)\">\r\n"+
+			"												   <option value=\"\">--SELECCIONE OFERENTE--</option>\r\n"+
+			"												   ***AQUI** iterar\r\n"+
+			"												   <option value=\"emisorActual.darId()\">(+emisorActual.darID()+) +emisorActual.darNombre()</option>\r\n"+
+			"												</select>									\r\n"+
+			"											</br>\r\n"+
+			"											<select id=\"vender.tipo\" title=\"Tipo Producto\" \" name=\"tipoProducto\" style=\"width: 250px; display: inline; vertical-align: middle;margin: 5px;\" required disabled=\"disabled\" onchange=\"venderT3(this)\">\r\n"+
+			"												   <option value=\"\" label=\"--Producto--\"></option>\r\n"+
+			"											</select>	\r\n"+
+			"												\r\n"+
+			"												<strong> CANTIDAD: </strong>\r\n"+
+			"												 <input id=vender.cantidad name=\"cantidad\"  disabled=\"disabled\" type=\"number\" title=\"Cantidad\" value=\"00\" style=\"width: 150px; margin: 10px\" required  onkeydown=\"venderT4(this)\" onkeypress=\"venderT4(this)\" onkeyup=\"venderT4(this)\">\r\n"+
+			"											</p>\r\n"+
+			"											\r\n"+
+			"											<div class=\"row\">\r\n"+
+			"											<div class=\"12u\" align=\"center\" >												\r\n"+
+			"												<input disabled=\"disabled\" id=\"vender.btn\" class=\"button form-button-submit\" type=\"submit\" value=\"Poner en Venta\"/>									\r\n"+
+			"											</div>\r\n"+
+			"											<p></p>\r\n"+
+			"										</div>\r\n"+
+			"										</form>\r\n"+
+			"										\r\n"+
+			"												<script type=\"text/javascript\" >\r\n"+
+			"												function venderT2(tipoc)\r\n"+
+			"												{\r\n"+
+			"													var t2 = document.getElementById(\"vender.tipo\");								\r\n"+
+			"													if(tipoc.value=='')\r\n"+
+			"													{\r\n"+
+			"														t2.disabled=true;\r\n"+
+			"													}\r\n"+
+																
+			"												}\r\n"+
+			"												function venderT3(tipoc)\r\n"+
+			"												{\r\n"+
+			"													var t3 = document.getElementById(\"vender.cantidad\");\r\n"+
+			"													\r\n"+
+			"													if(tipoc.value=='')\r\n"+
+			"													{\r\n"+
+			"														t3.disabled=true;\r\n"+
+			"													}\r\n"+
+			"													else\r\n"+
+			"													{\r\n"+
+			"														t3.disabled=false;\r\n"+
+			"													}\r\n"+
+			"																				\r\n"+
+			"												}\r\n"+
+			"												function venderT4(tipoc)\r\n"+
+			"												{\r\n"+
+			"													var t2 = document.getElementById(\"vender.btn\");								\r\n"+
+			"													if( isNaN(tipoc.value)==false &&  parseFloat(tipoc.value)>0)\r\n"+
+			"													{\r\n"+
+			"														t2.disabled=false;\r\n"+
+			"													}\r\n"+
+			"													else\r\n"+
+			"													{\r\n"+
+			"														t2.disabled=true;					\r\n"+
+			"													}								\r\n"+
+			"												}\r\n"+
+			"					\r\n"+
+			"												\r\n"+
+			"												</script>\r\n"+
+			"											</div>							\r\n"+
+			"										</div>\r\n"+
+			"										\r\n"+
+			"									</div>\r\n"+
+			"							</form>\r\n"+
+			"						</div>\r\n"+
+			"					</div>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"			\r\n"+
+			"			\r\n"+
+			"			<!-- Cancelar transaccion  -->\r\n"+
 			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
 			"				<article class=\"container\" id=\"cancelar\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
@@ -290,7 +680,7 @@ public class HomePlus
 			"									</p></header>\r\n"+
 			"															\r\n"+
 			"							</header>\r\n"+
-			"							<form action=\"cancelar.htm\" class=\"ok\" method=\"post\" id=\"form_cancelar\">\r\n"+
+			"							<form action=\"cancelar.htm\" class=\"ok\" method=\"get\" id=\"form_cancelar\">\r\n"+
 			"								<div>\r\n"+
 			"										<div class=\"row half\">\r\n"+
 			"											<div class=\"6u\" align=\"center\" >\r\n"+
@@ -302,7 +692,7 @@ public class HomePlus
 			"											</div>\r\n"+
 			"											\r\n"+
 			"											<div class=\"6u\" align=\"center\" >\r\n"+
-			"												<select name=\"Id Usuario\" style=\"width: 400px\"  id=\"id_usuario_cancel\"  disabled=\"disabled\" required onchange=\"act3(this)\" onfocus=\"act3(this)\" \">\r\n"+
+			"												<select name=\"Id_Usuario\" style=\"width: 400px\"  id=\"id_usuario_cancel\"  disabled=\"disabled\" required onchange=\"act3(this)\" onfocus=\"act3(this)\" \">\r\n"+
 			"												<option>--Seleccione--</option>\r\n"+
 			"												</select>\r\n"+
 			"\r\n"+
@@ -331,16 +721,16 @@ public class HomePlus
 			"									if(tipoc.value=='Empresa Emisora')\r\n"+
 			"									{\r\n"+
 			"										t2.disabled=false;\r\n"+
-			"										inHtml += \"<option value=\\\"null\\\">-- Id Emisor --</option>\";\r\n"+
-			"						                inHtml += \"<option value=\\\"actua.darId()\\\"> EMPRESA actual.darNombreUsuario</option>\";\r\n"+
-			"						                t2.innerHTML = inHtml;\r\n"+
+			"										inHtml += \"<option value=\\\"null\\\">-- Seleccione Emisor --</option>\";\r\n";
+													
+			private String parte5="						                t2.innerHTML = inHtml;\r\n"+
 			"									}\r\n"+
 			"									else if(tipoc.value=='Inversionista')\r\n"+
 			"									{\r\n"+
 			"										t2.disabled=false;\r\n"+
-			"										inHtml += \"<option value=\\\"null\\\">-- Id Inversionista --</option>\";\r\n";
-									               
-			String finx ="						                t2.innerHTML = inHtml;\r\n"+
+			"										inHtml += \"<option value=\\\"null\\\">-- Seleccione Inversionista --</option>\";\r\n";
+													
+			private String parte6="						                t2.innerHTML = inHtml;\r\n"+
 			"									}						\r\n"+
 			"								}								\r\n"+
 			"							}\r\n"+
@@ -363,141 +753,6 @@ public class HomePlus
 			"				</article>\r\n"+
 			"			</div>\r\n"+
 			"			\r\n"+
-			"			\r\n"+
-			"			<!-- Comprar Producto  -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
-			"				<article class=\"container\" id=\"comprar\">	\r\n"+
-			"				<div class=\"row\">\r\n"+
-			"						<div class=\"4u\">\r\n"+
-			"						</br>\r\n"+
-			"							<span class=\"me image image-full\" ><img src=\"images/valores/buy.png\" alt=\"Compra de Productos\" title=\"Compra de Productos\" style=\"border-radius: 20% 20% 20% 20%; background-color: #FFD39B; padding: 30px\"/></span>\r\n"+
-			"						</div>	\r\n"+
-			"						<div class=\"8u\">				\r\n"+
-			"							<header>\r\n"+
-			"								<h1 align=\"center\"><strong>Adquisicion de Productos</strong></h1>\r\n"+
-			"														\r\n"+
-			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
-			"									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad a adquirir, así como el oferente del producto.\r\n"+
-			"									</p></header>\r\n"+
-			"															\r\n"+
-			"							</header>\r\n"+
-			"							<form action=\"comprar.htm\" class=\"ok\" method=\"get\"  id=\"form_comprar\" name=\"form_comprar\">\r\n"+
-			"							\r\n"+
-			"										<p style=\"margin-left: 20px\" align=\"center\">\r\n"+
-			"											\r\n"+
-			"												<input type=\"text\" list=\"inversionistas\" title=\"Inversionista\"  placeholder=\"Inversionista\" style=\"width: 200px; display: inline;vertical-align: middle; margin: 5px\" required>\r\n"+
-			"												<datalist id=inversionistas >\r\n"+
-			"												   <option value=\"id_inv\" label=\"Nombre inversionista\">\r\n"+
-			"												</datalist>												\r\n"+
-			"																					\r\n"+
-			"												<input type=\"text\" list=\"tipo_producto\" title=\"Tipo Producto\" placeholder=\"Tipo Producto\" style=\"width: 250px; display: inline; vertical-align: middle;margin: 5px\" required>\r\n"+
-			"												<datalist id=tipo_producto >\r\n"+
-			"												   <option value=\"id_producto\" label=\"Nombre del tipo del producto\">\r\n"+
-			"												</datalist>												\r\n"+
-			"											\r\n"+
-			"												<input type=\"text\" list=\"oferentes\" title=\"Oferente\" placeholder=\"Entidad Emisora\" style=\"width: 250px; vertical-align: middle; margin: 5px\" required>\r\n"+
-			"												<datalist id=oferentes >\r\n"+
-			"												   <option value=\"id_oferente\" label=\"Nombre del oferente\">\r\n"+
-			"												</datalist>												\r\n"+
-			"											\r\n"+
-			"										\r\n"+
-			"												<select name=\"opc\" style=\"height: 60px; width: 200px; vertical-align: middle; text-align: center;\">\r\n"+
-			"												<option value=\"cantidad\" label=\"cantidad\" ></option>\r\n"+
-			"												<option value=\"monto\" label=\"monto\"></option> \r\n"+
-			"												</select>\r\n"+
-			"												<input type=\"number\" title=\"Cantidad\" value=\"00\" style=\"width: 150px; margin: 5px\" required >\r\n"+
-			"											</p>\r\n"+
-			"											\r\n"+
-			"											<div class=\"row\">\r\n"+
-			"											<div class=\"12u\" align=\"center\" form=\"form_comprar\">												\r\n"+
-			"												<input  class=\"button form-button-submit\" type=\"submit\" value=\"Generar Transacción\"/>									\r\n"+
-			"											</div>\r\n"+
-			"											<p></p>\r\n"+
-			"										</div>\r\n"+
-			"											</form>\r\n"+
-			"									\r\n"+
-			"											</div>							\r\n"+
-			"										</div>\r\n"+
-			"										\r\n"+
-			"									</div>\r\n"+
-			"							</form>\r\n"+
-			"						</div>\r\n"+
-			"					</div>\r\n"+
-			"				</article>\r\n"+
-			"			</div>\r\n"+
-			"			\r\n"+
-			"			<!--Vener Producto  -->\r\n"+
-			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
-			"				<article class=\"container\" id=\"vender\">	\r\n"+
-			"				<div class=\"row\">\r\n"+
-			"						<div class=\"4u\">\r\n"+
-			"						</br>\r\n"+
-			"							<span class=\"me image image-full\" ><img src=\"images/valores/images(2).jpg\" alt=\"Venta de Productos\" title=\"Venta de Productos\" style=\"border-radius: 20% 20% 20% 20%; background-color: #6495ED; padding: 30px\"/></span>\r\n"+
-			"						</div>	\r\n"+
-			"						<div class=\"8u\">				\r\n"+
-			"							<header>\r\n"+
-			"								<h1 align=\"center\"><strong>Venta de Productos</strong></h1>\r\n"+
-			"														\r\n"+
-			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
-			"									Por favor indique a nombre de quién se procesará la transacción, el tipo de producto, y cantidad de valores a poner en venta.\r\n"+
-			"									</p></header>\r\n"+
-			"															\r\n"+
-			"							</header>\r\n"+
-			"							<form action=\"vender.htm\" class=\"ok\" method=\"get\"  id=\"form_vender\" name=\"form_vender\">\r\n"+
-			"							\r\n"+
-			"										<p style=\"margin-left: 20px\" align=\"center\">\r\n"+
-			"																					\r\n"+
-			"																							\r\n"+
-			"											\r\n"+
-			"												<input type=\"text\" list=\"oferentes\" title=\"Oferente\" placeholder=\"Entidad Emisora\" name=\"Empresa\" style=\"width: 250px; vertical-align: middle; margin: 5px\" required>\r\n"+
-			"												<datalist id=oferentes >\r\n"+
-			"												   <option value=\"id_oferente\" label=\"Nombre del oferente\">\r\n"+
-			"												</datalist>	\r\n"+
-			"												\r\n"+
-			"												<input type=\"text\" list=\"tipo_producto\" title=\"Tipo Producto\" placeholder=\"Tipo Producto\" name=\"tipoProducto\" style=\"width: 250px; display: inline; vertical-align: middle;margin: 5px\" required>\r\n"+
-			"												<datalist id=tipo_producto >\r\n"+
-			"												   <option value=\"id_producto\" label=\"Nombre del tipo del producto\">\r\n"+
-			"												</datalist>	\r\n"+
-			"																							\r\n"+
-			"											</br>\r\n"+
-			"												<strong>CANTIDAD DE PRODUCTOS: </strong>\r\n"+
-			"												 <input type=\"number\" title=\"Cantidad\" value=\"00\" style=\"width: 150px; margin: 5px\" required >\r\n"+
-			"											</p>\r\n"+
-			"											\r\n"+
-			"											<div class=\"row\">\r\n"+
-			"											<div class=\"12u\" align=\"center\" >												\r\n"+
-			"												<input  class=\"button form-button-submit\" type=\"submit\" value=\"Poner en Venta\"/>									\r\n"+
-			"											</div>\r\n"+
-			"											<p></p>\r\n"+
-			"										</div>\r\n"+
-			"											</form>\r\n"+
-			"									\r\n"+
-			"											</div>							\r\n"+
-			"										</div>\r\n"+
-			"										\r\n"+
-			"									</div>\r\n"+
-			"							</form>\r\n"+
-			"						</div>\r\n"+
-			"					</div>\r\n"+
-			"				</article>\r\n"+
-			"			</div>\r\n"+
-			"			\r\n"+
-			"			<!-- Consultas -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2\">\r\n"+
-			"				<article class=\"container\" id=\"consultas\">\r\n"+
-			"							<header>\r\n"+
-			"								<h1 align=\"center\"><strong>Consultas</strong></h1>\r\n"+
-			"							</header>\r\n"+
-			"							\r\n"+
-			"							<p>					\r\n"+
-			"								<a href=\"#valores\"  style=\"\"><img src=\"images/valores/existencia.png\"  title=\"Valores Disponibles\" alt=\"Valores Disponibles\" style=\"margin: 20px\"/></a>\r\n"+
-			"								<a href=\"#movimientos\" ><img src=\"images/valores/movimientos.png\"  title=\"Comprar Productos\" alt=\"Comprar Productos\" style=\"margin: 20px\"/></a>\r\n"+
-			"								<a href=\"#masMovidos\" ><img src=\"images/valores/movidos.png\"  title=\"Valor más movido\" alt=\"Valor más movido\" style=\"margin: 20px\"/></a>\r\n"+
-			"								<a href=\"#masActivo\" ><img src=\"images/valores/intermediario.png\"  title=\"Intermediario más activo\" alt=\"Intermediario más activo\" style=\"margin: 20px\"/></a>\r\n"+
-			"								</p>\r\n"+
-			"				</article>\r\n"+
-			"			</div>\r\n"+
-			"			\r\n"+
 			"			<!-- Registrar acuerdo-->\r\n"+
 			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
 			"				<article class=\"container\" id=\"registrar\">	\r\n"+
@@ -516,75 +771,307 @@ public class HomePlus
 			"															\r\n"+
 			"							</header>\r\n"+
 			"							<form action=\"registrar.htm\" class=\"ok\" method=\"get\">\r\n"+
-			"								<div>\r\n"+
-			"										<div class=\"row half\">\r\n"+
-			"											<div class=\"6u\" align=\"center\" >\r\n"+
-			"												<input type=\"text\" list=id_inv title=\"Inversionista\" placeholder=\"Inversionista\" name=\"Inversionista\" style=\"width: 250px\" required>\r\n"+
-			"												<datalist id=id_inv >\r\n"+
-			"												   <option value=\"ID_Inv\" label=\"Nombre Inv\">\r\n"+
-			"												</datalist>												\r\n"+
-			"											</div>\r\n"+
-			"											\r\n"+
-			"											<div class=\"6u\" align=\"center\" >\r\n"+
-			"												<input type=\"text\" list=\"solicitudes\" title=\"Id Solicitud\" placeholder=\"Solicitud\" style=\"width: 400px\" required>\r\n"+
-			"												\r\n"+
-			"												<datalist id=\"solicitudes\">\r\n"+
-			"												<option value=\"id_solicitud\">nombre oferente; cant; producto\r\n"+
-			"												<option>empresa2\r\n"+
-			"												<option>empresa3\r\n"+
-			"												</datalist>\r\n"+
-			"											</div>\r\n"+
+			"												<p><select name=\"Inversionista\" style=\"width: 450px; text-align: center;\" required title=\"Seleccione un inversionsita\" onchange=\"continue1(this)\">\r\n"+
+			"												   <option value=\"\" >--Seleccione Inversionista--</option>\r\n"+
+			"												   <option value=\"invActual.darId()\">(+invActual.darId()+)+invActual.darNombre()+</option>\r\n"+
+			"												</select>	</p>\r\n"+
 			"										\r\n"+
-			"										</div>\r\n"+
 			"										<div class=\"row\">\r\n"+
 			"											<div class=\"12u\" align=\"center\">												\r\n"+
-			"												<input  class=\"button form-button-submit\" type=\"submit\" value=\"Registrar Operación\"/>									\r\n"+
+			"												<input id=\"continue.btn\" class=\"button form-button-submit\" type=\"submit\" value=\"Continuar\" disabled=\"disabled\"/>									\r\n"+
 			"											</div>\r\n"+
 			"											<p></p>\r\n"+
 			"										</div>\r\n"+
-			"									</div>\r\n"+
 			"							</form>\r\n"+
+			"							<script type=\"text/javascript\">\r\n"+
+			"							function continue1(e)\r\n"+
+			"							{\r\n"+
+			"								var t3 = document.getElementById(\"continue.btn\");\r\n"+
+			"								if(e.value!='')\r\n"+
+			"								{	\r\n"+
+			"									t3.disabled=false;\r\n"+
+			"								}\r\n"+
+			"								else\r\n"+
+			"								{	\r\n"+
+			"									t3.disabled=true;\r\n"+
+			"								}\r\n"+
+			"							}				\r\n"+
+			"							</script>\r\n"+
+			"						</div>\r\n"+
+			"					</div>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"			\r\n"+
+			"			<!-- Consultas -->\r\n"+
+			"			<div class=\"wrapper wrapper-style2\">\r\n"+
+			"				<article class=\"container\" id=\"consultas\">\r\n"+
+			"							<header>\r\n"+
+			"								<h1 align=\"center\"><strong>Consultas</strong></h1>\r\n"+
+			"							</header>\r\n"+
+			"							\r\n"+
+			"							<p>					\r\n"+
+			"								<a href=\"#valores\"  style=\"\"><img src=\"images/valores/existencia.png\"  title=\"Valores Disponibles\" alt=\"Valores Disponibles\" style=\"margin: 20px\"/></a>\r\n"+
+			"								<a href=\"#movimientos\" ><img src=\"images/valores/movimientos.png\"  title=\"Comprar Productos\" alt=\"Comprar Productos\" style=\"margin: 20px\"/></a>\r\n"+
+			"								<a href=\"#masMovidos\" ><img src=\"images/valores/movidos.png\"  title=\"Valor más movido\" alt=\"Valor más movido\" style=\"margin: 20px\"/></a>\r\n"+
+			"								<a href=\"#masActivo\" ><img src=\"images/valores/intermediario.png\"  title=\"Intermediario más activo\" alt=\"Intermediario más activo\" style=\"margin: 20px;\"/></a>\r\n"+
+			"								</p>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"			\r\n"+
+			"			<!-- Consulta de valores -->\r\n"+
+			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"				<article class=\"container\" id=\"valores\">	\r\n"+
+			"				<div class=\"row\">\r\n"+
+			"						<div class=\"4u\">\r\n"+
+			"						</br>\r\n"+
+			"							<span class=\"me image image-full\" ><img src=\"images/valores/Price-Icon.png\" alt=\"Valores más movidos\"  style=\";\"/></span>\r\n"+
+			"						</div>	\r\n"+
+			"						<div class=\"8u\">				\r\n"+
+			"							<header>\r\n"+
+			"								<h1 align=\"center\" style=\"line-height: 40px\">Existencia de Valores</h1>\r\n"+
+			"														\r\n"+
+			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
+			"									Seleccione los criterios de la consulta.\r\n"+
+			"									</p></header>			\r\n"+
+			"							</header>\r\n"+
+			"							\r\n"+
+			"							<form action=\"existencia.htm\" class=\"ok\" method=\"get\">\r\n"+
+			"							\r\n"+
+			"							<div align=\"center\" class=\"row\" style=\"display: inline; vertical-align: middle;\">\r\n"+
+			"								<p>\r\n"+
+			"								<select id=existencia.filtro name=\"filtro\" style=\"width:230px;height : 52px;\" onchange=\"existenciaT2(this)\" onclick=\"existenciaT2(this)\">\r\n"+
+			"								<option value=\"\">--Filtro--</option>\r\n"+
+			"								<option value=\"tipoValor\">Tipo de Valor</option>\r\n"+
+			"								<option value=\"TipoRentabilidad\">Tipo de Rentabilidad</option>\r\n"+
+			"								<option value=\"Negociación\"> En negociación </option>\r\n"+
+			"								<option value=\"Expiración\"> Fecha de expiración </option>\r\n"+
+			"								<option value=\"Emisor\">Emisor</option>\r\n"+
+			"								<option value=\"Intermediario\">Intermediario</option>\r\n"+
+			"								<option value=\"Inversionista\">Inversionista</option>					\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<select disabled=\"disabled\" id=existencia.opcion title=\"Seleccione un valor para el filtro\" name=\"filtro.value\" style=\"width:400px;height : 52px; margin:10px\" onchange=\"existenciat3(this);activarDatePickerE(this)\" onclick=\"existenciat3(this);activarDatePickerE(this)\" onblur=\"existenciat3(this);activarDatePickerE(this)\" onfocus=\"existenciat3(this);activarDatePickerE(this)\" onmouseover=\"existenciat3(this);activarDatePickerE(this)\">\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								</p>								\r\n"+
+			"								\r\n"+
+			"								<div>\r\n"+
+			"										\r\n"+
+			"										<p ><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Expiración:&nbsp;&nbsp;&nbsp;</strong>\r\n"+
+			"											<input disabled=\"disabled\" type=\"text\"  id=\"datepicker1\" name=\"expiracion\" style=\"width:400px; height : 49px; text-align: center; margin:10px;\" placeholder=\"mm/dd/aaaa\" >\r\n"+
+			"										</p>\r\n"+
+			"								\r\n"+
+			"										<div class=\"row\">\r\n"+
+			"											<div class=\"12u\" align=\"center\">												\r\n"+
+			"												<input disabled=\"disabled\" class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"existencia.btn\" value=\"Consultar\"/>								\r\n"+
+			"											</div>\r\n"+
+			"										</div>\r\n"+
+			"								</div>\r\n"+
+			"							</form>\r\n"+
+			"							<script type=\"text/javascript\">\r\n"+
+			"							function activarDatePickerE(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var picker = document.getElementById(\"datepicker1\");\r\n"+
+			"								if(tipoc.value=='1'){\r\n"+
+			"									picker.disabled=false;\r\n"+
+			"									}\r\n"+
+			"								else\r\n"+
+			"									{\r\n"+
+			"									picker.disabled=true;\r\n"+
+			"									}\r\n"+
+			"								\r\n"+
+			"							}\r\n"+
+			"							function existenciaT2(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"existencia.opcion\");\r\n"+
+			"								\r\n"+
+			"								if(tipoc.value==''){\r\n"+
+			"									t2.disabled=true;}\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=false;\r\n"+
+			"									var inHtml = \"\";\r\n"+
+			"									if(tipoc.value=='tipoValor')\r\n"+
+			"									{\r\n"+
+			"										\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- TIPO VALOR --</option>\";\r\n";
+																							
+			
+			private String parte7="						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='TipoRentabilidad')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- TIPO RENTABILIDAD --</option>\";	\r\n";
+												
+			
+			private String parte8="						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='Negociación')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- NEGOCIACIÓN --</option>\";										\r\n"+
+			"						                inHtml += \"<option value=\\\"ON\\\"> (ON) En negociación </option>\";\r\n"+
+			"						                inHtml += \"<option value=\\\"OFF\\\"> (OFF) Fuera de negociación </option>\";						                \r\n"+
+			"						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='Expiración')\r\n"+
+			"									{										\r\n"+
+			"						                inHtml += \"<option value=\\\"1\\\"> seleccione fecha (abajo) </option>\";						                \r\n"+
+			"						                t2.innerHTML = inHtml;\r\n"+
+			"						                activarDatePickerE(t2);\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='Emisor')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- EMISOR --</option>\";	\r\n";
+																		
+			
+			private String parte9="						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='Intermediario')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- INTERMEDIARIO --</option>\";\r\n";
+																				
+			
+			private String parte10="						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='Inversionista')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- INVERSIONISTA --</option>\";	\r\n";
+			
+			private String parte11="						                t2.innerHTML = inHtml;\r\n"+
+			"									}			\r\n"+
+			"								}								\r\n"+
+			"							}\r\n"+
+			"							\r\n"+
+			"							function existenciat3(selected)\r\n"+
+			"							{\r\n"+
+			"								var t3 = document.getElementById(\"existencia.btn\");\r\n"+
+			"								if(selected.value!='')\r\n"+
+			"									{	\r\n"+
+			"										t3.disabled=false;\r\n"+
+			"									}\r\n"+
+			"								else\r\n"+
+			"								{	\r\n"+
+			"									t3.disabled=true;\r\n"+
+			"								}\r\n"+
+			"							}\r\n"+
+			"				\r\n"+
+			"							</script>\r\n"+
+			"							\r\n"+
+			"						</div>\r\n"+
+			"					</div>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"			\r\n"+
+			"			<!-- Consulta de valores -->\r\n"+
+			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"				<article class=\"container\" id=\"movimientos\">	\r\n"+
+			"				<div class=\"row\">\r\n"+
+			"						<div class=\"4u\">\r\n"+
+			"						</br>\r\n"+
+			"							<span class=\"me image image-full\" ><img src=\"images/valores/PAdmin-B.png\" alt=\"Valores más movidos\"  style=\"\"/></span>\r\n"+
+			"						</div>	\r\n"+
+			"						<div class=\"8u\">				\r\n"+
+			"							<header>\r\n"+
+			"								<h1 align=\"center\" style=\"line-height: 40px\">Operaciones de un Usuario</h1>\r\n"+
+			"														\r\n"+
+			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
+			"									Seleccione los criterios de la consulta.\r\n"+
+			"									</p></header>			\r\n"+
+			"							</header>\r\n"+
+			"							\r\n"+
+			"							<form action=\"movimientos.htm\" class=\"ok\" method=\"get\">\r\n"+
+			"							<p style=\"margin-left: 20px; \" align=\"center\" >	\r\n"+
+			"																	\r\n"+
+			"								<select id=\"movimientos.tipo\" name=\"tipo.usuario\" title=\"tipo de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required onchange=\"cambiarUsuariosMovimientos(this)\" onclick=\"cambiarUsuariosMovimientos(this)\">\r\n"+
+			"								<option value=\"\">--Tipo de usuario--</option>\r\n"+
+			"								<option value=\"inversionista\">Inversionista</option>\r\n"+
+			"								<option value=\"emisor\">Empresa emisora</option>\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<select id=\"movimientos.usuario\" name=\"usuario\" title=\"Identificador de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required onchange=\"botonMovimientos(this)\" onclick=\"botonMovimientos(this)\" onmousemove=\"botonMovimientos(this)\" onblur=\"botonMovimientos(this)\" onfocus=\"botonMovimientos(this)\">\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<select id=\"movimientos.tipo.operacion\" name=\"tipo.operacion\" title=\"tipo de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required>\r\n"+
+			"								<option value=\"\">--tipo de operacion--</option>\r\n"+
+			"								<option value=\"compra\">compra de productos</option>\r\n"+
+			"								<option value=\"venta\">venta de productos</option>\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<select id=\"movimientos.tipo.rentabilidad\" name=\"tipo.rentabilidad\" title=\"Identificador de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required>\r\n"+
+			"								<option value=\"\">--tipo de rentabilidad--</option>\r\n"+
+			"								<option value=\"fija\">rentabilidad fija</option>\r\n"+
+			"								<option value=\"variable\">rentabilidad variable</option>\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<input type=\"text\"  id=\"datepicker2\" name=\"desde\" style=\"width:300px;  text-align: center; margin:5px\" placeholder=\"(mm/dd/aaaa) inicio\" >\r\n"+
+			"								\r\n"+
+			"								<input type=\"text\"  id=\"datepicker3\" name=\"hasta\" style=\"width:300px; text-align: center;margin:5px\" placeholder=\"(mm/dd/aaaa) fin\" >\r\n"+
+			"								\r\n"+
+			"								<select id=\"movimientos.cota\" name=\"cota\" title=\"Cota para la búsqueda\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required>\r\n"+
+			"								<option value=\"\">--tipo de costo--</option>\r\n"+
+			"								<option value=\"max\">costo máximo</option>\r\n"+
+			"								<option value=\"min\">costo mínimo</option>\r\n"+
+			"								</select>\r\n"+
+			"								\r\n"+
+			"								<input type=\"number\" id=\"movimientos.monto\" name=\"monto\" title=\"Cantidad de dinero\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required placeholder=\"00\">\r\n"+
+			"								</select>	\r\n"+
+			"							</p>				\r\n"+
+			"							<div class=\"row\">\r\n"+
+			"								<div class=\"12u\" align=\"center\">												\r\n"+
+			"									<input disabled=\"disabled\" class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"movimiento.btn\" value=\"Consultar\"/>								\r\n"+
+			"								</div>\r\n"+
+			"							</div>	\r\n"+
+			"									\r\n"+
+			"							</form>\r\n"+
+			"							<script type=\"text/javascript\">							\r\n"+
+			"							function cambiarUsuariosMovimientos(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"movimientos.usuario\");\r\n"+
+			"								\r\n"+
+			"								if(tipoc.value==''){\r\n"+
+			"									t2.disabled=true;}\r\n"+
+			"								else\r\n"+
+			"								{\r\n"+
+			"									t2.disabled=false;\r\n"+
+			"									var inHtml = \"\";\r\n"+
+			"									if(tipoc.value=='inversionista')\r\n"+
+			"									{\r\n"+
+			"										\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- INVERSIONISTA --</option>\";\r\n";
+													
+			
+			private String parte12="						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='emisor')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<option value=\\\"\\\">-- EMISOR --</option>\";	\r\n";
+			
+			private String parte13="						                t2.innerHTML = inHtml;\r\n"+
+			"									}	\r\n"+
+			"								}								\r\n"+
+			"							}\r\n"+
+			"							\r\n"+
+			"							function botonMovimientos(selected)\r\n"+
+			"							{\r\n"+
+			"								var t3 = document.getElementById(\"movimiento.btn\");\r\n"+
+			"								if(selected.value!='')\r\n"+
+			"									{	\r\n"+
+			"										t3.disabled=false;\r\n"+
+			"									}\r\n"+
+			"								else\r\n"+
+			"								{	\r\n"+
+			"									t3.disabled=true;\r\n"+
+			"								}\r\n"+
+			"							}\r\n"+
+			"				\r\n"+
+			"							</script>\r\n"+
+			"							\r\n"+
 			"						</div>\r\n"+
 			"					</div>\r\n"+
 			"				</article>\r\n"+
 			"			</div>\r\n"+
 			"			\r\n"+
 			"			\r\n"+
-			"			<!-- Calificacion vuelos -->\r\n"+
-			"			<div class=\"wrapper wrapper-style3\">\r\n"+
-			"				<article id=\"registrar\">\r\n"+
-			"							<header>\r\n"+
-			"								<h1 align=\"center\"><strong>Busqueda de vuelos por Calificacion</strong></h1>\r\n"+
-			"							</header>\r\n"+
-			"					<form action=\"flightsRating.htm\" class=\"ok\" method=\"post\">	\r\n"+
-			"					<input type=hidden name=\"admin\" value=\"false\">							\r\n"+
-			"							<div class=\"container\" align=\"center\">\r\n"+
-			"								<div class=\"row\">\r\n"+
-			"									<div class=\"4u\">\r\n"+
-			"										<section class=\"box box-style1\">\r\n"+
-			"										<h3>Fecha inicial</h3>\r\n"+
-			"										<input type=\"text\"\"text\"  id=\"datepicker4\" name=\"desde\"  placeholder=\"mm/dd/aaaa\" >\r\n"+
-			"									</div>\r\n"+
-			"									<div class=\"4u\">\r\n"+
-			"										<section class=\"box box-style1\">\r\n"+
-			"											<h3>Fecha final</br></h3>\r\n"+
-			"											<input type=\"text\"\"text\"  id=\"datepicker5\" name=\"hasta\"  placeholder=\"mm/dd/aaaa\" >											\r\n"+
-			"											<p></p>\r\n"+
-			"										</section>\r\n"+
-			"										<input  class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"consultar\" value=\"Consultar\"/>\r\n"+
-			"									</div>\r\n"+
-			"									<div class=\"4u\">\r\n"+
-			"										<section class=\"box box-style1\">\r\n"+
-			"											<h3>Calificacion</br></h3>											\r\n"+
-			"											<p><input type=\"number\" name=\"califmin\" min=\"0\" max =\"10\" autocomplete=”off”  placeholder=\"desde\"  required=\"required\" style=\"width: 100px\"> <strong>-</strong> \r\n"+
-			"											<input type=\"number\" name=\"califmax\" min=\"0\" max =\"10\" autocomplete=”off”  placeholder=\"hasta\"  required=\"required\" style=\"width: 100px\"></p>\r\n"+
-			"										</section>\r\n"+
-			"									</div>\r\n"+
-			"								</div>\r\n"+
-			"							</div>\r\n"+
-			"					</form>\r\n"+
-			"				</article>\r\n"+
-			"			</div>\r\n"+
 			"			\r\n"+
 			"			\r\n"+
 			"			<!-- Valores más movidos -->\r\n"+
@@ -629,13 +1116,78 @@ public class HomePlus
 			"				</article>\r\n"+
 			"			</div>\r\n"+
 			"			\r\n"+
-			"			<!-- Work -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2\">\r\n"+
-			"				<article id=\"aerolineas\">\r\n"+
+			"		<!-- Mejor intermediario -->\r\n"+
+			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"				<article class=\"container\" id=\"masActivo\">	\r\n"+
+			"				<div class=\"row\">\r\n"+
+			"						<div class=\"4u\">\r\n"+
+			"						</br>\r\n"+
+			"							<span class=\"me image image-full\" ><img src=\"images/valores/best.png\" alt=\"Valores más movidos\"  style=\"\"/></span>\r\n"+
+			"						</div>	\r\n"+
+			"						<div class=\"8u\">				\r\n"+
 			"							<header>\r\n"+
-			"								<h1 align=\"center\"><strong>Aerolineas mas puntuales</strong></h1>\r\n"+
-			"								<h3 align=\"center\">Consulte cuales son las aerolineas con el menor y el mayor numero de vuelos tardios</h3>\r\n"+
+			"								<h1 align=\"center\" style=\"line-height: 40px\">Intermediario Más Activo</h1>\r\n"+
+			"														\r\n"+
+			"									<header><p style=\"font-size: 25px\" align=\"center\">\r\n"+
+			"									Indique los parámetros indicados para realizar la consulta.\r\n"+
+			"									</p></header>			\r\n"+
 			"							</header>\r\n"+
+			"							\r\n"+
+			"							<form action=\"mejor.htm\" class=\"ok\" method=\"get\">\r\n"+
+			"							<p style=\"\" align=\"center\" >	\r\n"+
+			"																	\r\n"+
+			"								<select id=\"mejor.criterio\" name=\"tipo.busqueda\" title=\"tipo de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required onchange=\"completarFomulario(this)\" onclick=\"completarFomulario(this)\" onmousemove=\"completarFomulario(this)\" onmouseover=\"completarFomulario(this)\" onselect=\"completarFomulario(this)\" >\r\n"+
+			"								<option value=\"\">--seleccione--</option>\r\n"+
+			"								<option value=\"tipo\">Tipo de Valor</option>\r\n"+
+			"								<option value=\"valor\">Valor</option>\r\n"+
+			"								</select>\r\n"+
+			"							</p>\r\n"+
+			"							<div id=\"here\">		\r\n"+
+			"							</div>	\r\n"+
+			"									\r\n"+
+			"							</form>\r\n"+
+			"							<script type=\"text/javascript\">							\r\n"+
+			"							function completarFomulario(tipoc)\r\n"+
+			"							{\r\n"+
+			"								var t2 = document.getElementById(\"here\");\r\n"+
+			"									var inHtml = \"\";\r\n"+
+			"									if(tipoc.value=='tipo')\r\n"+
+			"									{\r\n"+
+			"										\r\n"+
+			"										inHtml += \"<select id=\\\"mejor.tipoValor\\\" name=\\\"tipo.valor\\\" title=\\\"Tipo de valor para buscar\\\"  style=\\\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\\\" required>\"+\r\n";
+			
+			private String parte14="											\"								</select>	\"+\r\n"+
+			"											\"							</p>				\"+\r\n"+
+			"											\"							<div class=\\\"row\\\">\"+\r\n"+
+			"											\"								<div class=\\\"12u\\\" align=\\\"center\\\">												\"+\r\n"+
+			"											\"									<input class=\\\"button form-button-submit\\\" type=\\\"submit\\\" name=\\\"consultar\\\" id=\\\"mejor.consultar\\\" value=\\\"Consultar\\\"/>							\"+\r\n"+
+			"											\"								</div>\"+\r\n"+
+			"											\"							</div>\";\r\n"+
+			"										t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else if(tipoc.value=='valor')\r\n"+
+			"									{\r\n"+
+			"										inHtml += \"<div class=\\\"row\\\">\"+\r\n"+
+			"										\"								<div class=\\\"12u\\\" align=\\\"center\\\">												\"+\r\n"+
+			"										\"									<input class=\\\"button form-button-submit\\\" type=\\\"submit\\\" name=\\\"consultar\\\" id=\\\"mejor.consultar\\\" value=\\\"Continuar\\\"/>\"+\r\n"+
+			"										\"								</div>\"+\r\n"+
+			"										\"							</div>\";						                \r\n"+
+			"						                t2.innerHTML = inHtml;\r\n"+
+			"									}\r\n"+
+			"									else\r\n"+
+			"										{\r\n"+
+			"										t2.innerHTML = inHtml;\r\n"+
+			"										}								\r\n"+
+			"							}\r\n"+
+			"				\r\n"+
+			"							</script>\r\n"+
+			"							\r\n"+
+			"						</div>\r\n"+
+			"					</div>\r\n"+
+			"				</article>\r\n"+
+			"			</div>\r\n"+
+			"			\r\n"+
+			"			\r\n"+
 			"					\r\n"+
 			"		<!-- Administrar -->\r\n"+
 			"			<div class=\"wrapper wrapper-style4\">\r\n"+
@@ -678,7 +1230,7 @@ public class HomePlus
 			"								<hr />\r\n"+
 			"								<article id=\"about\"></article>\r\n"+
 			"								<header><h3>Universidad de Los Andes</h3></header>\r\n"+
-			"								<p><h3><Strong> Brahian David Rangel </br> John Ortiz </br>- ValorAndes+ - Sistemas Transaccionales - Nivel 1 -</br></br>Departamento de Ingeniería de Sistemas y Computación</br> 2014 - 10</strong></h3></p>								\r\n"+
+			"								<p><h3><Strong> Brahian David Rangel </br> John Ortiz </br>- ValorAndes+ - Sistemas Transaccionales - Nivel 1 -</br></br>Departamento de Ingeniería de Sistemas y Computación</br> 2014 - 20</strong></h3></p>								\r\n"+
 			"								<ul class=\"social\" >	\r\n"+
 			"		\r\n"+
 			"									<li class=\"twitter\"><a href=\"http://twitter.com/n33co\" class=\"fa fa-twitter\"><span>Twitter</span></a></li>\r\n"+
@@ -716,6 +1268,6 @@ public class HomePlus
 			"\r\n"+
 			"	</body>\r\n"+
 			"</html>\r\n";
-	
-	
+
+
 }

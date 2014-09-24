@@ -14,12 +14,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Properties;
+
+import com.lowagie.text.List;
 
 import uniandes.cupi2.valorAndes.ValueObjetcts.Direccion;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
 
 
 /**
@@ -30,6 +35,9 @@ public class ConsultaDAO {
 	//----------------------------------------------------
 	//Constantes
 	//----------------------------------------------------
+	
+	private static final int FALSO = 0;
+	private static final int VERDADERO = 1;
 	/**
 	 * ruta donde se encuentra el archivo de conexión.
 	 */
@@ -167,61 +175,16 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    /**
-     * Método que se encarga de realizar la consulta en la base de datos
-     * y retorna un ArrayList de elementos tipo VideosValue.
-     * @return ArrayList lista que contiene elementos tipo VideosValue.
-     * La lista contiene los videos ordenados alfabeticamente
-     * @throws Exception se lanza una excepción si ocurre un error en
-     * la conexión o en la consulta. 
-     */
-    public ArrayList<String> darNombresParranderos() throws Exception
-    {
-    	PreparedStatement prepStmt = null;
-    	
-    	ArrayList<String> videos = new ArrayList<String>();
-    	
-		try {
-			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement(consultaVideosDefault);
-			
-			ResultSet rs = prepStmt.executeQuery();
-			
-			while(rs.next()){
-				String idBeb = rs.getString("NOMBRE");
-				videos.add(idBeb);
-							
-			}
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(consultaVideosDefault);
-			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
-		}finally 
-		{
-			if (prepStmt != null) 
-			{
-				try {
-					prepStmt.close();
-				} catch (SQLException exception) {
-					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
-				}
-			}
-			closeConnection(conexion);
-		}		
-		return videos;
-    }
     
     
     /**
      * Retorna un arrayList con el listado de inversionistas
      */
-    public ArrayList<Inversionista> darInversionistas() throws Exception
+    public LinkedList<Inversionista> darInversionistas() throws Exception
     {
     	PreparedStatement prepStmt = null;
     	
-    	ArrayList<Inversionista> inversionistas = new ArrayList<Inversionista>();
+    	LinkedList<Inversionista> inversionistas = new LinkedList<Inversionista>();
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
@@ -281,11 +244,11 @@ public class ConsultaDAO {
     /**
      * Retorna un arrayList con el listado de empresas emisoras
      */
-    public ArrayList<Emisor> darEmisores() throws Exception
+    public LinkedList<Emisor> darEmisores() throws Exception
     {
     	PreparedStatement prepStmt = null;
     	
-    	ArrayList<Emisor> emisores = new ArrayList<Emisor>();
+    	LinkedList<Emisor> emisores = new LinkedList<Emisor>();
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
@@ -342,5 +305,224 @@ public class ConsultaDAO {
 		}		
 		return emisores;
     }
+    
+    
+    public LinkedList<Intermediario> darIntermediarios() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	LinkedList<Intermediario> intermediarios = new LinkedList<Intermediario>();
+    	
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM"+
+					"INTERMEDIARIO INTER  INNER JOIN DIRECCION DIR ON INTER.FK_ID_DIRECCION= DIR.ID_DIRECCION");
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				String id_intermediario = rs.getString("ID_INTERMEDIARIO");
+				String nombre_intermediario = rs.getString("NOMBRE");
+				String nombre_rep_legal = rs.getString("NOMBRE_REP_LEGAL");
+				String tel_inter = rs.getString("TELEFONO");
+				String registro_interm = rs.getString("REGISTRO_RNMV");
+				String cedula_rep_legal = rs.getString("ID_REP_LEGAL");
+				
+				String id_direccion = rs.getString("ID_DIRECCION");
+				String pais=rs.getString("PAIS");
+				String depto=rs.getString("DEPARTAMENTO");
+				String ciudad=rs.getString("CIUDAD");
+				String direccion=rs.getString("DIRECCION");				
+				
+				Direccion dirIntermediario = new Direccion(pais, depto, ciudad, direccion, rs.getString("COD_POSTAL"), id_direccion);
+				Intermediario nuevo = new Intermediario(nombre_intermediario, tel_inter, registro_interm, id_intermediario, nombre_rep_legal, cedula_rep_legal, dirIntermediario, null);
+				intermediarios.add(nuevo);
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	
+    	return intermediarios;
+    }
+    
+    
+    public LinkedList<TipoValor> darTiposDeValor() throws Exception
+    {    	
+    	LinkedList<TipoValor> tiposValor = new LinkedList<TipoValor>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM TIPOVALOR");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				int id_valor = rs.getInt("ID_TIPO_VALOR");
+				String nombre_valor = rs.getString("NOMBRE_VALOR");
+				String descripcion = rs.getString("DESCRIPCION");
+				TipoValor nuevoTipo = new TipoValor(""+id_valor, nombre_valor, nombre_valor, false);
+				tiposValor.add(nuevoTipo);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	
+    	return tiposValor;
+    }
+    
+    public LinkedList<Emisor> darEmpresasOfertanTipo (String nId_tipo) throws Exception
+    {
+    	LinkedList<Emisor> empresas = new LinkedList<Emisor>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT EMI.*, DIR.* FROM (EMISOR EMI INNER JOIN DIRECCION DIR ON EMI.FK_ID_DIRECCION=DIR.ID_DIRECCION)INNER JOIN VALOR VAL ON  EMI.NIT = VAL.FK_EMISOR WHERE VAL.FK_ID_TIPO_VALOR='"+nId_tipo.trim()+"'");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				String nombreEmisor = rs.getString("NOMBRE");
+				String nitEmisor = rs.getString("NIT");
+				String paginaWebEmisor = rs.getString("WEB");
+				String registroEmisor = rs.getString("REGISTRO_RNV");
+				String idEmisor = rs.getString("ID_EMPRESA");
+				String telEmisor = rs.getString("TELEFONO");
+				String nombreRepLegalEmisor = rs.getString("NOMBRE_REP_LEGAL");
+				String identificacion_Rep_Legal_Emisor = rs.getString("ID_REP_LEGAL");
+				String id_direccion = rs.getString("ID_DIRECCION");
+				String pais=rs.getString("PAIS");
+				String depto=rs.getString("DEPARTAMENTO");
+				String ciudad=rs.getString("CIUDAD");
+				String direccion=rs.getString("DIRECCION");
+				String id_intermediario = rs.getString("FK_ID_INTERMEDIARIO");
+				String cod_postal = rs.getString("COD_POSTAL");
+				
+				Intermediario inter = new Intermediario();
+				inter.setId_Intermediario(id_intermediario);
+				Emisor nuevo = new Emisor(nombreEmisor, nitEmisor, paginaWebEmisor, registroEmisor, idEmisor, telEmisor, nombreEmisor, identificacion_Rep_Legal_Emisor, new Direccion(pais, depto, ciudad, direccion, cod_postal, id_direccion), inter,null, null);
+				empresas.add(nuevo);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	return empresas;
+    }
+    
+    
+    public LinkedList<TipoValor> darTiposOfertadosEmpresa (String nNitEmpresa) throws Exception
+    {
+    	LinkedList<TipoValor> tipos = new LinkedList<TipoValor>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM (TIPOVALOR TIPO INNER JOIN VALOR VAL ON TIPO.ID_TIPO_VALOR=VAL.FK_ID_TIPO_VALOR)INNER JOIN EMISOR EMI ON VAL.FK_EMISOR=EMI.NIT WHERE EMI.NIT='"+nNitEmpresa.trim()+"'");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				String nombre_valor = rs.getString("NOMBRE_VALOR");
+				int id_tipo_valor = rs.getInt("ID_TIPO_VALOR");
+				tipos.add(new TipoValor(""+id_tipo_valor, nombre_valor, "", false));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	return tipos;
+    }
+    
+    public LinkedList<TipoRentabilidad> darTiposRentabilidad()throws Exception
+    {
+    	LinkedList<TipoRentabilidad> tipos = new LinkedList<TipoRentabilidad>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM TIPORENTABILIDAD");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				String id_rentabilidad = rs.getString("ID_RENTABILIDAD");
+				String nombre_rentabilidad = rs.getString("NOMBRE");
+				String descripcion_rentabilidad = rs.getString("DESCRIPCION");
+				String funcionamiento = rs.getString("FUNCIONAMIENTO");
+				boolean rentaFija= rs.getInt("RENTA_FIJA")==FALSO?false:true;
+				boolean datosAdicionales = rs.getInt("DATOS_ADICIONALES")==FALSO?false:true;
+				
+				TipoRentabilidad nuevo = new TipoRentabilidad(id_rentabilidad, nombre_rentabilidad, descripcion_rentabilidad, funcionamiento, rentaFija, datosAdicionales);
+				tipos.add(nuevo);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	return tipos;
+    }
+
     
 }

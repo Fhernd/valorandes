@@ -1,4 +1,6 @@
 cancelar.htm
+"tipo_usuario"  -> "Empresa Emisora" ó "Inversionista"
+"Id_Usuario"
 
 "Id_Usuario"
 "tipo_usuario"
@@ -20,3 +22,19 @@ registrar.htm
 
 existencia.htm
 "filtro"
+"filtro.value"
+"expiracion"
+
+movimientos.htm
+"tipo.usuario"
+"usuario" id_usuario
+"tipo.operacion" -compra,venta-
+"tipo.rentabilidad" -fija,variable-
+"desde"
+"hasta"
+"cota" -max,min-
+"monto"
+
+mejor.htm
+"tipo.busqueda" -tipo,valor-
+"tipo.valor" -id_valor-

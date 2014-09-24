@@ -1,11 +1,15 @@
 package uniandes.cupi2.valorAndes.Fachada;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import sun.applet.Main;
 import uniandes.cupi2.valorAndes.DAO.ConsultaDAO;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
+import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
 
 public class ValorAndes {
 	
@@ -34,27 +38,14 @@ public class ValorAndes {
     	dao = new ConsultaDAO();
     }
     
-    public ArrayList<String> darNombresParranderos()
-    {
-    	ArrayList<String> resultado = new ArrayList<String>();
-    	try
-    	{
-    		resultado= dao.darNombresParranderos();
-    		
-    	}
-    	catch (Exception e) {
-			System.out.println("Error al ejecutar sentencia SQL");
-		}
-    	return resultado;
-    }
+  
     
-    public ArrayList<Inversionista> darInversionistas()
+    public LinkedList<Inversionista> darInversionistas()
     {
-    	ArrayList<Inversionista> resultado = new ArrayList<Inversionista>();
+    	LinkedList<Inversionista> resultado = new LinkedList<Inversionista>();
     	try
     	{
     		resultado= dao.darInversionistas();
-    		System.out.println("Se realizo la consulta");
     	}
     	catch (Exception e) {
 			System.out.println("Error al ejecutar sentencia SQL");
@@ -65,35 +56,85 @@ public class ValorAndes {
     }
     
     
-    public ArrayList<Emisor> darEmisores()
+    public LinkedList<Emisor> darEmisores()
     {
-    	ArrayList<Emisor> resultado = new ArrayList<Emisor>();
+    	LinkedList<Emisor> resultado = new LinkedList<Emisor>();
     	try
     	{
     		resultado= dao.darEmisores();
-    		System.out.println("Se realizo la consulta");
     	}
     	catch (Exception e) {
-			System.out.println("Error al ejecutar sentencia SQL");
+			System.out.println("Error al ejecutar sentencia SQL de darEmisores");
 		}
     	
     	return resultado;
     	
     }
     
-    
-    public static void main(String[] args) {
-		ValorAndes o = ValorAndes.darInstancia();
-		ArrayList<String> ops = o.darNombresParranderos();
-		int c=0;
-		for (int i =0; i < ops.size(); i++)
-		{
-			System.out.println("Nombre:"+ops.get(i));
-			c=i;
+    public LinkedList<Intermediario> darIntermediarios()
+    {
+    	LinkedList<Intermediario> resultado = new LinkedList<Intermediario>();
+    	try
+    	{
+    		resultado = dao.darIntermediarios();
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de dar Intermediarios");
 		}
-		System.out.println("Fin");
-		System.out.println("Elementos: "+c);
-	}
+    	return resultado;
+    }
+    
+    public LinkedList<TipoValor> darTiposValor()
+    {
+    	LinkedList<TipoValor> resultado = new LinkedList<TipoValor>();
+    	try
+    	{
+    		resultado = dao.darTiposDeValor();
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de dar Tipos de valor");
+		}
+    	return resultado;
+    }
+    
+    public LinkedList<Emisor> darEmpresasOfertanTipo (String nIdTipo)
+    {
+    	LinkedList<Emisor> resultado = new LinkedList<Emisor>();
+    	try
+    	{
+    		resultado = dao.darEmpresasOfertanTipo(nIdTipo);
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de dar las empresas que ofertan un tipo de producto");
+		}
+    	return resultado;
+    }
+    
+    public LinkedList<TipoValor> darTiposOfertadosEmpresa(String nNit_empresa)
+    {
+    	LinkedList<TipoValor> resultado = new LinkedList<TipoValor>();
+    	try
+    	{
+    		resultado = dao.darTiposOfertadosEmpresa(nNit_empresa);
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL los tipos que oferta una empresa");
+		}
+    	return resultado;
+    }
+    
+    public LinkedList<TipoRentabilidad> darTiposRentabilidad()
+    {
+    	LinkedList<TipoRentabilidad> resultado = new LinkedList<TipoRentabilidad>();
+    	try
+    	{
+    		resultado = dao.darTiposRentabilidad();
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de TIPOS DE RENTABILIDAD");
+		}
+    	return resultado;
+    }
 	
 
 }
