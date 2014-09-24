@@ -10,6 +10,7 @@ import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Valor;
 
 public class ValorAndes {
 	
@@ -132,6 +133,19 @@ public class ValorAndes {
     	}
     	catch (Exception e) {
 			System.out.println("Error al ejecutar sentencia SQL de TIPOS DE RENTABILIDAD");
+		}
+    	return resultado;
+    }
+    
+    public LinkedList<Valor> darTodosLosValores()
+    {
+    	LinkedList<Valor> resultado = new LinkedList<Valor>();
+    	try
+    	{
+    		resultado = dao.darTodosLosValores();
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de darTodosLosValores");
 		}
     	return resultado;
     }

@@ -426,15 +426,11 @@ public class HomePlus
 			"			<nav id=\"nav\">\r\n"+
 			"				<ul class=\"container\">\r\n"+
 			"					<li><a href=\"#top\"><img src=\"images/valores/home.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
-			"					<li><a href=\"#ordenar\"><img src=\"images/valores/ord.png\"  height=\"90px\" width=\"140px\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
-			"					<li><a href=\"#registrar\"><img src=\"images/valores/pact.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
-			"					<li><a href=\"#cancelar\"><img src=\"images/valores/cancel.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
-			"					<li><a href=\"#consultas\"><img src=\"images/valores/db1.png\"  height=\"90\" width=\"90\"  alt=\"Home CupiFlights\" style=\"height : 73px;padding: 0px; margin: 0px; width : 61px;\"/></a></li>\r\n"+
 			"				</ul>\r\n"+
 			"			</nav>\r\n"+
 			"\r\n"+
 			"		<!-- Bienvenido -->\r\n"+
-			"			<div class=\"wrapper wrapper-style6 wrapper-first\">\r\n"+
+			"			<div class=\"wrapper wrapper-style1 wrapper-first\">\r\n"+
 			"				<article class=\"container\" id=\"top\">\r\n"+
 			"					<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+
@@ -461,7 +457,7 @@ public class HomePlus
 			"			</div>\r\n"+
 			"			\r\n"+
 			"			<!-- Ordenar Operación -->\r\n"+
-			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style6 \">\r\n"+
 			"				<article class=\"container\" id=\"ordenar\">					\r\n"+
 			"							<header>\r\n"+
 			"								<h1 align=\"center\"><strong>Ordenar Transaccion</strong></h1>\r\n"+
@@ -705,7 +701,7 @@ public class HomePlus
 			"			\r\n"+
 			"			\r\n"+
 			"			<!-- Cancelar transaccion  -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style6 \">\r\n"+
 			"				<article class=\"container\" id=\"cancelar\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+
@@ -795,7 +791,7 @@ public class HomePlus
 			"			</div>\r\n"+
 			"			\r\n"+
 			"			<!-- Registrar acuerdo-->\r\n"+
-			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
 			"				<article class=\"container\" id=\"registrar\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+
@@ -844,7 +840,7 @@ public class HomePlus
 			"			</div>\r\n"+
 			"			\r\n"+
 			"			<!-- Consultas -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2\">\r\n"+
+			"			<div class=\"wrapper wrapper-style3\">\r\n"+
 			"				<article class=\"container\" id=\"consultas\">\r\n"+
 			"							<header>\r\n"+
 			"								<h1 align=\"center\"><strong>Consultas</strong></h1>\r\n"+
@@ -860,7 +856,7 @@ public class HomePlus
 			"			</div>\r\n"+
 			"			\r\n"+
 			"			<!-- Consulta de valores -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style6 \">\r\n"+
 			"				<article class=\"container\" id=\"valores\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+
@@ -1115,7 +1111,7 @@ public class HomePlus
 			"			\r\n"+
 			"			\r\n"+
 			"			<!-- Valores más movidos -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style3 \">\r\n"+
 			"				<article class=\"container\" id=\"masMovidos\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+
@@ -1157,7 +1153,7 @@ public class HomePlus
 			"			</div>\r\n"+
 			"			\r\n"+
 			"		<!-- Mejor intermediario -->\r\n"+
-			"			<div class=\"wrapper wrapper-style2 \">\r\n"+
+			"			<div class=\"wrapper wrapper-style6 \">\r\n"+
 			"				<article class=\"container\" id=\"masActivo\">	\r\n"+
 			"				<div class=\"row\">\r\n"+
 			"						<div class=\"4u\">\r\n"+

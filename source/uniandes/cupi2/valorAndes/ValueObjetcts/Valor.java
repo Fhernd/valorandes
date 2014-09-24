@@ -10,6 +10,8 @@ public class Valor {
 	private TipoValor tipo_Valor;
 	private ArrayList<DatoAdicional> datosAdicionales;
 	private Intermediario intermediario_Primera_Venta;
+	private Emisor emisor;
+	private String id_valor;
 	
 	
 	
@@ -20,7 +22,7 @@ public class Valor {
 	 * @param tipoValor
 	 * @param datosAdicionales
 	 */
-	public Valor(String nombreValor, boolean negociacion,
+	public Valor(String idValor , String nombreValor, boolean negociacion,
 			TipoRentabilidad tipoRentabilidad, TipoValor tipoValor,
 			ArrayList<DatoAdicional> datosAdicionales, Intermediario intermediario_Primera_Venta) {
 		this.nombreValor = nombreValor;
@@ -29,6 +31,7 @@ public class Valor {
 		tipo_Valor = tipoValor;
 		this.datosAdicionales = tipo_Rentabilidad!=null && tipoRentabilidad.isDatos_Adicionales() && tipoValor!=null && tipoValor.isDatosAdicionales()? datosAdicionales:null;
 		this.intermediario_Primera_Venta = intermediario_Primera_Venta;
+		id_valor=idValor;
 	}
 	
 	
@@ -40,6 +43,28 @@ public class Valor {
 		tipo_Valor = null;
 		this.datosAdicionales = null;
 		intermediario_Primera_Venta = null;
+		emisor = new Emisor();
+		id_valor="";
+	}
+
+
+	public String getId_valor() {
+		return id_valor;
+	}
+
+
+	public void setId_valor(String id_valor) {
+		this.id_valor = id_valor;
+	}
+
+
+	public Emisor getEmisor() {
+		return emisor;
+	}
+
+
+	public void setEmisor(Emisor emisor) {
+		this.emisor = emisor;
 	}
 
 

@@ -15,6 +15,18 @@ package uniandes.cupi2.valorAndes.Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+
+
+
+
+
+
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,17 +34,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
 /**
  * Servlet de muestra de resultados de una búsqueda
  */
 @SuppressWarnings("serial")
-public class ServletHome extends HttpServlet
+public class Plantilla extends HttpServlet
 {
+
     // -----------------------------------------------------------------
     // Métodos
     // -----------------------------------------------------------------
-
-	
 
 	/**
      * Maneja un pedido GET de un cliente
@@ -62,15 +74,25 @@ public class ServletHome extends HttpServlet
      */
     private void procesarPedido( HttpServletRequest request, HttpServletResponse response ) throws IOException
     {
-    	PrintWriter respuesta = response.getWriter( );
+    	PrintWriter salida = response.getWriter( );
     	try
         {
-    		new HomePlus(respuesta);
-        }
-    	catch (Exception e) {
-			System.out.println("Error al procesar la solicitud");
+            //
+            // Saca los parámetros de la búsqueda
+            String codigo = request.getParameter( "codigo" );
+            if(codigo==null || (codigo !=null && (codigo.trim().equals("") || codigo.isEmpty())))
+            {
+            	
+            }
+			else 
+			{
+				
+			}
 		}
+        catch(Exception n)
+        {
+        	System.out.println("Error al procesar solicitud de agregado");
+        }
 
     }
-	
 }

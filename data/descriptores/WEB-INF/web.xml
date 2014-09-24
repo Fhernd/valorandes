@@ -18,11 +18,23 @@ Ejercicio: n1_valorAndes
   <servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletHome</servlet-class>
  </servlet>
  
+ <servlet>
+  <servlet-name>IntermediarioMasActivo</servlet-name>
+  <servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletIntermediarioMasActivo</servlet-class>
+ </servlet>
+ 
+ 
  
  <!-- MAPPING -->
  <servlet-mapping>
   <servlet-name>Home</servlet-name>
   <url-pattern>/index.html</url-pattern>
  </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>IntermediarioMasActivo</servlet-name>
+  <url-pattern>/mejor.htm</url-pattern>
+ </servlet-mapping>
+ 
  
 </web-app>

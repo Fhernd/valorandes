@@ -25,6 +25,7 @@ import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
+import uniandes.cupi2.valorAndes.ValueObjetcts.Valor;
 
 
 /**
@@ -521,6 +522,60 @@ public class ConsultaDAO {
 			closeConnection(conexion);
 		}	
     	return tipos;
+    }
+    
+    
+    public LinkedList<Valor> darTodosLosValores()throws Exception
+    {
+    	LinkedList<Valor> valores = new LinkedList<Valor>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("Select * from (VALOR VAL inner join TIPOVALOR TIVAL ON VAL.FK_ID_TIPO_VALOR=TIVAL.ID_TIPO_VALOR) INNER JOIN EMISOR EMI ON VAL.FK_EMISOR=EMI.NIT");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				int id_valor = rs.getInt("ID_VALOR");
+				String nombre_valor = rs.getString("NOMBRE");
+				boolean en_negociacion = rs.getInt("NEGOCIACION")==FALSO?false:true;
+				String id_tipo_rentabilidad = rs.getString("FK_ID_RENTABILIDAD");
+				String id_tipoVal = ""+rs.getInt("FK_ID_TIPO_VALOR");
+				String id_emisor = rs.getString("FK_EMISOR");
+				String nombre_tipo = rs.getString("NOMBRE_VALOR");
+				String nombre_Emisor = rs.getString(13);
+				String id_intermediarioPrimeraVenta = rs.getString("FK_INTERMEDIARIO");
+				Intermediario inter = new Intermediario();
+				inter.setId_Intermediario(id_intermediarioPrimeraVenta);
+				TipoRentabilidad tipoRenta = new TipoRentabilidad(id_tipo_rentabilidad, "", "","", false, false);
+				TipoValor tipoVal = new TipoValor();
+				tipoVal.setId_Valor(id_tipoVal);
+				tipoVal.setNombre_valor(nombre_tipo);
+				Emisor emisor = new Emisor();
+				emisor.setNIT(id_emisor);
+				emisor.setNombre(nombre_Emisor);
+				Valor nuevo = new Valor(""+id_valor, nombre_valor, en_negociacion, tipoRenta,tipoVal , null, inter);
+				nuevo.setEmisor(emisor);				
+				
+				valores.add(nuevo);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	return valores;
     }
 
     
