@@ -163,4 +163,9 @@ public class Emisor {
 		ultima_Solicitud_Operacion = ultimaSolicitudOperacion;
 	}
 	
+	public String toString()
+	{
+		return "("+NIT+")"+nombre+", "+pagina_Web;
+	}
+	
 }

@@ -252,7 +252,7 @@ public class ConsultaDAO {
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement("SELECT EMI.* , INTER.ID_INTERMEDIARIO, INTER.NOMBRE AS NOMBRE_INTERMEDIARIO, INTER.REGISTRO_RNMV AS RNMV_INTERMEDIARIO, DIR.*"+
+			prepStmt = conexion.prepareStatement("SELECT EMI.* , INTER.ID_INTERMEDIARIO, INTER.NOMBRE AS NOMBRE_INTERMEDIARIO, INTER.REGISTRO_RNMV AS RNMV_INTERMEDIARIO, DIR.* "+
 												 "FROM (EMISOR EMI LEFT OUTER JOIN INTERMEDIARIO INTER ON EMI.FK_ID_INTERMEDIARIO=INTER.ID_INTERMEDIARIO) LEFT OUTER JOIN DIRECCION DIR ON EMI.FK_ID_DIRECCION=DIR.ID_DIRECCION");
 			
 			ResultSet rs = prepStmt.executeQuery();
@@ -314,8 +314,7 @@ public class ConsultaDAO {
     	
     	try {
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement("SELECT * FROM"+
-					"INTERMEDIARIO INTER  INNER JOIN DIRECCION DIR ON INTER.FK_ID_DIRECCION= DIR.ID_DIRECCION");
+			prepStmt = conexion.prepareStatement("SELECT * FROM INTERMEDIARIO INTER  INNER JOIN DIRECCION DIR ON INTER.FK_ID_DIRECCION= DIR.ID_DIRECCION");
 			
 			ResultSet rs = prepStmt.executeQuery();
 			

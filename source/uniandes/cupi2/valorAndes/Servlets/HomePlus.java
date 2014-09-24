@@ -1,7 +1,6 @@
 package uniandes.cupi2.valorAndes.Servlets;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -41,26 +40,35 @@ public class HomePlus
 		printFormulario3();
 		out.println(parte4);
 		printFormulario4();
-		out.println(parte5);
-		printFormulario5();
+		out.println(parte4b);
+		printFormulario4b();
+		out.println(parte5a);
+		printFormulario5a();
+		out.println(parte5b);
+		printFormulario5b();
 		out.println(parte6);
 		printFormulario6();
-		out.println(parte7);
+		out.println(parte6b);
+		//Cambiar orden, primero imprime formulario y luego parte
 		printFormulario7();
-		out.println(parte8);
+		out.println(parte7);
 		printFormulario8();
-		out.println(parte9);
+		out.println(parte8);
 		printFormulario9();
-		out.println(parte10);
+		out.println(parte9);
 		printFormulario10();
-		out.println(parte11);
+		out.println(parte10);
 		printFormulario11();
-		out.println(parte12);
+		out.println(parte11);
+		printFormulario11bRentabilidades();
+		out.println(parte11b);
 		printFormulario12();
-		out.println(parte13);
+		out.println(parte12);
 		printFormulario13();
-		out.println(parte14);
+		out.println(parte13);
 		printFormulario14();
+		out.println(parte14);
+		
 		
 	}
 	
@@ -71,7 +79,6 @@ public class HomePlus
 		while(itera.hasNext())
 		{
 			Inversionista actual = itera.next();
-//			add+="inHtml += \"<option value=\\\""+act.getId_Inversionista()+"\\\">"+"("+act.getId_Inversionista()+")"+act.getNombre()+"</option>\";";
 			add+="<option value=\""+actual.getId_Inversionista()+"\">( "+actual.getId_Inversionista() + ") "+actual.getNombre()+"</option>\r\n";
 			
 		}
@@ -119,7 +126,7 @@ public class HomePlus
 			
 	}
 	
-	private void printFormulario4()
+	private void printFormulario4b()
 	{
 		String add="";
 		Iterator<Emisor> itera = emisoresObtenidos.iterator();
@@ -144,8 +151,22 @@ public class HomePlus
 		}		
 		out.println(add);
 	}
+	private void printFormulario4()
+	{
+		String add="";
+		Iterator<Emisor> itera = emisoresObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			Emisor emisorActual = itera.next();
+			add+="												   <option value=\""+emisorActual.getNIT()+"\">("+emisorActual.getNIT()+") "+emisorActual.getNombre()+"</option>\r\n";
+		}		
+		out.println(add);
+	}
 	
-	private void printFormulario5()
+	
+	
+	
+	private void printFormulario5a()
 	{
 		String add="";
 		Iterator<Emisor> itera = emisoresObtenidos.iterator();
@@ -157,7 +178,7 @@ public class HomePlus
 		out.println(add);
 	}
 	
-	private void printFormulario6()
+	private void printFormulario5b()
 	{
 		String add="";
 		Iterator<Inversionista> itera = inversionistasObtenidos.iterator();
@@ -167,6 +188,11 @@ public class HomePlus
 			add+="						                inHtml += \"<option value=\\\""+invActual.getId_Inversionista()+"\\\">("+invActual.getId_Inversionista()+") "+invActual.getNombre()+"</option>\";\r\n";
 		}		
 		out.println(add);
+	}
+	
+	private void printFormulario6()
+	{
+		printFormulario1();
 	}
 	
 	private void printFormulario7()
@@ -229,6 +255,20 @@ public class HomePlus
 		out.println(add);
 	}
 	
+	private void printFormulario11bRentabilidades()
+	{
+		String add="";
+		Iterator<TipoRentabilidad> itera = tiposRentabilidadObtenidos.iterator();
+		while(itera.hasNext())
+		{
+			TipoRentabilidad tipoActual = itera.next();
+			add+="<option value=\\\""+tipoActual.getId_rentabilidad()+"\\\">("+tipoActual.getId_rentabilidad()+") "+tipoActual.getNombre()+"</option>\";						                \r\n";
+		}		
+		out.println(add);
+		
+		
+	}
+	
 	private void printFormulario12()
 	{
 		printFormulario11();
@@ -236,7 +276,7 @@ public class HomePlus
 	
 	private void printFormulario13()
 	{
-		printFormulario5();
+		printFormulario5a();
 	}
 	
 	private void printFormulario14()
@@ -591,11 +631,11 @@ public class HomePlus
 			"							<form action=\"vender.htm\" class=\"ok\" method=\"get\"  id=\"form_vender\" name=\"form_vender\" >\r\n"+
 			"							\r\n"+
 			"										<p style=\"margin-left: 20px; te\" align=\"center\">\r\n"+
-			"												<select title=\"Oferente\" placeholder=\"Entidad Emisora\" name=\"Empresa\" style=\"width: 520px; vertical-align: middle; margin: 5px\" required onchange=\"venderT2(this)\">\r\n"+
-			"												   <option value=\"\">--SELECCIONE OFERENTE--</option>\r\n"+
-			"												   ***AQUI** iterar\r\n"+
-			"												   <option value=\"emisorActual.darId()\">(+emisorActual.darID()+) +emisorActual.darNombre()</option>\r\n"+
-			"												</select>									\r\n"+
+			"												<select title=\"Oferente\" placeholder=\"Entidad Emisora\" name=\"Empresa\" style=\"width: 520px; vertical-align: middle; margin: 5px\" required onchange=\"venderT2(this)\" onclick=\"venderT2(this)\">\r\n"+
+			"												   <option value=\"\">--SELECCIONE OFERENTE--</option>\r\n";
+			
+			
+			private String parte4b="												</select>									\r\n"+
 			"											</br>\r\n"+
 			"											<select id=\"vender.tipo\" title=\"Tipo Producto\" \" name=\"tipoProducto\" style=\"width: 250px; display: inline; vertical-align: middle;margin: 5px;\" required disabled=\"disabled\" onchange=\"venderT3(this)\">\r\n"+
 			"												   <option value=\"\" label=\"--Producto--\"></option>\r\n"+
@@ -620,7 +660,8 @@ public class HomePlus
 			"													if(tipoc.value=='')\r\n"+
 			"													{\r\n"+
 			"														t2.disabled=true;\r\n"+
-			"													}\r\n"+
+			"													}\r\n";
+			private String parte5a="													"+
 																
 			"												}\r\n"+
 			"												function venderT3(tipoc)\r\n"+
@@ -723,7 +764,7 @@ public class HomePlus
 			"										t2.disabled=false;\r\n"+
 			"										inHtml += \"<option value=\\\"null\\\">-- Seleccione Emisor --</option>\";\r\n";
 													
-			private String parte5="						                t2.innerHTML = inHtml;\r\n"+
+			private String parte5b="						                t2.innerHTML = inHtml;\r\n"+
 			"									}\r\n"+
 			"									else if(tipoc.value=='Inversionista')\r\n"+
 			"									{\r\n"+
@@ -772,9 +813,9 @@ public class HomePlus
 			"							</header>\r\n"+
 			"							<form action=\"registrar.htm\" class=\"ok\" method=\"get\">\r\n"+
 			"												<p><select name=\"Inversionista\" style=\"width: 450px; text-align: center;\" required title=\"Seleccione un inversionsita\" onchange=\"continue1(this)\">\r\n"+
-			"												   <option value=\"\" >--Seleccione Inversionista--</option>\r\n"+
-			"												   <option value=\"invActual.darId()\">(+invActual.darId()+)+invActual.darNombre()+</option>\r\n"+
-			"												</select>	</p>\r\n"+
+			"												   <option value=\"\" >--Seleccione Inversionista--</option>\r\n";
+			
+			private String parte6b="												</select>	</p>\r\n"+
 			"										\r\n"+
 			"										<div class=\"row\">\r\n"+
 			"											<div class=\"12u\" align=\"center\">												\r\n"+
@@ -998,10 +1039,9 @@ public class HomePlus
 			"								</select>\r\n"+
 			"								\r\n"+
 			"								<select id=\"movimientos.tipo.rentabilidad\" name=\"tipo.rentabilidad\" title=\"Identificador de usuario\"  style=\"width: 300px; display: inline;vertical-align: middle; margin: 5px;\" required>\r\n"+
-			"								<option value=\"\">--tipo de rentabilidad--</option>\r\n"+
-			"								<option value=\"fija\">rentabilidad fija</option>\r\n"+
-			"								<option value=\"variable\">rentabilidad variable</option>\r\n"+
-			"								</select>\r\n"+
+			"								<option value=\"\">--tipo de rentabilidad--</option>\r\n";
+			
+			private String parte11b="								</select>\r\n"+
 			"								\r\n"+
 			"								<input type=\"text\"  id=\"datepicker2\" name=\"desde\" style=\"width:300px;  text-align: center; margin:5px\" placeholder=\"(mm/dd/aaaa) inicio\" >\r\n"+
 			"								\r\n"+
