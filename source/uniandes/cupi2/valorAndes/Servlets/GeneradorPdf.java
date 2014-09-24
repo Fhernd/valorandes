@@ -18,7 +18,7 @@ public class GeneradorPdf extends HttpServlet
 
 		// writing html in the stream
 		pw.println("<html><body>");
-		pw.println("<embed src=\"http://www.tutorialspoint.com/servlets/pdf/servlets_interview_questions.pdf\" ></embed>");
+		pw.println("<embed src=\"http://www.tutorialspoint.com/servlets/pdf/servlets_interview_questions.pdf\" height=\"900\" width=\"800\"></embed>");
 		pw.println("</body></html>");
 
 		pw.close();// closing the stream
