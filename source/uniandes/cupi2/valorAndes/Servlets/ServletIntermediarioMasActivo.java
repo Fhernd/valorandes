@@ -87,7 +87,7 @@ public class ServletIntermediarioMasActivo extends HttpServlet
             String tipoBusqueda = request.getParameter( "tipo.busqueda" );
             if(tipoBusqueda.trim().toLowerCase().equals("tipo"))
             {
-            	String id_tipoAccion = request.getParameter( "tipo.valor" ).trim().toLowerCase(); 
+            	String id_tipoValor = request.getParameter( "tipo.valor" ).trim().toLowerCase(); 
             	System.out.println("Se ha detectado búsqueda por tipo de valor");
             	//Realizar la consulta
             }

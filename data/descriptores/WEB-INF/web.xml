@@ -24,7 +24,7 @@ Ejercicio: n1_valorAndes
  </servlet>
  
  <servlet>  
-<servlet-name>GeneradorPdf</servlet-name>  
+<servlet-name>GeneradorReportPdf</servlet-name>  
 <servlet-class>uniandes.cupi2.valorAndes.Servlets.GeneradorPdf</servlet-class>  
 </servlet>  
   
