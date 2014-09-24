@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intermediario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e5239d5-b7b2-4e3f-8bbc-a0dd4fc7d4c0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="emisor" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM VALOR V WHERE V.FK_EMISOR=$P{emisor}]]>
+	</queryString>
+	<field name="ID_VALOR" class="java.math.BigDecimal"/>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="NEGOCIACION" class="java.math.BigDecimal"/>
+	<field name="FK_ID_RENTABILIDAD" class="java.lang.String"/>
+	<field name="FK_ID_TIPO_VALOR" class="java.math.BigDecimal"/>
+	<field name="FK_EMISOR" class="java.lang.String"/>
+	<field name="FK_INTERMEDIARIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="323" height="79" uuid="64fa396f-c123-4e39-9677-bb8c157cdb2b"/>
+				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="368" y="0" width="187" height="79" uuid="d15777e7-10f4-4150-87c6-6050d9227c4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valores de los Alpes S.A.S.
+Bogotá D.C. - Colombia
+Calle 100 No. 31-41
+www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="110" y="0" width="335" height="35" uuid="a5bda698-8e50-46c5-94d5-f886b5890b98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Existencias de Valores en ValorAndes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="20" uuid="4803a366-e168-4642-a0d2-5a4a2ef3972b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="0" width="79" height="20" uuid="4fac4ef5-e264-4221-ab39-28ce8993974a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="0" width="79" height="20" uuid="83d6d099-5fdd-4324-9daa-651c9a583bd9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[¿Negociacion?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="0" width="79" height="20" uuid="8f5bbe95-c18d-476e-b92f-f02e563b6f23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rentabilidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="0" width="79" height="20" uuid="b37b7997-9a85-4b09-a0bd-42a8bfefcf94"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="79" height="20" uuid="bf68fc27-7527-428d-8070-f19efc4f52ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Emisor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="0" width="79" height="20" uuid="a0bfa08a-8cff-4717-93d3-0f22cb7bbcfc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Intermediario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#E2FFE2" uuid="f9b0b79d-fcaf-4300-9382-86b0bb561e1d">
+					<printWhenExpression><![CDATA[new Boolean( $V{PAGE_COUNT}.intValue() % 2 ==0 )]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="79" height="20" uuid="939ee909-fe5f-4231-8e05-aa8ee00c3c57"/>
+				<textFieldExpression><![CDATA[$F{ID_VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="79" height="20" uuid="7401c2d6-8124-4817-930c-a0880d8304e6"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="79" height="20" uuid="9cfb2442-49fd-47eb-8993-422d76a89902"/>
+				<textFieldExpression><![CDATA[$F{NEGOCIACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="0" width="79" height="20" uuid="0801580a-aca3-4b56-bfe1-bbc9a5413c73"/>
+				<textFieldExpression><![CDATA[$F{FK_ID_RENTABILIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="79" height="20" uuid="9b71bf79-0ab7-4a50-8599-7ced5c46dcae"/>
+				<textFieldExpression><![CDATA[$F{FK_ID_TIPO_VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="79" height="20" uuid="63a89ab5-110e-4121-9b63-d4b173a26681"/>
+				<textFieldExpression><![CDATA[$F{FK_EMISOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="79" height="20" uuid="8cd69164-adf6-49de-b2e9-579e9450436f"/>
+				<textFieldExpression><![CDATA[$F{FK_INTERMEDIARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="2664bf18-fd4d-4324-be77-6f2c9a5956f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="ae0284ab-4c0c-4f8a-8066-8005efcfb386"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="0" width="100" height="20" uuid="a6d1f5ef-094e-445c-8e8e-07f5cbd77d5a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
