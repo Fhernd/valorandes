@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class Plantilla extends HttpServlet
 {
+	
 
     // -----------------------------------------------------------------
     // Métodos
