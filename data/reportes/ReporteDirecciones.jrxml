@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteDirecciones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b05eca27-2f8d-4a81-bdb0-9a95429eaaf9">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM DIRECCION]]>
+	</queryString>
+	<field name="ID_DIRECCION" class="java.lang.String"/>
+	<field name="PAIS" class="java.lang.String"/>
+	<field name="DEPARTAMENTO" class="java.lang.String"/>
+	<field name="CIUDAD" class="java.lang.String"/>
+	<field name="COD_POSTAL" class="java.math.BigDecimal"/>
+	<field name="DIRECCION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="323" height="79" uuid="2bcd8ed0-ea6c-4979-badf-afdc88bccea6"/>
+				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="368" y="0" width="187" height="79" uuid="1993ea93-cdcb-41b7-b4fc-80e6276aa835"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valores de los Alpes S.A.S.
+Bogotá D.C. - Colombia
+Calle 100 No. 31-41
+www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="128" y="0" width="299" height="35" uuid="dcb3076b-75b9-4c3a-8b76-6079226a9f46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Listado Completo de Direcciones]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="20" uuid="9cfc6880-5c92-4eed-ab2d-f86d894d88bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="92" height="20" uuid="ca9fc645-0a55-4c8b-b045-c775da673723"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[País]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="92" height="20" uuid="75662500-cc51-4e0e-8d54-db7f1fea3422"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="92" height="20" uuid="822fcfe5-bf0e-41d9-b885-e9c3854a9a12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="20" uuid="ea699c9e-1fb1-4c71-9bab-e97329834ec2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código Postal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="92" height="20" uuid="d0b161ba-3fe9-4a87-b6d5-6ce5cd9d8337"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#E2FFE2" uuid="d50ebe04-86ce-47f5-81cb-75af8dfdab51">
+					<printWhenExpression><![CDATA[new Boolean( $V{PAGE_COUNT}.intValue() % 2 ==0 )]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="92" height="20" uuid="5fe721ec-1690-473c-b3a8-573bb0f2d254"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ID_DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="92" height="20" uuid="67b431ca-07fa-4fcc-b974-bf4a64ba5487"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PAIS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="92" height="20" uuid="fd37dda8-41b6-46b4-803a-3e065a79082d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DEPARTAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="92" height="20" uuid="abe632c3-e1a0-49d9-bf0a-1b7001e1db3e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CIUDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" uuid="e3851d3f-e6bb-4d37-8501-7f8cc46ee181"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_POSTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="95" height="20" uuid="d0712160-6c27-41d3-b23d-a5a11a13de43"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="3f3db4b4-5df6-495d-ba49-6cd50e4a3235"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="426b3dcc-ac82-48f7-b8a6-537c46fe8bde"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="20" uuid="778e33b1-78c1-415c-bfb0-b45570b0f093"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="35">
+			<staticText>
+				<reportElement x="136" y="0" width="299" height="35" uuid="fd0d9ff1-0459-4907-80be-93a14a816b56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[No hay datos que mostrar]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

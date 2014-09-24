@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intermediario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e5239d5-b7b2-4e3f-8bbc-a0dd4fc7d4c0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tipoValor" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * 
+FROM INTERMEDIARIO i INNER JOIN SolicitudOperacion s ON s.FK_ID_INTERMEDIARIO = i.ID_INTERMERMEDIARIO JOIN Inversionista v 
+ON s.ID_INVERSIONISTA = v.ID_INVERSIONISTA
+WHERE s.FK_ID_VALOR = 
+(SELECT ID_VALOR 
+FROM Valor WHERE FK_ID_TIPO_VALOR = (SELECT ID_TIPO_VALOR
+FROM TipoValor
+WHERE NOMBRE_VALOR = $P{tipoValor}))
+GROUP BY i.FK_ID_INTERMEDIARIO]]>
+	</queryString>
+	<field name="ID_TIPO_VALOR" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="323" height="79" uuid="64fa396f-c123-4e39-9677-bb8c157cdb2b"/>
+				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="368" y="0" width="187" height="79" uuid="d15777e7-10f4-4150-87c6-6050d9227c4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valores de los Alpes S.A.S.
+Bogotá D.C. - Colombia
+Calle 100 No. 31-41
+www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="128" y="0" width="299" height="35" uuid="a5bda698-8e50-46c5-94d5-f886b5890b98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[INTERMEDIARIO(S) MÁS ACTIVO(S)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
