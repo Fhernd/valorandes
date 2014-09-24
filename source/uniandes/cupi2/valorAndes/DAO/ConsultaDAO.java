@@ -146,11 +146,12 @@ public class ConsultaDAO {
 	 * @param clave clave de acceso a la base de datos
 	 * @throws SQLException si ocurre un error generando la conexión con la base de datos.
 	 */
-    private void establecerConexion(String url, String usuario, String clave) throws SQLException
+    public Connection establecerConexion(String url, String usuario, String clave) throws SQLException
     {
     	try
         {
 			conexion = DriverManager.getConnection(url,usuario,clave);
+			return conexion;
         }
         catch( SQLException exception )
         {
