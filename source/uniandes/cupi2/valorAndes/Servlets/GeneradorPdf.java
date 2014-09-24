@@ -1,10 +1,14 @@
 package uniandes.cupi2.valorAndes.Servlets;
 
+import uniandes.cupi2.valorAndes.DAO.*;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
+
 import java.io.*;
 
 import net.sf.jasperreports.engine.*;
+
 import java.io.*;
 import java.sql.*;
 
@@ -15,6 +19,36 @@ public class GeneradorPdf extends HttpServlet
 	{
 		res.setContentType("application/PDF");// setting the content type
 		PrintWriter pw = res.getWriter();// get the stream to write the data
+		
+		// Creación de instancia `ConsultaDAO`:
+		ConsultaDAO cdao = new ConsultaDAO();
+		
+		// Obtención del objeto `Connection`:
+		Connection conexion;
+		try 
+		{			
+			conexion = cdao.establecerConexion(cdao.cadenaConexion, cdao.usuario, cdao.clave);
+			byte[] bytesReporte = JasperRunManager.runReportToPdf("", null, conexion);
+			
+			res.setContentLength(bytesReporte.length);
+			
+			ServletOutputStream outputStream = res.getOutputStream();
+			outputStream.write(bytesReporte, 0, bytesReporte.length);
+			
+			conexion.close();
+			
+			outputStream.flush();
+			outputStream.close();
+			
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/* 
 
 		// writing html in the stream
 		pw.println("<html><body>");
@@ -22,5 +56,7 @@ public class GeneradorPdf extends HttpServlet
 		pw.println("</body></html>");
 
 		pw.close();// closing the stream
+		
+		*/
 	}
 }

@@ -70,17 +70,17 @@ public class ConsultaDAO {
 	/**
 	 * nombre del usuario para conectarse a la base de datos.
 	 */
-	private String usuario;
+	public String usuario;
 	
 	/**
 	 * clave de conexión a la base de datos.
 	 */
-	private String clave;
+	public String clave;
 	
 	/**
 	 * URL al cual se debe conectar para acceder a la base de datos.
 	 */
-	private String cadenaConexion;
+	public String cadenaConexion;
 	
 	/**
 	 * constructor de la clase. No inicializa ningun atributo.
