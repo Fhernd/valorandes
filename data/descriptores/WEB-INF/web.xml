@@ -23,7 +23,12 @@ Ejercicio: n1_valorAndes
   <servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletIntermediarioMasActivo</servlet-class>
  </servlet>
  
- 
+ <servlet>  
+<servlet-name>GeneradorPdf</servlet-name>  
+<servlet-class>uniandes.cupi2.valorAndes.Servlets.GeneradorPdf</servlet-class>  
+</servlet>  
+  
+
  
  <!-- MAPPING -->
  <servlet-mapping>
@@ -36,5 +41,9 @@ Ejercicio: n1_valorAndes
   <url-pattern>/mejor.htm</url-pattern>
  </servlet-mapping>
  
- 
+ <servlet-mapping>  
+<servlet-name>GeneradorReportPdf</servlet-name>  
+<url-pattern>/GeneradorPdf.htm</url-pattern>  
+</servlet-mapping>  
+
 </web-app>
