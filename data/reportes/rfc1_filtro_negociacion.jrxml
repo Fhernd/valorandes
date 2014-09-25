@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intermediario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e5239d5-b7b2-4e3f-8bbc-a0dd4fc7d4c0">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="negociacion" class="java.lang.String"/>
+	<property name="ireport.y" value="351"/>
+	<parameter name="negociacion" class="java.lang.Long"/>
 	<queryString>
 		<![CDATA[SELECT * FROM VALOR V WHERE V.NEGOCIACION=$P{negociacion}]]>
 	</queryString>
@@ -20,11 +20,11 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="323" height="79" uuid="64fa396f-c123-4e39-9677-bb8c157cdb2b"/>
+				<reportElement x="38" y="0" width="323" height="79" uuid="64fa396f-c123-4e39-9677-bb8c157cdb2b"/>
 				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="368" y="0" width="187" height="79" uuid="d15777e7-10f4-4150-87c6-6050d9227c4f"/>
+				<reportElement x="406" y="0" width="187" height="79" uuid="d15777e7-10f4-4150-87c6-6050d9227c4f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Valores de los Alpes S.A.S.
 Bogotá D.C. - Colombia
@@ -36,7 +36,7 @@ www.losalpes.co]]></text>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="110" y="0" width="335" height="35" uuid="a5bda698-8e50-46c5-94d5-f886b5890b98"/>
+				<reportElement x="158" y="0" width="335" height="35" uuid="a5bda698-8e50-46c5-94d5-f886b5890b98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
@@ -157,6 +157,44 @@ www.losalpes.co]]></text>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="65" splitType="Stretch"/>
 	</summary>
+	<noData>
+		<band height="450">
+			<staticText>
+				<reportElement x="85" y="126" width="429" height="35" uuid="e0ba2464-7ec9-44de-a304-60585e42cb29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[No se han obtenido resultados para la consulta.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="10" width="323" height="79" uuid="53d0a93c-603c-4cc8-b2e4-d0b350f86e99"/>
+				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="378" y="10" width="187" height="79" uuid="27a20a5b-6b00-49e8-be10-2c10e560544f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valores de los Alpes S.A.S.
+Bogotá D.C. - Colombia
+Calle 100 No. 31-41
+www.losalpes.co]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="428" y="393" width="40" height="20" uuid="172febd7-d509-44d5-93be-78e07f3fda20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="137" y="393" width="100" height="20" uuid="2e57274f-e16f-4143-9853-9ff976655d98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[www.losalpes.co]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="348" y="393" width="80" height="20" uuid="c6e154b5-cefe-4553-92f7-cd2cbfa1442c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</noData>
 </jasperReport>

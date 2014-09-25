@@ -31,7 +31,19 @@ Ejercicio: n1_valorAndes
 <servlet>  
 <servlet-name>RegistrarOperacion</servlet-name>  
 <servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletRegistrarOperacion</servlet-class>  
+</servlet>
+
+<servlet>  
+<servlet-name>Existencia</servlet-name>  
+<servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletExistenciaValor</servlet-class>  
 </servlet>  
+
+
+<servlet>  
+<servlet-name>OperacionesUsuario</servlet-name>  
+<servlet-class>uniandes.cupi2.valorAndes.Servlets.ServletOperacionesUsuario</servlet-class>  
+</servlet>  
+    
   
 
  
@@ -54,6 +66,17 @@ Ejercicio: n1_valorAndes
 <servlet-mapping>  
 <servlet-name>RegistrarOperacion</servlet-name>  
 <url-pattern>/registrar.htm</url-pattern>  
+</servlet-mapping>  
+
+<servlet-mapping>  
+<servlet-name>Existencia</servlet-name>  
+<url-pattern>/existencia.htm</url-pattern>  
+</servlet-mapping>  
+
+
+<servlet-mapping>  
+<servlet-name>OperacionesUsuario</servlet-name>  
+<url-pattern>/movimientos.htm</url-pattern>  
 </servlet-mapping>  
 
 </web-app>

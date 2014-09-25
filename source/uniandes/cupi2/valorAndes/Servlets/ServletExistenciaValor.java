@@ -92,7 +92,6 @@ public class ServletExistenciaValor extends HttpServlet
      */
     private void procesarPedido( HttpServletRequest request, HttpServletResponse response ) throws IOException
     {
-    	PrintWriter salida = response.getWriter( );
     	try
         {
     		response.setContentType("application/PDF");
@@ -100,17 +99,52 @@ public class ServletExistenciaValor extends HttpServlet
     		Connection conexion;
     		conexion = cdao.establecerConexion(cdao.cadenaConexion, cdao.usuario, cdao.clave);
     		byte[] bytesReporte = null;
-    		Map parameters = new HashMap();
-    		   
+    		Map parameters = new HashMap();    		   
     		
             String filtroConsulta = request.getParameter( "filtro" ).trim();
             if(filtroConsulta.equals("tipoValor"))
             {
             	String tipoValor = request.getParameter( "filtro.value" ).trim();
             	
-            	parameters.put("codigoinquilino",  Long.parseLong( request.getParameter( "codigoInquilino" ) ) );
-     		   	parameters.put("idcedulanit", Long.parseLong( request.getParameter( "idCedulaNit" ) ) );
-     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\ReporteDirecciones.jasper", null, conexion);
+            	parameters.put("tipoValor",tipoValor);
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_tipovalor.jasper", parameters, conexion);
+            }
+            else if (filtroConsulta.equals("TipoRentabilidad"))
+            {
+            	String rentabilidad = request.getParameter( "filtro.value" ).trim();
+            	
+            	parameters.put("rentabilidad",rentabilidad);
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_rentabilidad.jasper", parameters, conexion);
+            }
+            else if (filtroConsulta.equals("Negociación"))
+            {
+            	String negociacion = request.getParameter( "filtro.value" ).trim().equals("ON")?"1":"0";
+            	
+            	parameters.put("negociacion",Long.parseLong(negociacion));
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_negociacion.jasper", parameters, conexion);
+            }
+            else if (filtroConsulta.equals("Emisor"))
+            {
+            	String parametro1 = request.getParameter( "filtro.value" ).trim();
+            	
+            	parameters.put("emisor",parametro1);
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_emisor.jasper", parameters, conexion);
+            }
+            
+            else if (filtroConsulta.equals("Intermediario"))
+            {
+            	String parametro1 = request.getParameter( "filtro.value" ).trim();
+            	
+            	parameters.put("intermediario",parametro1);
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_intermediario.jasper", parameters, conexion);
+            }
+            
+            else if (filtroConsulta.equals("Inversionista"))
+            {
+            	String parametro1 = request.getParameter( "filtro.value" ).trim();
+            	
+            	parameters.put("inversionista",parametro1);
+     		   	bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\rfc1_filtro_inversionista.jasper", parameters, conexion);
             }
             
             response.setContentLength(bytesReporte.length);			
@@ -124,6 +158,7 @@ public class ServletExistenciaValor extends HttpServlet
 		}
         catch(Exception n)
         {
+        	n.printStackTrace();
         	System.out.println("Error inesperado al obtener las solicitudes");
         }
 

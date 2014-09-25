@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport 2.5 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ValorAndes+</title>
+		
+		 <!-- Bootstrap -->
+    	<link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/skel.min.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+
+
+	</head>
+	<body>
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="index.html"><img src="images/valores/home.png"  height="90" width="90"  alt="Home Valorantes" style="height : 73px;padding: 0px; margin: 0px; width : 61px;"/></a></li>
+				</ul>
+			</nav>
+			
+		<!-- Registrar acuerdo-->
+			<div class="wrapper wrapper-style3 ">
+				<article class="container" id="registrar">	
+				<div class="row">
+						<div class="4u">
+						</br><p></p>
+							<span class="me image image-full" ><img src="images/valores/deal2.png" alt="RollBack" title="RollBack" style="border-radius: 50% 50% 50% 50%; background-color: #a9d171;"/></span>
+						</div>	
+						<div class="8u">				
+							<header>
+							
+								<h1 align="center"><strong></br></br></br>Registrar Solicitud</strong></h1>
+														
+									<header><p style="font-size: 25px" align="center">
+									Seleccione la solicitud del usuario que desea confirmar
+									</p></header>
+															
+							</header>
+							<form action="registrar.htm" class="ok" method="get">
+							<input type="hidden" name="Solicitud" value="id_inversionista_recuperado">
+												<p><select name="solicitud" style="width: 450px; text-align: center;" required title="Seleccione un inversionsita" onchange="continue1(this)" onmousedown="continue1(this)" onmouseout="continue1(this)" onmouseup="continue1(this)" onclick="continue1(this)">
+												   <option value="" >--Seleccione solicitud--</option>
+												   ***AQUI***
+												   <option value="solicitudActual.darId()">(+invActual.darId()+)+invActual.darNombre()+</option>
+												</select>	</p>
+										
+										</p>
+							<div id="here">		
+							</div>									
+							</form>
+							<script type="text/javascript">							
+							function continue1(tipoc)
+							{
+								var t2 = document.getElementById("here");
+									var inHtml = "";									
+									if(tipoc.value!='')
+									{
+										inHtml += "<div class=\"row\"> <p></p>"+
+										"								<div class=\"12u\" align=\"center\">												"+
+										"									<input class=\"button form-button-submit\" type=\"submit\" name=\"consultar\" id=\"mejor.consultar\" value=\"Consultar\"/>"+
+										"								</div>"+
+										"							</div>";						                
+						                t2.innerHTML = inHtml;
+									}
+									else
+										{
+										t2.innerHTML = inHtml;
+										}								
+							}
+				
+							</script>
+							
+						</div>
+					</div>
+					<p></br></br></br></br></br></p>
+				</article>
+			</div>
+			
+			
+					
+		<!-- Administrar -->
+			<div class="wrapper wrapper-style4">
+					<footer>
+						<ul id="copyright">
+							<li>&copy; 2013 Jane Doe</li>
+							<li>Brahian David Rangel</li>
+							<li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+						</ul>
+					</footer>
+				</div>
+			</div>
+
+
+	</body>
+</html>
