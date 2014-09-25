@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intermediario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e5239d5-b7b2-4e3f-8bbc-a0dd4fc7d4c0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nit" class="java.lang.String"/>
+	<parameter name="montoMinimo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM
+EMISOR EMI INNER JOIN (SOLICITUDOPERACION SOL  INNER JOIN VALOR VAL ON SOL.FK_ID_VALOR=VAL.ID_VALOR)ON EMI.NIT=VAL.FK_EMISOR
+WHERE EMI.NIT= $P{nit} AND SOL.MONTO_OPERACION>$P{montoMinimo}]]>
+	</queryString>
+	<field name="NIT" class="java.lang.String"/>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="WEB" class="java.lang.String"/>
+	<field name="REGISTRO_RNV" class="java.lang.String"/>
+	<field name="ID_EMPRESA" class="java.lang.String"/>
+	<field name="TELEFONO" class="java.lang.String"/>
+	<field name="NOMBRE_REP_LEGAL" class="java.lang.String"/>
+	<field name="ID_REP_LEGAL" class="java.lang.String"/>
+	<field name="FK_ID_INTERMEDIARIO" class="java.lang.String"/>
+	<field name="FK_ID_DIRECCION" class="java.lang.String"/>
+	<field name="ID_SOLICITUD" class="java.math.BigDecimal"/>
+	<field name="FECHA_SOLICITUD" class="java.sql.Timestamp"/>
+	<field name="CANTIDAD_PRODUCTOS" class="java.math.BigDecimal"/>
+	<field name="MONTO_OPERACION" class="java.math.BigDecimal"/>
+	<field name="FK_ID_TIPO" class="java.math.BigDecimal"/>
+	<field name="FK_ID_VALOR" class="java.math.BigDecimal"/>
+	<field name="FK_ID_INVERSIONISTA" class="java.lang.String"/>
+	<field name="ID_VALOR" class="java.math.BigDecimal"/>
+	<field name="NEGOCIACION" class="java.math.BigDecimal"/>
+	<field name="FK_ID_RENTABILIDAD" class="java.lang.String"/>
+	<field name="FK_ID_TIPO_VALOR" class="java.math.BigDecimal"/>
+	<field name="FK_EMISOR" class="java.lang.String"/>
+	<field name="FK_INTERMEDIARIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="323" height="79" uuid="64fa396f-c123-4e39-9677-bb8c157cdb2b"/>
+				<imageExpression><![CDATA["http://i1272.photobucket.com/albums/y388/JohnOrtizO/Etc/Logo-LosAlpes_zpsd20e56d0.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="368" y="0" width="187" height="79" uuid="d15777e7-10f4-4150-87c6-6050d9227c4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valores de los Alpes S.A.S.
+Bogotá D.C. - Colombia
+Calle 100 No. 31-41
+www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="110" y="0" width="335" height="35" uuid="a5bda698-8e50-46c5-94d5-f886b5890b98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Operaciones por Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="35" width="110" height="20" uuid="f3f9c3d7-6bb1-4052-a338-c987ee99e50b"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="110" height="20" uuid="cf8dd2e2-12ec-49c4-b1a5-d55437eb345e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="110" height="20" uuid="541266c4-883a-4529-83f7-596cedd96698"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Representante Legal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="110" height="20" uuid="b33bfed4-1192-401e-b0d1-8e447cfc09c0"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="35" width="335" height="20" uuid="473d3f87-c1d7-4677-a21c-e40893c34bfe"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="55" width="335" height="20" uuid="5bbb6be5-0e0d-49ac-818d-4ec4678b2bbc"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ID_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="75" width="335" height="20" uuid="0902f24a-becc-4d85-9b79-2ac7f2041ef5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_REP_LEGAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="95" width="335" height="20" uuid="09487237-2830-456a-87df-238fc9ef2f0a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="20" uuid="1efc3d9e-ed67-4828-bdd6-ac6606d963b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="0" width="79" height="20" uuid="3e742103-87d3-44d2-af6f-b4dffd2fdd62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="0" width="79" height="20" uuid="a7e25338-8d62-458a-b543-171154147ebf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="0" width="79" height="20" uuid="f9440186-11aa-445f-bc44-cdf1124e96ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="0" width="79" height="20" uuid="c37be402-4ffe-4e5d-a548-1482d3b1ef0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="79" height="20" uuid="3bba8320-e3a8-4ac9-8231-4e18041f6bcb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="0" width="79" height="20" uuid="d3111346-8b59-46c0-bfdc-9489dfe12489"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inversionista]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="79" height="20" uuid="c45c12b5-ee48-4add-9eea-19232159dd62"/>
+				<textFieldExpression><![CDATA[$F{ID_SOLICITUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="79" height="20" uuid="43079ce4-3c5c-42c9-a683-a88944118c1d"/>
+				<textFieldExpression><![CDATA[$F{FECHA_SOLICITUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="79" height="20" uuid="71dff771-310a-451d-a3f8-fd916b9c9dc8"/>
+				<textFieldExpression><![CDATA[$F{CANTIDAD_PRODUCTOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="0" width="79" height="20" uuid="a7f4aaff-9bb1-4908-b912-413773e7aee4"/>
+				<textFieldExpression><![CDATA[$F{MONTO_OPERACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="79" height="20" uuid="7a08b37f-e3dc-4974-bf60-d3356c0916eb"/>
+				<textFieldExpression><![CDATA[$F{FK_ID_TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="79" height="20" uuid="4c625b69-2dc6-45cb-98a5-1d6899f980d2"/>
+				<textFieldExpression><![CDATA[$F{FK_ID_VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="79" height="20" uuid="b5edad62-9c77-4f69-9502-fbc0ac63e6e8"/>
+				<textFieldExpression><![CDATA[$F{FK_ID_INVERSIONISTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="2664bf18-fd4d-4324-be77-6f2c9a5956f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="ae0284ab-4c0c-4f8a-8066-8005efcfb386"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="0" width="100" height="20" uuid="a6d1f5ef-094e-445c-8e8e-07f5cbd77d5a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[www.losalpes.co]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
