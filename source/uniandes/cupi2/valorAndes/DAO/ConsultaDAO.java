@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -23,6 +24,7 @@ import uniandes.cupi2.valorAndes.ValueObjetcts.Direccion;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+import uniandes.cupi2.valorAndes.ValueObjetcts.SolicitudOperacion;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Valor;
@@ -577,6 +579,64 @@ public class ConsultaDAO {
 			closeConnection(conexion);
 		}	
     	return valores;
+    }
+    
+    public LinkedList<SolicitudOperacion> darSolicitudesInversionista(String nId_inversionista) throws Exception
+    {
+    	LinkedList<SolicitudOperacion> solicitudes = new LinkedList<SolicitudOperacion>();
+    	PreparedStatement prepStmt = null;
+    	try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement(""+
+					"SELECT X.ID_SOLICITUD,TIPOOP.ID_TIPO, VAL.*, TIPOOP.NOMBRE_TIPO AS NOMBRE_OPERACION, X.CANTIDAD_PRODUCTOS,  X.MONTO_OPERACION,   EMI.* , VAL.* FROM"+
+					"((((SELECT SOLICITUDES.*"+
+					"FROM SOLICITUDOPERACION SOLICITUDES LEFT OUTER JOIN (REGISTROOPERACION REG INNER JOIN SOLICITUDOPERACION SOL ON SOL.ID_SOLICITUD=REG.FK_ID_SOLICITUD) ON SOL.ID_SOLICITUD = SOL.ID_SOLICITUD"+
+					"WHERE SOL.ID_SOLICITUD IS NOT NULL)X INNER JOIN INVERSIONISTA INV ON X.FK_ID_INVERSIONISTA = INV.ID_INVERSIONISTA) INNER JOIN VALOR VAL ON X.FK_ID_VALOR=VAL.ID_VALOR) INNER JOIN EMISOR EMI ON VAL.FK_EMISOR=EMI.NIT)"+
+					"INNER JOIN TIPOOPERACION TIPOOP ON X.FK_ID_TIPO=TIPOOP.ID_TIPO"+
+					"WHERE INV.ID_INVERSIONISTA='"+nId_inversionista.trim()+"'"+
+					"");			
+			ResultSet rs = prepStmt.executeQuery();			
+			while(rs.next())
+			{
+				int cant_productos = rs.getInt("CANTIDAD_PRODUCTOS");
+				String id_solicitud = rs.getString("ID_SOLICITUD");
+				double monto_operacion=rs.getDouble("MONTO_OPERACION");
+				String nombre_tipo_Solicitud= rs.getString("NOMBRE_OPERACION");
+				int tipo_Solicitud=rs.getInt("ID_TIPO");
+				
+				String nit_emisor = rs.getString("NIT");
+				String nombre_emisor=rs.getString("NOMBRE_EMISOR");
+				
+				String tipoDeValor = rs.getString("TIPO_VALOR_V");
+				String nombreValor = rs.getString("NOMBRE_VALOR");
+				String id_valor = rs.getString("ID_VALOR");
+				
+				Emisor emisor = new Emisor(nombre_emisor, nit_emisor, "", "", "", "", "", "", null, null, null, null);
+				Valor producto_Asociado = new Valor(id_valor, nombreValor, false, null, new TipoValor("", tipoDeValor, "", false), null, null);
+				producto_Asociado.setEmisor(emisor);
+				SolicitudOperacion solicitud = new SolicitudOperacion(id_solicitud, null, cant_productos, monto_operacion, producto_Asociado, nombre_tipo_Solicitud, tipo_Solicitud , null, null, null);
+								
+				solicitudes.add(solicitud);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}	
+    	return solicitudes;
+    	
     }
 
     

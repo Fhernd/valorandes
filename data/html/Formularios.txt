@@ -19,6 +19,7 @@ Vender.htm
 
 registrar.htm
 "inversionista"
+"solicitud"
 
 existencia.htm
 "filtro"

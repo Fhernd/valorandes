@@ -9,7 +9,6 @@ import java.io.*;
 
 import net.sf.jasperreports.engine.*;
 
-import java.io.*;
 import java.sql.*;
 
 public class GeneradorPdf extends HttpServlet 
@@ -18,7 +17,6 @@ public class GeneradorPdf extends HttpServlet
 			throws ServletException, IOException 
 	{
 		res.setContentType("application/PDF");// setting the content type
-		PrintWriter pw = res.getWriter();// get the stream to write the data
 		
 		// Creación de instancia `ConsultaDAO`:
 		ConsultaDAO cdao = new ConsultaDAO();
@@ -28,7 +26,7 @@ public class GeneradorPdf extends HttpServlet
 		try 
 		{			
 			conexion = cdao.establecerConexion(cdao.cadenaConexion, cdao.usuario, cdao.clave);
-			byte[] bytesReporte = JasperRunManager.runReportToPdf("", null, conexion);
+			byte[] bytesReporte = JasperRunManager.runReportToPdf("C:\\Users\\David\\Desktop\\n1_valorAndes\\data\\reportes\\ReporteDirecciones.jasper", null, conexion);
 			
 			res.setContentLength(bytesReporte.length);
 			

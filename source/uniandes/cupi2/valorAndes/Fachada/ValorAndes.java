@@ -8,6 +8,7 @@ import uniandes.cupi2.valorAndes.DAO.ConsultaDAO;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Emisor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Intermediario;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Inversionista;
+import uniandes.cupi2.valorAndes.ValueObjetcts.SolicitudOperacion;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoRentabilidad;
 import uniandes.cupi2.valorAndes.ValueObjetcts.TipoValor;
 import uniandes.cupi2.valorAndes.ValueObjetcts.Valor;
@@ -143,6 +144,19 @@ public class ValorAndes {
     	try
     	{
     		resultado = dao.darTodosLosValores();
+    	}
+    	catch (Exception e) {
+			System.out.println("Error al ejecutar sentencia SQL de darTodosLosValores");
+		}
+    	return resultado;
+    }
+    
+    public LinkedList<SolicitudOperacion> darSolicitudesUsuario (String id_inversionista)
+    {
+    	LinkedList<SolicitudOperacion> resultado = new LinkedList<SolicitudOperacion>();
+    	try
+    	{
+    		resultado = dao.darSolicitudesInversionista(id_inversionista);
     	}
     	catch (Exception e) {
 			System.out.println("Error al ejecutar sentencia SQL de darTodosLosValores");

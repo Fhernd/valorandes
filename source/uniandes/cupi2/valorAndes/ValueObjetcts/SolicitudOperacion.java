@@ -13,8 +13,17 @@ public class SolicitudOperacion {
 	private SolicitudOperacion operacionCancelacion;
 	private Emisor emisor;
 	private Inversionista inversionista;
+	private String id_solicitud;
 	
 	
+	public String getId_solicitud() {
+		return id_solicitud;
+	}
+
+	public void setId_solicitud(String id_solicitud) {
+		this.id_solicitud = id_solicitud;
+	}
+
 	/**
 	 * @param fechaSolicitud
 	 * @param cantProductos
@@ -23,7 +32,7 @@ public class SolicitudOperacion {
 	 * @param tipoSolicitud
 	 * @param operacionCancelacion
 	 */
-	public SolicitudOperacion(Date fechaSolicitud, int cantProductos,
+	public SolicitudOperacion(String id, Date fechaSolicitud, int cantProductos,
 			double montoOperacion, Valor productoAsociado,
 			String nombre_tipoSolicitud, int tipoSol, SolicitudOperacion operacionCancelacion, Emisor emix, Inversionista inverx) {
 		fecha_Solicitud = fechaSolicitud;
@@ -35,6 +44,7 @@ public class SolicitudOperacion {
 		this.operacionCancelacion = operacionCancelacion;
 		emisor = emix;
 		inversionista = emix!=null?null:inverx;
+		id_solicitud = id;
 	
 	}
 	
@@ -49,6 +59,7 @@ public class SolicitudOperacion {
 		this.operacionCancelacion = null;
 		emisor = null;
 		inversionista = null;
+		id_solicitud="";
 	}
 
 	
